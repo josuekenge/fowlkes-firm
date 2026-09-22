@@ -50,7 +50,7 @@ describe('home snippets link out', () => {
     at('/')
     expect(screen.getByRole('link', { name: /Know more about Music Law/ })).toHaveAttribute('href', '/practice/music-law')
     expect(screen.getByRole('link', { name: /View more/ })).toHaveAttribute('href', '/clients')
-    expect(screen.getAllByRole('link', { name: 'About Karl' }).some((a) => a.getAttribute('href') === '/about')).toBe(true)
+    expect(screen.getAllByRole('link', { name: 'About' }).some((a) => a.getAttribute('href') === '/about')).toBe(true)
     expect(screen.getByAltText('Karl Fowlkes, Esq.')).toHaveAttribute('src', '/images/karl-portrait.jpg')
     expect(screen.getAllByRole('link', { name: 'LinkedIn' }).some((a) => a.getAttribute('href').includes('linkedin.com/in/karl-fowlkes-esq-6521805b'))).toBe(true)
   })
@@ -68,14 +68,17 @@ describe('home snippets link out', () => {
 })
 
 describe('about page', () => {
-  it('has founder, what he does, where he is from, in the room, recognition', () => {
+  it('is titled About, has portrait + credentials, origin story, in the room, and no What he does', () => {
     at('/about')
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Karl Fowlkes, Esq.')
-    for (const h of ['Founder & Managing Partner', 'What he does', "Where he's from", 'In the room', 'Recognition']) {
-      expect(screen.getByRole('heading', { name: h })).toBeInTheDocument()
-    }
-    expect(screen.getByText(/Top Music Attorney, 2023 and 2024/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/^About$/)
+    expect(screen.getByRole('heading', { name: 'Karl Fowlkes, Esq.' })).toBeInTheDocument()
     expect(screen.getByAltText(/Karl Fowlkes, Esq., founder/)).toHaveAttribute('src', '/images/karl-portrait.jpg')
+    expect(screen.getByText(/Top Music Attorney, 2023 and 2024/)).toBeInTheDocument()
+    expect(screen.getByText(/Jersey, and the other side of the table/)).toBeInTheDocument()
+    expect(screen.getByText(/launched The Fowlkes Firm in 2019/)).toBeInTheDocument()
+    expect(screen.getByText(/bridge the gap/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'In the room' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'What he does' })).toBeNull()
   })
 })
 

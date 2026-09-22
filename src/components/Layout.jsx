@@ -8,7 +8,7 @@ const links = [
   ['/practice/music-law', 'Practice'],
   ['/clients', 'Clients'],
   ['/articles', 'Articles'],
-  ['/about', 'About Karl'],
+  ['/about', 'About'],
 ]
 
 export function Nav() {

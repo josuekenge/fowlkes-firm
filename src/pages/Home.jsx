@@ -125,7 +125,7 @@ export default function Home() {
           <h2 className="h2">{karl.name}</h2>
           <p>{karl.bio[0]}</p>
           <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
-            <Link to="/about" className="btn">About Karl</Link>
+            <Link to="/about" className="btn">About</Link>
             <a href={karl.linkedin} target="_blank" rel="noreferrer" className="link">LinkedIn</a>
           </div>
         </div>

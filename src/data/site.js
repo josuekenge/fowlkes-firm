@@ -219,6 +219,15 @@ export const karl = {
     ['HITS Daily Double', 'Noisemaker'],
   ],
   featuredIn: 'Okayplayer, Rolling Stone, Complex, Pigeons & Planes, Water & Music, Trapital, Variety, Bloomberg Law, NJBIZ, The Source, Songtrust, Boardroom, Billboard, NJ.com',
+  origin: [
+    'Karl is a New Jersey native who grew up playing competitive basketball and, through friends interning at labels and working around artists, had a seat near the music industry before he ever had a law degree. He interned with the Brooklyn Nets and the New York Knicks, then earned his J.D. at Villanova.',
+    'By the time he finished law school he was already the lawyer his friends called. He helped an artist through a viral record, advised on royalties and distribution deals, and built relationships with A&Rs by telling everyone he met that he was going to be their attorney. After a stint as a global negotiator at Bloomberg, he launched The Fowlkes Firm in 2019.',
+    'He started it on purpose, and on his own. He did not believe the record labels and publishing companies stood for Black ownership and independent economics, so instead of working inside them he built a firm to sit across the table from them, based in Newark, and to give producers, artists and athletes the business tools that used to be reserved for the other side.',
+  ],
+  quote: [
+    'So many people view the music realm differently than the startup realm. I\'m just trying to bridge the gap.',
+    'Karl Fowlkes, to Okayplayer',
+  ],
   photos: [
     ['/images/karl-culturecon.jpg', 'CultureCon, presented by HBO Max · featured speaker · 2022'],
     ['/images/press-bloomberg-40u40.jpg', 'Bloomberg Law · They’ve Got Next: The 40 Under 40 · 2021'],
