@@ -116,7 +116,12 @@ describe('practice pages', () => {
   it('music page shows the client catalog with Instagram links', () => {
     at('/practice/music-law')
     expect(screen.getByRole('heading', { name: 'Client catalog' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Synthetic' })).toHaveAttribute('href', 'https://www.instagram.com/iamsynthetic')
+    const syn = screen.getAllByRole('link', { name: 'Synthetic' })
+    expect(syn.length).toBeGreaterThan(0)
+    for (const a of syn) expect(a).toHaveAttribute('href', 'https://www.instagram.com/iamsynthetic')
+    expect(screen.getByRole('heading', { name: 'Eight plaques, eight clients' })).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: 'Practice areas' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument()
   })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')

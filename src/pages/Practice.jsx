@@ -1,7 +1,64 @@
+import { useState, useEffect } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { practiceAreas, clientCatalog, certified, firm } from '../data/site.js'
-import { areaImages, clientImage } from '../data/gallery.js'
-import { Fig, Grid } from '../components/Gallery.jsx'
+import { practiceAreas, clientCatalog, firm } from '../data/site.js'
+import { areaImages, clientImage, pick, karlLead, karlEvents } from '../data/gallery.js'
+import { Grid } from '../components/Gallery.jsx'
+import { log } from '../lib/log.js'
+
+// Best RIAA-style credential mentioned in a client's credits line, for the client-card eyebrow.
+function bestCert(cred) {
+  const m = cred.match(/(\d)x Platinum/i)
+  if (m) return `${m[1]}× Platinum`
+  if (/Platinum/i.test(cred)) return 'Platinum'
+  if (/Gold/i.test(cred)) return 'Gold'
+  if (/#1/.test(cred)) return '#1 album'
+  return null
+}
+
+function Switcher({ slug }) {
+  return (
+    <nav className="pswitch wrap" aria-label="Practice areas">
+      {practiceAreas.map((a) => (
+        <Link key={a.slug} to={`/practice/${a.slug}`} className={a.slug === slug ? 'on' : ''} aria-current={a.slug === slug ? 'page' : undefined}>
+          <span className="n">{a.n}</span><span className="t">{a.title}</span>
+        </Link>
+      ))}
+    </nav>
+  )
+}
+
+function Slideshow({ items, label }) {
+  const [i, setI] = useState(0)
+  useEffect(() => { setI(0) }, [items])
+  if (!items.length) return null
+  const cur = items[i]
+  const go = (d) => { const n = (i + d + items.length) % items.length; setI(n); log.info('work slide', { to: n, post: items[n].post }) }
+  return (
+    <div className="show">
+      <a className="frame" href={cur.url} target="_blank" rel="noreferrer" aria-label={`${cur.title} on Instagram`}>
+        <img key={cur.n} src={cur.src} alt={cur.title} />
+      </a>
+      <div className="side">
+        <span className="pos">{String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')} · {label}</span>
+        <h3 className="title">{cur.title}</h3>
+        <span className="sub">Made by a Fowlkes Firm client{cur.sub ? ` · ${cur.sub}` : ''}</span>
+        {cur.cert && <span className="proof">{cur.cert}</span>}
+        <a href={cur.url} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Open the post →</a>
+        <div className="ctrls">
+          <button type="button" onClick={() => go(-1)} aria-label="Previous">←</button>
+          <button type="button" onClick={() => go(1)} aria-label="Next">→</button>
+        </div>
+        <div className="film" role="tablist" aria-label="All work">
+          {items.map((it, k) => (
+            <button key={it.n} type="button" role="tab" aria-selected={k === i} className={k === i ? 'on' : ''} onClick={() => { setI(k); log.info('work slide', { to: k, post: it.post }) }} aria-label={it.title}>
+              <img src={it.src} alt="" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Practice() {
   const { slug } = useParams()
@@ -12,35 +69,35 @@ export default function Practice() {
   const idx = practiceAreas.indexOf(area)
   const next = practiceAreas[(idx + 1) % practiceAreas.length]
   const imgs = areaImages[slug] || { lead: [], work: [] }
+  // NIL photo sets, chosen so no image repeats on the page: hero collage, "why" band, "on the record" grid.
+  const kv = (n) => karlEvents.find((x) => x.n === n)
+  const nilHero = [...pick('02', '12', '39'), kv('k06'), kv('k07'), kv('k10')].filter(Boolean)
+  const nilBand = [karlLead[1], karlLead[4], ...pick('22')].filter(Boolean)
+  const nilRecord = [kv('k21'), kv('k29'), kv('k40'), karlLead[2]].filter(Boolean)
+  const pool = [...imgs.lead, ...imgs.work, ...(isMusic ? [] : karlEvents)]
+  const collage = isNIL ? nilHero : pool.filter((it, k) => pool.indexOf(it) === k).slice(0, 6)
 
   return (
     <main>
-      <header className="page-head wrap">
-        <div className="main">
-          <Link to="/#practice" className="eyebrow">← Practice areas · {area.n}</Link>
+      <Switcher slug={slug} />
+
+      <header className="phero">
+        <div className="copy">
+          <span className="eyebrow">Practice area · {area.n} of 05</span>
           <h1>{area.title}</h1>
           <p className="lede">{area.short}</p>
+          <div className="actions">
+            <a href="#contact" className="btn">Start a conversation</a>
+            {isMusic && <a href="#work" className="btn ghost">See the work</a>}
+            {isNIL && <a href="#athletes" className="btn ghost">For athletes &amp; families</a>}
+          </div>
         </div>
-        <div className="toc">
-          <span>On this page</span>
-          <a href="#what">What we handle</a>
-          <a href="#who">Who we represent</a>
-          {isMusic && <a href="#clients">Client catalog</a>}
-          {isMusic && <a href="#work">The work</a>}
-          {isMusic && <a href="#results">Certified results</a>}
-          {isNIL && <a href="#families">For athletes &amp; families</a>}
-          {isNIL && <a href="#resources">Deals &amp; resources</a>}
-          <a href="#contact">Start a conversation</a>
+        <div className="collage" aria-label="Client work">
+          {collage.map((it) => (
+            <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
+          ))}
         </div>
       </header>
-
-      {imgs.lead.length > 0 && (
-        <section className="section wrap rule" style={{ paddingTop: 40, paddingBottom: 40 }}>
-          <div className={`lead-imgs${imgs.lead.length < 3 ? ' two' : ''}`}>
-            {imgs.lead.map((it) => <Fig key={it.n} item={it} />)}
-          </div>
-        </section>
-      )}
 
       {area.note && (
         <div className="note-band wrap">
@@ -49,13 +106,25 @@ export default function Practice() {
         </div>
       )}
 
-      <section id="what" className="section wrap rule side">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <h2 className="h2" style={{ fontSize: 48 }}>What we handle</h2>
+      {isNIL && (
+        <div className="stats creds">
+          <div><span className="value">NBPA</span><span className="label">Certified player agent, via Firm Sports, since 2021</span></div>
+          <div><span className="value">FIBA</span><span className="label">Licensed agent</span></div>
+          <div><span className="value">$80M+</span><span className="label">Negotiated in entertainment deals, the same clauses NIL uses</span></div>
+          <div className="dark">
+            <span className="value display">Bring your parents. Bring the paperwork.</span>
+            <a href="#contact" className="link" style={{ alignSelf: 'flex-start', fontSize: 13 }}>Book a consultation</a>
+          </div>
+        </div>
+      )}
+
+      <section id="what" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 820 }}>
+          <h2 className="h2">What we handle</h2>
           <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)' }}>{area.intro}</p>
           {area.extra && <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--muted)' }}>{area.extra}</p>}
         </div>
-        <div className="grid-2">
+        <div className="grid-3">
           {area.handles.map(([t, d]) => (
             <div key={t} className="card"><h3 className="h3">{t}</h3><p>{d}</p></div>
           ))}
@@ -68,8 +137,86 @@ export default function Practice() {
         </section>
       )}
 
+      {isMusic && (
+        <>
+          <section id="clients" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <span className="eyebrow">Certified</span>
+                <h2 className="h2">Eight plaques, eight clients</h2>
+              </div>
+              <a href="#catalog" className="link">Full catalog below ↓</a>
+            </div>
+            <div className="five four">
+              {imgs.plaques.map((it) => (
+                <article key={it.n} className="fcard">
+                  <a href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>
+                  <span className="eyebrow">{it.cert || 'RIAA certified'}</span>
+                  <span className="name">{it.title}</span>
+                  <p>{it.sub}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="work" className="work">
+            <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <span className="eyebrow">The work</span>
+                  <h2 className="h2">Everything our clients have made</h2>
+                </div>
+                <span className="eyebrow">{imgs.work.length} releases · from @fowlkesfirm</span>
+              </div>
+              <Slideshow items={imgs.work} label="Client releases" />
+            </div>
+          </section>
+
+          <section id="catalog" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+              <h2 className="h2" style={{ fontSize: 40 }}>Client catalog</h2>
+              <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link">The full roll on @fowlkesfirm →</a>
+            </div>
+            <div className="catalog">
+              {clientCatalog.map(([name, role, ig, cred]) => (
+                <div key={name} className="c">
+                  <a className="name" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer">{name}</a>
+                  <span className="role">{role}</span>
+                  <span className="cred">{cred}</span>
+                </div>
+              ))}
+              <div className="c more">
+                <span className="name">and 30+ more</span>
+                <span className="role">Producers, artists, writers</span>
+                <Link to="/clients" className="link" style={{ alignSelf: 'flex-start' }}>All clients →</Link>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       {isNIL && (
         <>
+          <section id="athletes" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <span className="eyebrow">Athletes we represent</span>
+                <h2 className="h2">Names on the way</h2>
+              </div>
+              <span className="eyebrow" style={{ maxWidth: 420, textAlign: 'right' }}>The practice launched January 2026. Athlete clients are listed here only with their permission.</span>
+            </div>
+            <div className="five four">
+              {[1, 2, 3, 4].map((k) => (
+                <article key={k} className="fcard ph">
+                  <div className="ph-img"><span>[Athlete photo]</span></div>
+                  <span className="eyebrow">[Sport · School]</span>
+                  <span className="name">[Athlete name]</span>
+                  <p>[One line: the deal, the collective or the brand.]</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section id="families" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
               <h2 className="h2">For athletes and families</h2><span className="eyebrow">How it works</span>
@@ -82,62 +229,27 @@ export default function Practice() {
               ))}
             </div>
           </section>
-          <section className="why">
-            <div className="copy"><h2 className="h2" style={{ fontSize: 56 }}>{area.why[0]}</h2><p>{area.why[1]}</p></div>
-            <div className="photo"><img src={imgs.work[1].src} alt={imgs.work[1].title} loading="lazy" /></div>
-          </section>
-          <section id="resources" className="section wrap rule articles" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-              <h2 className="h2">Deals, articles &amp; research</h2><Link to="/articles" className="link">All articles</Link>
-            </div>
-            <div className="rows">
-              <div className="row"><span className="k">Firm announcement</span><span className="v">The Fowlkes Firm launches NIL &amp; College Sports Law Practice</span><span className="d">Jan 2026</span></div>
-              <div className="row"><span className="k">Deal</span><span className="v">[Athlete] × [Brand or collective] · [one-line outcome]</span><span className="d">[Date]</span></div>
-              <div className="row"><span className="k">Article</span><span className="v">[Publication] · [Headline of a piece quoting Karl on NIL]</span><span className="d">[Date]</span></div>
-              <div className="row"><span className="k">Research</span><span className="v">[Guide to NIL rules by state, conference and school]</span><span className="d">[Date]</span></div>
-            </div>
-          </section>
-        </>
-      )}
 
-      {isMusic && (
-        <>
-          <section id="clients" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-              <h2 className="h2">Client catalog</h2><span className="eyebrow">A selection · from @fowlkesfirm</span>
+          <section className="band">
+            <div className="copy">
+              <span className="eyebrow">Why us</span>
+              <h2 className="h2" style={{ fontSize: 44 }}>{area.why[0]}</h2>
+              <p>{area.why[1]}</p>
             </div>
-            <div className="rows">
-              <div className="row client head"><span /><span>Client</span><span>Role</span><span>Selected credits</span></div>
-              {clientCatalog.map(([name, role, ig, cred]) => (
-                <div key={name} className="row client">
-                  {clientImage[ig] ? <img className="thumb" src={clientImage[ig].src} alt={clientImage[ig].title} loading="lazy" /> : <span />}
-                  <a className="name" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer">{name}</a>
-                  <span className="role">{role}</span>
-                  <span className="cred">{cred}</span>
-                </div>
-              ))}
-              <div className="row client">
-                <span />
-                <span className="name" style={{ color: 'var(--muted)' }}>and 30+ more</span>
-                <span className="role">Producers, artists, writers</span>
-                <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>See the full roll on Instagram →</a>
+            <div className="imgs three">
+              {nilBand.map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
+            </div>
+          </section>
+
+          <section id="record" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <span className="eyebrow">Sports, on the record</span>
+                <h2 className="h2">In the room with the talent</h2>
               </div>
+              <Link to="/articles" className="btn ghost">Go to articles</Link>
             </div>
-          </section>
-          <section id="work" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-              <h2 className="h2">The work</h2><span className="eyebrow">{imgs.work.length} releases our clients produced, wrote or performed · from @fowlkesfirm</span>
-            </div>
-            <Grid items={imgs.work} cols={6} />
-          </section>
-          <section id="results" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <h2 className="h2">Certified results our clients played on</h2>
-            <Grid items={imgs.plaques} cols={4} ratio="4 / 5" />
-            <div className="results">
-              {certified.map(([n, l, t]) => (
-                <div key={t} className="card" style={{ gap: 12 }}><span className="n">{n}</span><span className="l">{l}</span><span className="t">{t}</span></div>
-              ))}
-            </div>
+            <Grid items={nilRecord} cols={4} ratio="4 / 5" />
           </section>
         </>
       )}
@@ -151,7 +263,7 @@ export default function Practice() {
             <Link to="/practice/music-law#work" className="link" style={{ alignSelf: 'flex-start' }}>See the work →</Link>
           </div>
           <div className="imgs">
-            {imgs.work.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer"><img src={it.src} alt={it.title} loading="lazy" /></a>)}
+            {imgs.work.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
           </div>
         </section>
       )}

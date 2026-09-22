@@ -4,20 +4,25 @@ Purpose: every deal, press piece, interview, podcast, panel and honor involving 
 The React `Articles` page reads from this file (or a JSON export of it). Add new entries at the top of the relevant section.
 Each entry: **date · outlet · headline** — one-line summary — link. Bracketed fields still need confirmation.
 
-Sources: fowlkesfirm.com, @fowlkesfirm Instagram (65 posts, pulled 2026-09-22), web search 2026-09-22.
+Sources: fowlkesfirm.com, @fowlkesfirm Instagram (69 posts) and @esqfowlkes Instagram (41 posts), both pulled 2026-09-22, web search 2026-09-22.
 
 ---
 
 ## 1. Press & interviews (Karl quoted or featured)
 
+- **2023-11-03 · ABC News Live** · "AI songs that mimic popular artists raising alarms in the music industry" — Karl on air: copyright law was never written with AI in mind, but right-of-publicity law still protects an artist's voice. — https://abcnews.com/US/ai-songs-mimic-popular-artists-raising-alarms-music/story?id=104569841
 - **2023-04-18 · CNN Business** · Universal Music Group calls AI music a "fraud," wants it banned from streaming platforms — Karl quoted on why that's not so simple. — [link needed]
 - **2023-02-06 · CNN** · Karl on AI's continued growth in the music industry (video segment). — [link needed]
 - **2023-02-28 · Boardroom** · "Karl Fowlkes: Build & Transcend" — exclusive video interview, 2023 Black History Month Playmakers series. — https://boardroom.tv/karl-fowlkes-black-history-month/
 - **2022-12-08 · Billboard Pro** · "What Happens to Songwriters When AI Can Generate Music?" — Karl on how AI will change how songs are written and paid for. — https://www.billboard.com/pro/ai-technology-will-change-how-music-written/
 - **2022-01-03 · Muse by Clio** · "Liner Notes: Karl Fowlkes on Wu-Tang, EYL and Building Fowlkes Firm" — long-form interview on culture, hip hop and building an entertainment law practice. — https://musebycl.io/liner-notes/karl-fowlkes-wu-tang-eyl-and-building-fowlkes-firm-entertainment-law
+- **2022-11 · NJ.com** · "N.J. entertainment lawyer helps hip-hop artists take ownership of their music" — profile of Karl and the firm's producer-first practice. — [link needed]
+- **2022-03-25 · Pex** · "Inside Rights with Karl Fowlkes, Managing Partner at The Fowlkes Firm" — work-for-hire clauses, why ownership matters when catalogs sell at 20x, and why royalty collection breaks. — https://pex.com/blog/inside-rights-with-karl-fowlkes-managing-partner-at-the-fowlkes-firm/
+- **2021-11-29 · The Source** · "Karl Fowlkes: A Music Business Savant" — at 29, 100+ clients, $40M+ in deals and 25 RIAA-certified records. — https://thesource.com/2021/11/29/karl-fowlkes-a-music-business-savant/
+- **2021-05-25 · Bloomberg Law, On The Merits (podcast)** · "Behind the Music: Lawyers, Hip Hop Artists & IP Rights" — Karl with three other entertainment attorneys on protecting hip-hop artists' IP. — https://news.bloomberglaw.com/business-and-practice/behind-the-music-lawyers-hip-hop-artists-ip-rights-podcast
+- **2021 · HITS Daily Double** · Noisemakers profile — deals with 10K Projects, Internet Money and Warner Chappell's Section 8; launching The Melody App with Hit-Boy and Corbett. — [link needed]
 - **2020-09-23 · Pigeons & Planes** · "How to Survive a Viral Hit" — legal commentary from Karl on what artists should do the week a song blows up. — [link needed]
 - **[date] · Okayplayer** · "This Is What Artists Should Know About Signing Their First Record Deal" — when to lawyer up, what to watch for, using cultural currency as leverage. Quote: "Entrepreneurs are almost like the new athlete." — https://www.okayplayer.com/originals/artists-signing-first-deal-lawyer-karl-fowlkes.html
-- **[date] · Pex blog** · "Inside Rights with Karl Fowlkes, Managing Partner at The Fowlkes Firm" — owning your IP, copyright on social media, why royalty collection breaks. — https://pex.com/blog/inside-rights-with-karl-fowlkes-managing-partner-at-the-fowlkes-firm/
 - **[date] · Trapital (podcast + YouTube)** · "Karl Fowlkes on Becoming an Entertainment Attorney, NBA Agent, and NIL Opportunities" — https://www.trapital.co/episodes/karl-fowlkes-on-becoming-an-entertainment-attorney-nba-agent-and-nil-opportunities · https://www.youtube.com/watch?v=bnDqV6_lu5E
 - **[date] · YouTube, EP7** · "Entertainment Attorney Karl Fowlkes Talks Music Business, Working With Blxst, & More" — https://www.youtube.com/watch?v=TguPpnyoCgU
 - **[date] · Medium (own writing)** · Karl's essays — https://esqfowlkes.medium.com/ (pull individual post titles into this list)
@@ -26,18 +31,24 @@ Sources: fowlkesfirm.com, @fowlkesfirm Instagram (65 posts, pulled 2026-09-22), 
 
 ## 2. Honors & recognition
 
-- **Billboard "Top Music Lawyers"** — named twice. Years to confirm; 2023 list: https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/
-- **2021-07-14 · Bloomberg Law "They've Got Next: The 40 Under 40"** — inaugural edition, by Lisa Helem. — [link needed]
-- **2023-02 · Boardroom "Black History Month Playmaker"** — see interview above.
+- **2024-04-01 · Billboard · Top Music Lawyers 2024** — second consecutive year. — https://www.billboard.com/pro/billboard-top-music-lawyers-2024-list/
+- **2023-04-03 · Billboard · Top Music Lawyers 2023** — https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/
+- **2021 · Variety · Legal Impact Report 2021** — listed at #88, Up Next. — [link needed]
+- **2021-07-14 · Bloomberg Law · "They've Got Next: The 40 Under 40"** — inaugural edition, by Lisa Helem. — [link needed]
+- **2023-02 · Boardroom · Black History Month Playmaker** — see interview above.
 
 ## 3. Speaking & teaching
 
-- **Drexel University** — Music Business Professor, Billboard-recognized Music Industry Program. Courses: Hip-Hop Evolution, Music Publishing, Contracts in the Music Industry, Copyright Law.
+- **2026-09 · Rutgers Business School · Teaching "Management Skills"** — Fall 2026 semester. Also teaching "Management Skills", Fall 2026 semester.
+- **2024-12-05 · XP Music Futures · Panelist, XP Day, Riyadh** — MDLBEAST conference; panelist, XP Day / Effect Music Futures. — https://mdlbeast.com/xp-2024
+- **2024-09-18 · Reeperbahn Festival · Wunderkinder talent scout, Hamburg** — Wunderkinder international talent scout. — https://www.reeperbahnfestival.com/en/conference/wunderkinder
+- **2023-03 · SXSW 2023** — speaker.
+- **Drexel University** — Music Business Adjunct Professor, Billboard-recognized Music Industry Program. Courses: Hip-Hop Evolution, Music Publishing, Contracts in the Music Industry, Copyright Law.
 - **Southern University Law Center** — profile/lecture — https://www.sulc.edu/page/karl-fowlkes
 - **Rowan University, College of Performing Arts** — bio — https://cpa.rowan.edu/_bios/fowlkes-karl.html
 - **Anselmo Academy of Music and the Arts** — https://www.anselmoacademy.org/karl-fowlkes/
-- **2022-10-08 · CultureCon** — featured speaker.
-- **[year]-02-03 · LIU Roc Nation School of Music, Sports & Entertainment** — fireside chat with Karl Fowlkes, Managing Partner, 1 University Plaza, Brooklyn.
+- **2022-10-08 · CultureCon · Featured speaker, presented by HBO Max** — New York.
+- **2025-02-03 · LIU Roc Nation School of Music, Sports & Entertainment** — fireside chat with Karl Fowlkes, Managing Partner, 1 University Plaza, Brooklyn.
 
 ## 4. Firm announcements
 
@@ -96,7 +107,7 @@ Format: date · headline · client role. These are announcements the firm chose 
 ## 6. Still to collect
 
 - Direct URLs for the CNN, Pigeons & Planes and Bloomberg Law pieces.
-- Years for both Billboard Top Music Lawyers listings.
+- Direct URLs for the NJ.com profile, HITS Noisemakers piece and Variety Legal Impact Report 2021.
 - Any NIL deals or athlete signings (none public as of 2026-09-22).
 - Titles of Karl's Medium posts.
 - Podcast dates for Trapital and EP7.
