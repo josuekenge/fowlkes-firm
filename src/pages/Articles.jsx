@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { log } from '../lib/log.js'
+import { pressImage } from '../data/gallery.js'
 
 // Reads content/articles.md (served from /content/articles.md) and renders each
 // "## " section as a list. Entries are lines starting with "- ".
@@ -51,10 +52,11 @@ export default function Articles() {
                 const date = m ? m[1] : ''
                 const outlet = m ? m[2] : ''
                 const title = m ? m[3] : it.head
-                const inner = <><span className="k">{outlet}</span><span className="v">{title}{it.body ? <span style={{ display: 'block', fontFamily: 'var(--body)', fontSize: 16, color: 'var(--muted)', marginTop: 6 }}>{it.body}</span> : null}</span><span className="d">{date}</span></>
+                const shot = pressImage[outlet.toLowerCase()]
+                const inner = <>{shot && <img className="thumb" src={shot.src} alt="" loading="lazy" />}<span className="k">{outlet}</span><span className="v">{title}{it.body ? <span style={{ display: 'block', fontFamily: 'var(--body)', fontSize: 16, color: 'var(--muted)', marginTop: 6 }}>{it.body}</span> : null}</span><span className="d">{date}</span></>
                 return it.url
-                  ? <a key={i} className="row" href={it.url} target="_blank" rel="noreferrer">{inner}</a>
-                  : <div key={i} className="row">{inner}</div>
+                  ? <a key={i} className={`row${shot ? ' img' : ''}`} href={it.url} target="_blank" rel="noreferrer">{inner}</a>
+                  : <div key={i} className={`row${shot ? ' img' : ''}`}>{inner}</div>
               })}
             </div>
           </div>

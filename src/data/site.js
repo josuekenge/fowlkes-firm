@@ -224,3 +224,84 @@ export const karl = {
     ['/images/press-bloomberg-40u40.jpg', 'Bloomberg Law · They’ve Got Next: The 40 Under 40 · 2021'],
   ],
 }
+
+// Press & recognition as a roadmap, newest first
+export const pressTimeline = [
+  { year: '2026', items: [
+    ['NJBIZ', 'Named to the 2026 Law Power List', null],
+    ['The Fowlkes Firm', 'Launches NIL & College Sports Law Practice', null],
+  ]},
+  { year: '2024', items: [
+    ['Billboard', 'Top Music Attorney, second consecutive year', null],
+  ]},
+  { year: '2023', items: [
+    ['Billboard', 'Top Music Attorney', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/'],
+    ['CNN', 'Quoted on Universal Music Group calling AI music a "fraud"', null],
+    ['Boardroom', 'Black History Month Playmaker: "Build & Transcend"', 'https://boardroom.tv/karl-fowlkes-black-history-month/'],
+  ]},
+  { year: '2022', items: [
+    ['Billboard Pro', 'What happens to songwriters when AI can generate music?', 'https://www.billboard.com/pro/ai-technology-will-change-how-music-written/'],
+    ['CultureCon', 'Featured speaker, presented by HBO Max', null],
+    ['Muse by Clio', 'Liner Notes: Wu-Tang, EYL and building the Fowlkes Firm', 'https://musebycl.io/liner-notes/karl-fowlkes-wu-tang-eyl-and-building-fowlkes-firm-entertainment-law'],
+  ]},
+  { year: '2021', items: [
+    ['Bloomberg Law', 'Inaugural "They\'ve Got Next: The 40 Under 40"', null],
+  ]},
+  { year: '2020', items: [
+    ['Pigeons & Planes', 'How to survive a viral hit: legal commentary', null],
+    ['Okayplayer', 'What artists should know before signing their first record deal', 'https://www.okayplayer.com/originals/artists-signing-first-deal-lawyer-karl-fowlkes.html'],
+  ]},
+]
+
+// Clients page: roster grouped by role, with the artists their work reached
+export const roster = {
+  producers: [
+    ['Synthetic', 'iamsynthetic', ['Yeat', 'Don Toliver', 'NLE Choppa', 'Nav', 'Cortis'], '4x Platinum. Five cuts on Yeat\'s "2 Alive," two on Don Toliver\'s #1 album, "Or What" certified Gold.'],
+    ['Corbett', 'corbettmusic', ['Nas', 'Anderson .Paak', 'Hit-Boy', 'The Game', 'DDG', 'Polo G'], '"King\'s Disease," "Salute," "Flex" (3x Platinum). Five years of records with the firm.'],
+    ['Coleman', 'colxmxn', ['J. Cole', 'Jack Harlow', 'Lil Wayne', 'Joey Bada$$', 'Kodak Black'], '"39 Intro" on J. Cole\'s #1 "The Fall Off," "Nail Tech," "Sharks" on The Carter VI.'],
+    ['Kid Masterpiece', 'kidmasterpiece', ['Drake', 'PARTYNEXTDOOR'], 'Intro and "Flight\'s Booked" on "Honestly, Nevermind"; five tracks on "Some Sexy Songs 4 U."'],
+    ['Section 8', 'sectionnn8', ['Lil Baby', 'Migos', 'Ty Dolla $ign', 'Est Gee', '42 Dugg'], '"My Turn" (2x Platinum), "Type Shit," "Champions," "All 100s."'],
+    ['Hollywood Cole', '_hollywoodcole', ['Jack Harlow', 'Doja Cat', 'Wale'], '"Just Us," three tracks on "Monica," "Where To Start."'],
+    ['Noah Pettigrew', 'noahpettigrew_', ['Lil Baby', 'Lil Durk', '42 Dugg', 'Vory'], '"My Turn," "The Voice of the Heroes," "Alone."'],
+    ['Young TN', 'youngtn', ['Lil Baby', 'Lil Durk'], '"My Turn," "Wild Child," "The Voice of the Heroes."'],
+    ['Alex Lustig', 'alexlustig', ['Drake'], '"Burning Bridges," "Outside Tweaking," "WNBA."'],
+    ['Radiate', '1radiate', ['Molly Santana', 'Four Five'], 'Executive producer on "Molly and Her Week of Wonders."'],
+    ['Bass', '_bass______', ['Ken Carson', 'Yeat'], '"Root of All Evil," "Confetti," "Taller."'],
+    ['UNKWN', 'itsunkwn', ['Russ', 'Joyner Lucas'], '"Never Again," "Ye Not Crazy."'],
+    ['DMac', 'prodbydmac', ['Lil Durk', 'DaBaby', 'NBA YoungBoy'], '"7220," "Little To A Lot."'],
+    ['Gibbo', 'gibbobeats', ['YG', 'J. Cole', 'Moneybagg Yo'], '"Scared Money."'],
+    ['Nate Rhoads', 'naterhoads', ['Bleu', 'Drake'], '"You\'re Mine Still" (Platinum).'],
+    ['Streooo', 'streooo', ['Playboi Carti'], '"OPM BABI."'],
+    ['Ebon', 'ebononthetrack', ['Rod Wave'], '"Escape" on Soulfly Deluxe.'],
+    ['Perdu', 'prodperdu', ['Four Five', 'Molly Santana'], '"Pills Have Eyes," "SLUTTY," "Just Hit The Market."'],
+  ],
+  artists: [
+    ['Blxst', 'blxst', ['EVGLE', 'Red Bull Records'], '"Chosen" ft Tyga & Ty Dolla $ign, certified Gold. Independent, with Karl as COO of EVGLE.'],
+    ['Joony', 'joonyoftv', ['Brent Faiyaz'], '"Pretty In Black"; "Paper Soldiers" with Brent Faiyaz, certified Gold.'],
+    ['Yeat', 'yeat', [], 'Client and frequent collaborator with the firm\'s producer roster.'],
+    ['Drokenji', 'drokenji', [], '"WOWY," "They Don\'t Know," "Love Kills."'],
+    ['3breezy', '3breezy__', [], '"Isolation," "Fine Shyt."'],
+    ['Yiho Jean', 'yihojean', ['Nebula17'], '"Bluffin" and a double-sided single via Nebula17.'],
+    ['Nafees', 'nafeesisboujee', [], '"I Like Ur Glasses," "Red Top."'],
+    ['Millkzy', 'millkzy', [], '"Floetry The Extension," "consofbeingthenarrator."'],
+    ['Sunday Scaries', 'wearesundayscaries', ['10K Projects'], '"Back To You" ft Emi Grace.'],
+    ['Camp the Hills', 'campthehills', ['Broke Records'], 'New EP via Broke Records.'],
+  ],
+  companies: [
+    ['EVGLE', 'evgle', ['Blxst', 'Red Bull Records'], 'Independent label. "Indie Strong."'],
+    ['Hologram', 'hologram.cc', ['Synthetic', 'Sharkboy', 'Fendii', 'Streooo'], 'Producer collective behind cuts for Don Toliver, Playboi Carti, Nav and Yeat.'],
+  ],
+}
+
+export const plaques = [
+  ['4×', 'Platinum', 'Lil Uzi Vert, Just Wanna Rock', 'Presented to Karl Fowlkes, Esq.', '/images/plaque-4x-platinum.jpg'],
+  ['3×', 'Platinum', 'Polo G ft Juice WRLD, Flex', 'Client Corbett', null],
+  ['2×', 'Platinum', 'Lil Baby, My Turn', 'Clients Section 8, Noah Pettigrew, Young TN', null],
+  ['1×', 'Platinum', 'Bleu ft Drake, You\'re Mine Still', 'Client Nate Rhoads', null],
+  ['1×', 'Platinum', 'Mo3 & OG Bobby Billions, Outside', 'Client production', null],
+  ['Gold', '', '41, Bent', 'Client production', '/images/plaque-41-bent.jpg'],
+  ['Gold', '', 'Blxst, Chosen', 'Client artist, EVGLE', null],
+  ['Gold', '', 'NLE Choppa, Or What', 'Clients Synthetic & Sharkboy', null],
+  ['Gold', '', 'Rod Wave, Ghetto Gospel', 'Client production', null],
+  ['Gold', '', 'Brent Faiyaz & Joony, Paper Soldiers', 'Client artist Joony', null],
+]

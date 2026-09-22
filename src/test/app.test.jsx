@@ -45,16 +45,59 @@ describe('home', () => {
   })
 })
 
-describe('about', () => {
-  it('shows Karl\'s real portrait, his LinkedIn, and the recognition list', () => {
+describe('home snippets link out', () => {
+  it('practice snippets link to practice pages, clients has View more to /clients, founder teaser links to /about', () => {
     at('/')
-    const img = screen.getByAltText(/Karl Fowlkes, Esq., founder/)
-    expect(img).toHaveAttribute('src', '/images/karl-portrait.jpg')
+    expect(screen.getByRole('link', { name: /Know more about Music Law/ })).toHaveAttribute('href', '/practice/music-law')
+    expect(screen.getByRole('link', { name: /View more/ })).toHaveAttribute('href', '/clients')
+    expect(screen.getAllByRole('link', { name: 'About Karl' }).some((a) => a.getAttribute('href') === '/about')).toBe(true)
+    expect(screen.getByAltText('Karl Fowlkes, Esq.')).toHaveAttribute('src', '/images/karl-portrait.jpg')
     expect(screen.getAllByRole('link', { name: 'LinkedIn' }).some((a) => a.getAttribute('href').includes('linkedin.com/in/karl-fowlkes-esq-6521805b'))).toBe(true)
+  })
+  it('press renders as a year roadmap, newest first', () => {
+    at('/')
+    const years = [...document.querySelectorAll('.roadmap .year')].map((e) => e.textContent)
+    expect(years[0]).toBe('2026')
+    expect(years).toContain('2021')
+    expect(screen.getByText(/They've Got Next/)).toBeInTheDocument()
+  })
+  it('testimonial stays on the home page', () => {
+    at('/')
+    expect(screen.getByText(/CLIENT TESTIMONIAL/)).toBeInTheDocument()
+  })
+})
+
+describe('about page', () => {
+  it('has founder, what he does, where he is from, in the room, recognition', () => {
+    at('/about')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Karl Fowlkes, Esq.')
+    for (const h of ['Founder & Managing Partner', 'What he does', "Where he's from", 'In the room', 'Recognition']) {
+      expect(screen.getByRole('heading', { name: h })).toBeInTheDocument()
+    }
     expect(screen.getByText(/Top Music Attorney, 2023 and 2024/)).toBeInTheDocument()
-    expect(screen.getByText('In the room')).toBeInTheDocument()
-    expect(screen.queryByText(/\[Portrait of Karl\]/)).toBeNull()
-    expect(screen.queryByText(/\[BIO PARAGRAPH/)).toBeNull()
+    expect(screen.getByAltText(/Karl Fowlkes, Esq., founder/)).toHaveAttribute('src', '/images/karl-portrait.jpg')
+  })
+})
+
+describe('clients page', () => {
+  it('lists producers by default, switches tabs, and filters by artist name', () => {
+    at('/clients')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Clients')
+    expect(screen.getByRole('link', { name: 'Synthetic' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: /Artists/ }))
+    expect(screen.getByRole('link', { name: 'Blxst' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Synthetic' })).toBeNull()
+    fireEvent.click(screen.getByRole('tab', { name: /Producers/ }))
+    fireEvent.change(screen.getByPlaceholderText(/Search a client/), { target: { value: 'drake' } })
+    expect(screen.getByRole('link', { name: 'Kid Masterpiece' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Corbett' })).toBeNull()
+    fireEvent.change(screen.getByPlaceholderText(/Search a client/), { target: { value: 'zzzz' } })
+    expect(screen.getByText(/No client matches/)).toBeInTheDocument()
+  })
+  it('shows the certified plaques grid', () => {
+    at('/clients')
+    expect(screen.getByRole('heading', { name: 'Certified' })).toBeInTheDocument()
+    expect(screen.getAllByText('Lil Uzi Vert, Just Wanna Rock').length).toBeGreaterThan(0)
   })
 })
 

@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
-import { firm, stats, practiceAreas, creditsWall, certified, highlights, press, karl } from '../data/site.js'
+import { firm, stats, practiceAreas, creditsWall, certified, highlights, pressTimeline, karl } from '../data/site.js'
 import { Plus } from '../components/Layout.jsx'
 import ContactForm from '../components/ContactForm.jsx'
+import { plaqueStrip, clientWall } from '../data/gallery.js'
+import { Grid } from '../components/Gallery.jsx'
 
 export default function Home() {
   return (
@@ -33,6 +35,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* PRACTICE: snippet only, each opens its own page */}
       <section id="practice" className="section wrap rule side">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <h2 className="h2">Practice areas</h2>
@@ -46,25 +49,27 @@ export default function Home() {
                 <Plus />
               </summary>
               <div className="body">
-                <p>{a.intro}</p>
-                <span className="tags">{a.handles.map((h) => h[0]).join(' · ')}</span>
-                <Link to={`/practice/${a.slug}`} className="link" style={{ alignSelf: 'flex-start' }}>{a.title}: details, clients &amp; work →</Link>
+                <p>{a.short}</p>
+                <span className="tags">{a.handles.slice(0, 4).map((h) => h[0]).join(' · ')}</span>
+                <Link to={`/practice/${a.slug}`} className="link" style={{ alignSelf: 'flex-start' }}>Know more about {a.title} →</Link>
               </div>
             </details>
           ))}
         </div>
       </section>
 
+      {/* CLIENTS: snippet, View more goes to /clients */}
       <section id="credits" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
           <h2 className="h2">Our clients' credits include</h2>
           <span className="eyebrow" style={{ maxWidth: 360, textAlign: 'right' }}>Records produced, co-produced or written by Fowlkes Firm clients</span>
         </div>
         <div className="wall">
-          {creditsWall.map((n, i) => (
-            <span key={n}>{n}{i < creditsWall.length - 1 && <span className="dot"> · </span>}</span>
+          {creditsWall.slice(0, 14).map((n, i) => (
+            <span key={n}>{n}{i < 13 && <span className="dot"> · </span>}</span>
           ))}
         </div>
+        <Grid items={clientWall.slice(0, 6)} cols={6} />
         <div className="plaques">
           {certified.slice(0, 4).map(([n, l, t]) => (
             <div key={t} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -72,6 +77,8 @@ export default function Home() {
             </div>
           ))}
         </div>
+        <Grid items={plaqueStrip} cols={6} ratio="4 / 5" />
+        <Link to="/clients" className="btn ghost" style={{ alignSelf: 'flex-start' }}>View more: the full roster</Link>
       </section>
 
       <section id="highlights" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40, paddingRight: 0 }}>
@@ -86,59 +93,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="press" className="section wrap rule side">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* PRESS: roadmap */}
+      <section id="press" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
           <h2 className="h2">Press &amp; recognition</h2>
-          <p style={{ fontSize: 19, color: 'var(--ink-2)' }}>Karl is a go-to voice on the business of music, from AI to independence.</p>
+          <Link to="/articles" className="link">Every article and deal</Link>
         </div>
-        <div className="rows">
-          {press.map(([outlet, title, year, url]) => {
-            const inner = <><span className="k">{outlet}</span><span className="v">{title}</span><span className="d">{year || ''}</span></>
-            return url
-              ? <a key={title} className="row press" href={url} target="_blank" rel="noreferrer">{inner}</a>
-              : <div key={title} className="row press">{inner}</div>
-          })}
-        </div>
+        <ol className="roadmap">
+          {pressTimeline.map(({ year, items }) => (
+            <li key={year}>
+              <span className="year">{year}</span>
+              <span className="node" aria-hidden="true" />
+              <div className="entries">
+                {items.map(([outlet, title, url]) => {
+                  const inner = <><span className="k">{outlet}</span><span className="v">{title}</span></>
+                  return url
+                    ? <a key={title} className="entry" href={url} target="_blank" rel="noreferrer">{inner}</a>
+                    : <div key={title} className="entry">{inner}</div>
+                })}
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section id="about" className="section wrap rule about">
-        <div className="l">
+      {/* FOUNDER teaser, full story on /about */}
+      <section id="about" className="section wrap rule founder">
+        <img src={karl.portrait} alt="Karl Fowlkes, Esq." width="633" height="633" loading="lazy" />
+        <div className="copy">
           <span className="eyebrow">{karl.title}</span>
           <h2 className="h2">{karl.name}</h2>
-          <span style={{ color: 'var(--ink-2)', fontSize: 18, lineHeight: 1.4 }}>{karl.headline}</span>
-          <span style={{ color: 'var(--muted)', fontSize: 15 }}>{karl.education} · COO, EVGLE</span>
-          <div className="socials">
-            <a href={karl.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href={karl.instagram} target="_blank" rel="noreferrer">Instagram</a>
+          <p>{karl.bio[0]}</p>
+          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link to="/about" className="btn">About Karl</Link>
+            <a href={karl.linkedin} target="_blank" rel="noreferrer" className="link">LinkedIn</a>
           </div>
-        </div>
-        <div className="m"><img src={karl.portrait} alt="Karl Fowlkes, Esq., founder and managing partner of The Fowlkes Firm" width="633" height="633" loading="lazy" /></div>
-        <div className="r">
-          {karl.bio.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
-          <div className="recog">
-            {karl.recognition.map(([k, v]) => <div key={k}><span className="k">{k}</span><span>{v}</span></div>)}
-          </div>
-          <span style={{ fontSize: 14, color: 'var(--muted)' }}>Featured in {karl.featuredIn}.</span>
-          <a href="#contact" className="link" style={{ alignSelf: 'flex-start' }}>Work with Karl</a>
-        </div>
-      </section>
-
-      <section className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-          <h2 className="h2">In the room</h2>
-          <span className="eyebrow">Stages, panels and plaques</span>
-        </div>
-        <div className="room">
-          {karl.photos.map(([src, cap]) => (
-            <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
-          ))}
-          <figure><img src="/images/plaque-4x-platinum.jpg" alt="RIAA 4x Platinum plaque presented to Karl Fowlkes" loading="lazy" /><figcaption>RIAA 4x Platinum · presented to Karl Fowlkes, Esq.</figcaption></figure>
         </div>
       </section>
 
       <section id="contact" className="contact">
         <div className="quote">
-          <p className="q">"[CLIENT TESTIMONIAL: what changed for them after working with Karl.]"</p>
+          <p className="q">"[CLIENT TESTIMONIAL: from the firm's biggest artist, or someone who knows Karl directly.]"</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <span className="who">[Client name], [title]</span>
             <span className="note">{firm.verified}</span>

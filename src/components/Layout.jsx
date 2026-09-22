@@ -6,9 +6,9 @@ import { log } from '../lib/log.js'
 const links = [
   ['/', 'Home'],
   ['/practice/music-law', 'Practice'],
-  ['/#credits', 'Clients'],
+  ['/clients', 'Clients'],
   ['/articles', 'Articles'],
-  ['/#about', 'Karl Fowlkes'],
+  ['/about', 'About Karl'],
 ]
 
 export function Nav() {

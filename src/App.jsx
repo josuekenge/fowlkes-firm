@@ -5,6 +5,8 @@ import Home from './pages/Home.jsx'
 import Practice from './pages/Practice.jsx'
 import Articles from './pages/Articles.jsx'
 import Notice from './pages/Notice.jsx'
+import Clients from './pages/Clients.jsx'
+import About from './pages/About.jsx'
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation()
@@ -27,6 +29,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/practice/:slug" element={<Practice />} />
         <Route path="/practice" element={<Practice />} />
+        <Route path="/clients" element={<Clients />} />
+        <Route path="/about" element={<About />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="*" element={<Notice notFound />} />

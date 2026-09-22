@@ -1,5 +1,7 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { practiceAreas, clientCatalog, certified, firm } from '../data/site.js'
+import { areaImages, clientImage } from '../data/gallery.js'
+import { Fig, Grid } from '../components/Gallery.jsx'
 
 export default function Practice() {
   const { slug } = useParams()
@@ -9,6 +11,7 @@ export default function Practice() {
   const isNIL = slug === 'nil-college-sports-law'
   const idx = practiceAreas.indexOf(area)
   const next = practiceAreas[(idx + 1) % practiceAreas.length]
+  const imgs = areaImages[slug] || { lead: [], work: [] }
 
   return (
     <main>
@@ -23,12 +26,21 @@ export default function Practice() {
           <a href="#what">What we handle</a>
           <a href="#who">Who we represent</a>
           {isMusic && <a href="#clients">Client catalog</a>}
+          {isMusic && <a href="#work">The work</a>}
           {isMusic && <a href="#results">Certified results</a>}
           {isNIL && <a href="#families">For athletes &amp; families</a>}
           {isNIL && <a href="#resources">Deals &amp; resources</a>}
           <a href="#contact">Start a conversation</a>
         </div>
       </header>
+
+      {imgs.lead.length > 0 && (
+        <section className="section wrap rule" style={{ paddingTop: 40, paddingBottom: 40 }}>
+          <div className={`lead-imgs${imgs.lead.length < 3 ? ' two' : ''}`}>
+            {imgs.lead.map((it) => <Fig key={it.n} item={it} />)}
+          </div>
+        </section>
+      )}
 
       {area.note && (
         <div className="note-band wrap">
@@ -72,7 +84,7 @@ export default function Practice() {
           </section>
           <section className="why">
             <div className="copy"><h2 className="h2" style={{ fontSize: 56 }}>{area.why[0]}</h2><p>{area.why[1]}</p></div>
-            <div className="photo"><img src="/images/highlight-cubes.webp" alt="" loading="lazy" /></div>
+            <div className="photo"><img src={imgs.work[1].src} alt={imgs.work[1].title} loading="lazy" /></div>
           </section>
           <section id="resources" className="section wrap rule articles" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
@@ -95,23 +107,32 @@ export default function Practice() {
               <h2 className="h2">Client catalog</h2><span className="eyebrow">A selection · from @fowlkesfirm</span>
             </div>
             <div className="rows">
-              <div className="row client head"><span>Client</span><span>Role</span><span>Selected credits</span></div>
+              <div className="row client head"><span /><span>Client</span><span>Role</span><span>Selected credits</span></div>
               {clientCatalog.map(([name, role, ig, cred]) => (
                 <div key={name} className="row client">
+                  {clientImage[ig] ? <img className="thumb" src={clientImage[ig].src} alt={clientImage[ig].title} loading="lazy" /> : <span />}
                   <a className="name" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer">{name}</a>
                   <span className="role">{role}</span>
                   <span className="cred">{cred}</span>
                 </div>
               ))}
               <div className="row client">
+                <span />
                 <span className="name" style={{ color: 'var(--muted)' }}>and 30+ more</span>
                 <span className="role">Producers, artists, writers</span>
                 <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>See the full roll on Instagram →</a>
               </div>
             </div>
           </section>
+          <section id="work" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+              <h2 className="h2">The work</h2><span className="eyebrow">{imgs.work.length} releases our clients produced, wrote or performed · from @fowlkesfirm</span>
+            </div>
+            <Grid items={imgs.work} cols={6} />
+          </section>
           <section id="results" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             <h2 className="h2">Certified results our clients played on</h2>
+            <Grid items={imgs.plaques} cols={4} ratio="4 / 5" />
             <div className="results">
               {certified.map(([n, l, t]) => (
                 <div key={t} className="card" style={{ gap: 12 }}><span className="n">{n}</span><span className="l">{l}</span><span className="t">{t}</span></div>
@@ -119,6 +140,20 @@ export default function Practice() {
             </div>
           </section>
         </>
+      )}
+
+      {!isMusic && !isNIL && imgs.work.length > 0 && (
+        <section className="band">
+          <div className="copy">
+            <span className="eyebrow">In practice</span>
+            <h2 className="h2" style={{ fontSize: 44 }}>The same counsel behind the plaques</h2>
+            <p>Deal structure, ownership and leverage: what we negotiate for producers and artists is what we bring to founders, executives and companies.</p>
+            <Link to="/practice/music-law#work" className="link" style={{ alignSelf: 'flex-start' }}>See the work →</Link>
+          </div>
+          <div className="imgs">
+            {imgs.work.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer"><img src={it.src} alt={it.title} loading="lazy" /></a>)}
+          </div>
+        </section>
       )}
 
       <section id="contact" className="cta-band wrap">
