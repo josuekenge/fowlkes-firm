@@ -152,7 +152,7 @@ export const creditsWall = [
 
 export const certified = [
   ['3×', 'Platinum', 'Polo G ft Juice WRLD, Flex'],
-  ['2×', 'Platinum', 'Lil Baby, My Turn'],
+  ['3×', 'Platinum', 'Lil Baby, My Turn'],
   ['1×', 'Platinum', "Bleu ft Drake, You're Mine Still"],
   ['1×', 'Platinum', 'Mo3 & OG Bobby Billions, Outside'],
   ['Gold', '×5', 'Blxst · NLE Choppa · Rod Wave · 41 · Brent Faiyaz & Joony'],
@@ -213,7 +213,8 @@ export const karl = {
   recognition: [
     ['Billboard', 'Top Music Attorney, 2023 and 2024'],
     ['Bloomberg Law', '40 Under 40'],
-    ['Variety', 'Top Music Attorney (Up Next)'],
+    ['Variety', 'Legal Impact Report 2021, Up Next'],
+    ['ABC News Live', 'On AI songs that mimic artists, November 2023'],
     ['NJBIZ', '2026 Law Power List · 40 Under 40 · Leader in Law'],
     ['Boardroom', 'Black History Month Playmaker'],
     ['HITS Daily Double', 'Noisemaker'],
@@ -269,7 +270,7 @@ export const roster = {
     ['Corbett', 'corbettmusic', ['Nas', 'Anderson .Paak', 'Hit-Boy', 'The Game', 'DDG', 'Polo G'], '"King\'s Disease," "Salute," "Flex" (3x Platinum). Five years of records with the firm.'],
     ['Coleman', 'colxmxn', ['J. Cole', 'Jack Harlow', 'Lil Wayne', 'Joey Bada$$', 'Kodak Black'], '"39 Intro" on J. Cole\'s #1 "The Fall Off," "Nail Tech," "Sharks" on The Carter VI.'],
     ['Kid Masterpiece', 'kidmasterpiece', ['Drake', 'PARTYNEXTDOOR'], 'Intro and "Flight\'s Booked" on "Honestly, Nevermind"; five tracks on "Some Sexy Songs 4 U."'],
-    ['Section 8', 'sectionnn8', ['Lil Baby', 'Migos', 'Ty Dolla $ign', 'Est Gee', '42 Dugg'], '"My Turn" (2x Platinum), "Type Shit," "Champions," "All 100s."'],
+    ['Section 8', 'sectionnn8', ['Lil Baby', 'Migos', 'Ty Dolla $ign', 'Est Gee', '42 Dugg'], '"My Turn" (3x Platinum), "Type Shit," "Champions," "All 100s."'],
     ['Hollywood Cole', '_hollywoodcole', ['Jack Harlow', 'Doja Cat', 'Wale'], '"Just Us," three tracks on "Monica," "Where To Start."'],
     ['Noah Pettigrew', 'noahpettigrew_', ['Lil Baby', 'Lil Durk', '42 Dugg', 'Vory'], '"My Turn," "The Voice of the Heroes," "Alone."'],
     ['Young TN', 'youngtn', ['Lil Baby', 'Lil Durk'], '"My Turn," "Wild Child," "The Voice of the Heroes."'],
@@ -305,7 +306,7 @@ export const roster = {
 export const plaques = [
   ['4×', 'Platinum', 'Lil Uzi Vert, Just Wanna Rock', 'Presented to Karl Fowlkes, Esq.', '/images/plaque-4x-platinum.jpg'],
   ['3×', 'Platinum', 'Polo G ft Juice WRLD, Flex', 'Client Corbett', null],
-  ['2×', 'Platinum', 'Lil Baby, My Turn', 'Clients Section 8, Noah Pettigrew, Young TN', null],
+  ['3×', 'Platinum', 'Lil Baby, My Turn', 'Clients Section 8, Noah Pettigrew, Young TN', null],
   ['1×', 'Platinum', 'Bleu ft Drake, You\'re Mine Still', 'Client Nate Rhoads', null],
   ['1×', 'Platinum', 'Mo3 & OG Bobby Billions, Outside', 'Client production', null],
   ['Gold', '', '41, Bent', 'Client production', '/images/plaque-41-bent.jpg'],
