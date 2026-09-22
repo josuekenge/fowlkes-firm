@@ -45,6 +45,19 @@ describe('home', () => {
   })
 })
 
+describe('about', () => {
+  it('shows Karl\'s real portrait, his LinkedIn, and the recognition list', () => {
+    at('/')
+    const img = screen.getByAltText(/Karl Fowlkes, Esq., founder/)
+    expect(img).toHaveAttribute('src', '/images/karl-portrait.jpg')
+    expect(screen.getAllByRole('link', { name: 'LinkedIn' }).some((a) => a.getAttribute('href').includes('linkedin.com/in/karl-fowlkes-esq-6521805b'))).toBe(true)
+    expect(screen.getByText(/Top Music Attorney, 2023 and 2024/)).toBeInTheDocument()
+    expect(screen.getByText('In the room')).toBeInTheDocument()
+    expect(screen.queryByText(/\[Portrait of Karl\]/)).toBeNull()
+    expect(screen.queryByText(/\[BIO PARAGRAPH/)).toBeNull()
+  })
+})
+
 describe('practice pages', () => {
   it('renders each practice area at its own route', () => {
     for (const a of practiceAreas) {

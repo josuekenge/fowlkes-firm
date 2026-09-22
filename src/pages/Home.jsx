@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { firm, stats, practiceAreas, creditsWall, certified, highlights, press } from '../data/site.js'
+import { firm, stats, practiceAreas, creditsWall, certified, highlights, press, karl } from '../data/site.js'
 import { Plus } from '../components/Layout.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 
@@ -103,15 +103,36 @@ export default function Home() {
 
       <section id="about" className="section wrap rule about">
         <div className="l">
-          <span className="eyebrow">Managing Partner</span>
-          <h2 className="h2">Karl Fowlkes, Esq.</h2>
-          <span style={{ color: 'var(--muted)', fontSize: 16 }}>Also COO, EVGLE · Music Business Professor, Drexel University</span>
+          <span className="eyebrow">{karl.title}</span>
+          <h2 className="h2">{karl.name}</h2>
+          <span style={{ color: 'var(--ink-2)', fontSize: 18, lineHeight: 1.4 }}>{karl.headline}</span>
+          <span style={{ color: 'var(--muted)', fontSize: 15 }}>{karl.education} · COO, EVGLE</span>
+          <div className="socials">
+            <a href={karl.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={karl.instagram} target="_blank" rel="noreferrer">Instagram</a>
+          </div>
         </div>
-        <div className="m"><span className="eyebrow">[Portrait of Karl]</span></div>
+        <div className="m"><img src={karl.portrait} alt="Karl Fowlkes, Esq., founder and managing partner of The Fowlkes Firm" width="633" height="633" loading="lazy" /></div>
         <div className="r">
-          <p>[BIO PARAGRAPH: where Karl trained, how the practice started, and the disruption-and-new-media thesis.]</p>
-          <p>Over six years he has negotiated more than $80 million in deals for producers, artists and labels, and built a dedicated NIL practice for college athletes and their families.</p>
+          {karl.bio.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+          <div className="recog">
+            {karl.recognition.map(([k, v]) => <div key={k}><span className="k">{k}</span><span>{v}</span></div>)}
+          </div>
+          <span style={{ fontSize: 14, color: 'var(--muted)' }}>Featured in {karl.featuredIn}.</span>
           <a href="#contact" className="link" style={{ alignSelf: 'flex-start' }}>Work with Karl</a>
+        </div>
+      </section>
+
+      <section className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
+          <h2 className="h2">In the room</h2>
+          <span className="eyebrow">Stages, panels and plaques</span>
+        </div>
+        <div className="room">
+          {karl.photos.map(([src, cap]) => (
+            <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
+          ))}
+          <figure><img src="/images/plaque-4x-platinum.jpg" alt="RIAA 4x Platinum plaque presented to Karl Fowlkes" loading="lazy" /><figcaption>RIAA 4x Platinum · presented to Karl Fowlkes, Esq.</figcaption></figure>
         </div>
       </section>
 

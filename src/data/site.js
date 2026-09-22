@@ -189,8 +189,38 @@ export const press = [
 ]
 
 export const highlights = [
+  ['/images/plaque-4x-platinum.jpg', 'Lil Uzi Vert, Just Wanna Rock · 4x Platinum plaque presented to Karl Fowlkes · 2025'],
   ['/images/plaque-41-bent.jpg', '41, Bent · Gold · Dec 2024'],
+  ['/images/highlight-nail-tech.jpg', 'Jack Harlow, Nail Tech · co-produced by client Coleman · 2022'],
   ['/images/highlight-cubes.webp', 'Yeat, ADL · client production · 2026'],
   ['/images/highlight-glove.jpg', 'Jack Harlow, Monica · client production · 2026'],
   ['/images/hero-lookup.jpg', 'Synthetic · 4x Platinum · 2025'],
 ]
+
+export const karl = {
+  name: 'Karl Fowlkes, Esq.',
+  title: 'Founder & Managing Partner',
+  headline: '3X Founder. Internationally Recognized Entertainment Attorney. Professor.',
+  portrait: '/images/karl-portrait.jpg',
+  linkedin: 'https://www.linkedin.com/in/karl-fowlkes-esq-6521805b/',
+  instagram: 'https://www.instagram.com/esqfowlkes',
+  education: 'Villanova University Charles Widger School of Law',
+  bio: [
+    'Internationally recognized entertainment lawyer, music business professor and entrepreneur who has negotiated groundbreaking deals in the entertainment industries while remaining committed to disruption and new media.',
+    'Following a short stint in corporate law after law school, Karl boldly opened his own law practice, The Fowlkes Firm, and quickly became known for his advocacy for music producers, commitment to innovative deal structures for all creatives and education in the entertainment industry that has given creatives more business strategy tools. The firm’s clients include talent that have amassed billions of streams, RIAA certifications, Grammy awards and appreciation from the likes of Forbes, Rolling Stone, Business Insider, ESPN, Billboard and more.',
+    'When not building businesses, Karl teaches at the Billboard-recognized Music Industry Program at Drexel University and at Rutgers Business School. His courses include Hip-Hop Evolution, Music Publishing, Contracts in the Music Industry, Artist Representation and Copyright Law.',
+  ],
+  recognition: [
+    ['Billboard', 'Top Music Attorney, 2023 and 2024'],
+    ['Bloomberg Law', '40 Under 40'],
+    ['Variety', 'Top Music Attorney (Up Next)'],
+    ['NJBIZ', '2026 Law Power List · 40 Under 40 · Leader in Law'],
+    ['Boardroom', 'Black History Month Playmaker'],
+    ['HITS Daily Double', 'Noisemaker'],
+  ],
+  featuredIn: 'Okayplayer, Rolling Stone, Complex, Pigeons & Planes, Water & Music, Trapital, Variety, Bloomberg Law, NJBIZ, The Source, Songtrust, Boardroom, Billboard, NJ.com',
+  photos: [
+    ['/images/karl-culturecon.jpg', 'CultureCon, presented by HBO Max · featured speaker · 2022'],
+    ['/images/press-bloomberg-40u40.jpg', 'Bloomberg Law · They’ve Got Next: The 40 Under 40 · 2021'],
+  ],
+}

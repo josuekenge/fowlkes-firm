@@ -17,7 +17,7 @@ export function Nav() {
   useEffect(() => { setOpen(false); log.info('route', { path: loc.pathname + loc.hash }) }, [loc])
   return (
     <nav className={`nav wrap${open ? ' open' : ''}`} aria-label="Primary">
-      <Link to="/" className="brand">{firm.name}</Link>
+      <Link to="/" className="brand"><img src="/images/monogram.webp" alt="" width="72" height="36" /><span>{firm.name}</span></Link>
       <div className="links">
         {links.map(([to, label]) => (
           to.includes('#')
