@@ -412,11 +412,11 @@ a.roadmap-entry:hover .v { color: var(--muted); }
 .fcard p { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
 .fcard.ph .ph-img { aspect-ratio: 4 / 5; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .fcard.ph .name, .fcard.ph p, .fcard.ph .eyebrow { color: var(--muted); }
-.work { background: var(--ink); color: #fff; padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); border-bottom: 1px solid var(--ink); }
+.work { background: var(--ink); color: #fff; padding-top: clamp(48px, 5vw, 72px); padding-bottom: clamp(48px, 5vw, 72px); border-bottom: 1px solid var(--ink); }
 .work .eyebrow { color: #b8b8b8; }
 .work .link { color: #fff; }
-.show { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: start; }
-.show .frame { display: block; background: #222; aspect-ratio: 1; overflow: hidden; }
+.show { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 48px; align-items: start; }
+.show .frame { display: block; background: #222; aspect-ratio: 1; overflow: hidden; max-height: 440px; }
 .show .frame img { width: 100%; height: 100%; object-fit: contain; display: block; animation: fadein .25s ease; }
 @keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
 .show .side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
@@ -426,7 +426,7 @@ a.roadmap-entry:hover .v { color: var(--muted); }
 .show .ctrls { display: flex; gap: 8px; }
 .show .ctrls button { width: 48px; height: 48px; border: 1px solid #3a3a3a; background: transparent; color: #fff; font-size: 20px; cursor: pointer; }
 .show .ctrls button:hover { background: #fff; color: var(--ink); }
-.show .film { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; max-height: 260px; overflow-y: auto; padding-right: 4px; border-top: 1px solid #3a3a3a; padding-top: 16px; }
+.show .film { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; max-height: 200px; overflow-y: auto; padding-right: 4px; border-top: 1px solid #3a3a3a; padding-top: 16px; }
 .show .film button { padding: 0; border: 2px solid transparent; background: #222; cursor: pointer; aspect-ratio: 1; overflow: hidden; opacity: .55; }
 .show .film button:hover, .show .film button.on { opacity: 1; }
 .show .film button.on { border-color: #fff; }
@@ -443,7 +443,7 @@ a.roadmap-entry:hover .v { color: var(--muted); }
   .pswitch .t { font-size: 14px; }
   .five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .five.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .show { grid-template-columns: 1fr; }
+  .show { grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 32px; }
   .catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 860px) {
@@ -453,8 +453,14 @@ a.roadmap-entry:hover .v { color: var(--muted); }
   .phero { grid-template-columns: 1fr; }
   .phero .copy { border-right: 0; border-bottom: 1px solid var(--ink); padding: 40px var(--gutter); }
   .five, .five.four { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+  .show { grid-template-columns: 1fr; }
+  .show .frame { max-height: none; }
   .show .film { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .catalog { grid-template-columns: 1fr; }
   .band .imgs.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 .show .proof { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; border-left: 2px solid #fff; padding-left: 12px; }
+.show .nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 4px 0 0; }
+.show .nums div { border-top: 1px solid #3a3a3a; padding-top: 10px; }
+.show .nums dt { font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1; }
+.show .nums dd { margin: 6px 0 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #b8b8b8; line-height: 1.4; }

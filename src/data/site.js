@@ -151,21 +151,21 @@ export const creditsWall = [
 ]
 
 export const certified = [
-  ['3×', 'Platinum', 'Polo G ft Juice WRLD, Flex'],
-  ['3×', 'Platinum', 'Lil Baby, My Turn'],
+  ['7×', 'Platinum', 'Lil Baby, My Turn'],
+  ['4×', 'Platinum', 'Polo G ft Juice WRLD, Flex'],
   ['1×', 'Platinum', "Bleu ft Drake, You're Mine Still"],
   ['1×', 'Platinum', 'Mo3 & OG Bobby Billions, Outside'],
-  ['Gold', '×5', 'Blxst · NLE Choppa · Rod Wave · 41 · Brent Faiyaz & Joony'],
+  ['Gold', '×4', 'NLE Choppa · Rod Wave · 41 · Brent Faiyaz & Joony'],
 ]
 
 export const clientCatalog = [
   ['Synthetic', 'Producer', 'iamsynthetic', "Yeat (2 Alive, ADL), Don Toliver's #1 album, NLE Choppa \"Or What\" (Gold), Nav. 4x Platinum."],
-  ['Corbett', 'Producer', 'corbettmusic', 'Nas "King\'s Disease", Anderson .Paak ft Rick Ross, Hit-Boy ft Big Sean, The Game, DDG ft Gunna, Polo G ft Juice WRLD "Flex" (3x Platinum).'],
+  ['Corbett', 'Producer', 'corbettmusic', 'Nas "King\'s Disease", Anderson .Paak ft Rick Ross, Hit-Boy ft Big Sean, The Game, DDG ft Gunna, Polo G ft Juice WRLD "Flex" (4x Platinum).'],
   ['Coleman', 'Producer', 'colxmxn', 'J. Cole "39 Intro" (The Fall Off), Jack Harlow "Nail Tech", Lil Wayne "Sharks", Joey Bada$$, Kodak Black.'],
   ['Kid Masterpiece', 'Producer', 'kidmasterpiece', 'Drake "Honestly, Nevermind" intro, PARTYNEXTDOOR & Drake "Some Sexy Songs 4 U" (five tracks).'],
-  ['Section 8', 'Producer', 'sectionnn8', 'Lil Baby "My Turn" (2x Platinum), Migos "Type Shit", Ty Dolla $ign ft Wiz Khalifa, 42 Dugg & Est Gee.'],
+  ['Section 8', 'Producer', 'sectionnn8', 'Lil Baby "My Turn" (7x Platinum), Migos "Type Shit", Ty Dolla $ign ft Wiz Khalifa, 42 Dugg & Est Gee.'],
   ['Hollywood Cole', 'Producer', '_hollywoodcole', 'Jack Harlow & Doja Cat "Just Us", three tracks on Jack Harlow\'s "Monica", Wale.'],
-  ['Blxst', 'Artist · EVGLE', 'blxst', '"Chosen" ft Tyga & Ty Dolla $ign (Gold). Independent via EVGLE and Red Bull Records.'],
+  ['Blxst', 'Artist · EVGLE', 'blxst', '"Chosen" ft Tyga & Ty Dolla $ign (Platinum). Independent via EVGLE and Red Bull Records.'],
   ['Joony', 'Artist', 'joonyoftv', '"Pretty In Black"; Brent Faiyaz & Joony "Paper Soldiers" (Gold).'],
   ['Radiate', 'Producer', '1radiate', 'Executive producer, Molly Santana; Four Five "Clean Money".'],
   ['Bass', 'Producer', '_bass______', 'Ken Carson "More Chaos" (two tracks), Yeat "Taller".'],
@@ -267,10 +267,10 @@ export const pressTimeline = [
 export const roster = {
   producers: [
     ['Synthetic', 'iamsynthetic', ['Yeat', 'Don Toliver', 'NLE Choppa', 'Nav', 'Cortis'], '4x Platinum. Five cuts on Yeat\'s "2 Alive," two on Don Toliver\'s #1 album, "Or What" certified Gold.'],
-    ['Corbett', 'corbettmusic', ['Nas', 'Anderson .Paak', 'Hit-Boy', 'The Game', 'DDG', 'Polo G'], '"King\'s Disease," "Salute," "Flex" (3x Platinum). Five years of records with the firm.'],
+    ['Corbett', 'corbettmusic', ['Nas', 'Anderson .Paak', 'Hit-Boy', 'The Game', 'DDG', 'Polo G'], '"King\'s Disease," "Salute," "Flex" (4x Platinum). Five years of records with the firm.'],
     ['Coleman', 'colxmxn', ['J. Cole', 'Jack Harlow', 'Lil Wayne', 'Joey Bada$$', 'Kodak Black'], '"39 Intro" on J. Cole\'s #1 "The Fall Off," "Nail Tech," "Sharks" on The Carter VI.'],
     ['Kid Masterpiece', 'kidmasterpiece', ['Drake', 'PARTYNEXTDOOR'], 'Intro and "Flight\'s Booked" on "Honestly, Nevermind"; five tracks on "Some Sexy Songs 4 U."'],
-    ['Section 8', 'sectionnn8', ['Lil Baby', 'Migos', 'Ty Dolla $ign', 'Est Gee', '42 Dugg'], '"My Turn" (3x Platinum), "Type Shit," "Champions," "All 100s."'],
+    ['Section 8', 'sectionnn8', ['Lil Baby', 'Migos', 'Ty Dolla $ign', 'Est Gee', '42 Dugg'], '"My Turn" (7x Platinum), "Type Shit," "Champions," "All 100s."'],
     ['Hollywood Cole', '_hollywoodcole', ['Jack Harlow', 'Doja Cat', 'Wale'], '"Just Us," three tracks on "Monica," "Where To Start."'],
     ['Noah Pettigrew', 'noahpettigrew_', ['Lil Baby', 'Lil Durk', '42 Dugg', 'Vory'], '"My Turn," "The Voice of the Heroes," "Alone."'],
     ['Young TN', 'youngtn', ['Lil Baby', 'Lil Durk'], '"My Turn," "Wild Child," "The Voice of the Heroes."'],
@@ -286,7 +286,7 @@ export const roster = {
     ['Perdu', 'prodperdu', ['Four Five', 'Molly Santana'], '"Pills Have Eyes," "SLUTTY," "Just Hit The Market."'],
   ],
   artists: [
-    ['Blxst', 'blxst', ['EVGLE', 'Red Bull Records'], '"Chosen" ft Tyga & Ty Dolla $ign, certified Gold. Independent, with Karl as COO of EVGLE.'],
+    ['Blxst', 'blxst', ['EVGLE', 'Red Bull Records'], '"Chosen" ft Tyga & Ty Dolla $ign, certified Platinum. Independent, with Karl as COO of EVGLE.'],
     ['Joony', 'joonyoftv', ['Brent Faiyaz'], '"Pretty In Black"; "Paper Soldiers" with Brent Faiyaz, certified Gold.'],
     ['Yeat', 'yeat', [], 'Client and frequent collaborator with the firm\'s producer roster.'],
     ['Drokenji', 'drokenji', [], '"WOWY," "They Don\'t Know," "Love Kills."'],
@@ -305,12 +305,12 @@ export const roster = {
 
 export const plaques = [
   ['4×', 'Platinum', 'Lil Uzi Vert, Just Wanna Rock', 'Presented to Karl Fowlkes, Esq.', '/images/plaque-4x-platinum.jpg'],
-  ['3×', 'Platinum', 'Polo G ft Juice WRLD, Flex', 'Client Corbett', null],
-  ['3×', 'Platinum', 'Lil Baby, My Turn', 'Clients Section 8, Noah Pettigrew, Young TN', null],
+  ['7×', 'Platinum', 'Lil Baby, My Turn', 'Clients Section 8, Noah Pettigrew, Young TN', null],
+  ['4×', 'Platinum', 'Polo G ft Juice WRLD, Flex', 'Client Corbett', null],
   ['1×', 'Platinum', 'Bleu ft Drake, You\'re Mine Still', 'Client Nate Rhoads', null],
   ['1×', 'Platinum', 'Mo3 & OG Bobby Billions, Outside', 'Client production', null],
   ['Gold', '', '41, Bent', 'Client production', '/images/plaque-41-bent.jpg'],
-  ['Gold', '', 'Blxst, Chosen', 'Client artist, EVGLE', null],
+  ['1×', 'Platinum', 'Blxst, Chosen', 'Client artist, EVGLE', null],
   ['Gold', '', 'NLE Choppa, Or What', 'Clients Synthetic & Sharkboy', null],
   ['Gold', '', 'Rod Wave, Ghetto Gospel', 'Client production', null],
   ['Gold', '', 'Brent Faiyaz & Joony, Paper Soldiers', 'Client artist Joony', null],

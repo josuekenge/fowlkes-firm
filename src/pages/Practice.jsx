@@ -43,6 +43,11 @@ function Slideshow({ items, label }) {
         <h3 className="title">{cur.title}</h3>
         <span className="sub">Made by a Fowlkes Firm client{cur.sub ? ` · ${cur.sub}` : ''}</span>
         {cur.cert && <span className="proof">{cur.cert}</span>}
+        {cur.stats && (
+          <dl className="nums">
+            {cur.stats.map(([v, l]) => <div key={l}><dt>{v}</dt><dd>{l}</dd></div>)}
+          </dl>
+        )}
         <a href={cur.url} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Open the post →</a>
         <div className="ctrls">
           <button type="button" onClick={() => go(-1)} aria-label="Previous">←</button>
