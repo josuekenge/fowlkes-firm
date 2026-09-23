@@ -223,6 +223,12 @@ describe('practice pages', () => {
     expect(other).not.toHaveClass('home')
     expect(other).not.toHaveClass('clear')
   })
+  it('phone menu keeps its six items: Home, Practice, Clients, Articles, About, Start a conversation', () => {
+    const { container } = at('/clients')
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
+    const items = [...container.querySelectorAll('.nav .drawer a')].map((a) => a.textContent)
+    expect(items).toEqual(['Home', 'Practice', 'Clients', 'Articles', 'About', 'Start a conversation'])
+  })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')
     expect(screen.getByText(/Dedicated exclusively to representing college athletes/)).toBeInTheDocument()

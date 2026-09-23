@@ -1233,3 +1233,11 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .px-track { animation: none; }
   .px-group[aria-hidden='true'] { display: none; }
 }
+
+/* phone menu: the original white menu, its six items laid out three on top, three on the bottom */
+@media (max-width: 860px) {
+  .nav.open .drawer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 12px var(--gutter) 16px; }
+  .nav .drawer a { display: flex; align-items: center; justify-content: center; min-height: 64px; padding: 10px 6px; border-bottom: 1px solid var(--hair); text-align: center; font-size: 12px; letter-spacing: .12em; line-height: 1.3; }
+  .nav .drawer a:not(:nth-child(3n + 1)) { border-left: 1px solid var(--hair); }
+  .nav .drawer a:nth-child(n + 4) { border-bottom: 0; }
+}
