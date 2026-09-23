@@ -1,0 +1,3 @@
+# Preview build: keep every page and file out of search engines until launch is approved
+/*
+  X-Robots-Tag: noindex, nofollow
