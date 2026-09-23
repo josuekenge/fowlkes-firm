@@ -244,20 +244,20 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 }
 @media (max-width: 860px) {
   /* mobile keeps the desktop overlay: copy sits on top of the slideshow, just smaller */
-  .hero { display: flex; align-items: flex-start; min-height: clamp(560px, 130vw, 680px); }
-  .hero .copy { width: 100%; padding: 40px var(--gutter) 150px; gap: 20px; }
-  .hero .copy .eyebrow { font-size: 11px; }
-  .hero h1 { font-size: clamp(34px, 10vw, 48px); max-width: 14ch; }
-  .hero .copy > div { gap: 20px !important; }
-  .hero .lede { font-size: 15px; line-height: 1.5; max-width: 34ch; }
+  .hero { display: flex; align-items: flex-start; min-height: clamp(500px, 118vw, 600px); }
+  .hero .copy { width: 100%; padding: 32px var(--gutter) 140px; gap: 16px; }
+  .hero .copy .eyebrow { font-size: 9px; letter-spacing: .12em; }
+  .hero h1 { font-size: clamp(26px, 7.4vw, 34px); line-height: 1.08; max-width: 16ch; }
+  .hero .copy > div { gap: 16px !important; }
+  .hero .lede { font-size: 13px; line-height: 1.5; max-width: 36ch; }
   .hero .actions { gap: 10px; }
-  .hero .actions .btn { padding: 12px 18px; font-size: 13px; }
+  .hero .actions .btn { padding: 10px 14px; font-size: 11px; min-height: 0; }
   .hero .photo { position: absolute; inset: 0; width: auto; height: auto; }
   .hero-slide-shade { background: linear-gradient(0deg, rgba(0,0,0,.8), rgba(0,0,0,.35) 45%, rgba(0,0,0,.55)); }
   .hero-slide-footer { bottom: 34px; gap: 14px; }
-  .hero-slide-caption a { font-size: 20px; }
+  .hero-slide-caption a { font-size: 16px; }
   .hero-slide-count { font-size: 10px; }
-  .hero-slide-controls button { width: 34px; height: 34px; }
+  .hero-slide-controls button { width: 30px; height: 30px; }
   .hero-slide-progress { padding-bottom: 14px; }
   .acc .body { padding-left: 0; }
   .grid-2, .grid-3, .steps { grid-template-columns: 1fr; }
