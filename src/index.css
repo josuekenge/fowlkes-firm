@@ -755,3 +755,13 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .form .status { font-size: 12px; }
   .form .status:empty { display: none; }
 }
+
+/* phones: practice page header compact; buttons side by side */
+@media (max-width: 600px) {
+  .phero .copy { gap: 12px; padding: 24px var(--gutter) 28px; }
+  .phero .copy .eyebrow { font-size: 10px; letter-spacing: .12em; }
+  .phero h1 { font-size: 30px; line-height: 1.05; max-width: none; }
+  .phero .lede { font-size: 14px; line-height: 1.45; }
+  .phero .actions { gap: 8px; flex-wrap: nowrap; margin-top: 4px; }
+  .phero .actions .btn { min-height: 0; padding: 11px 14px; font-size: 10px; letter-spacing: .1em; white-space: nowrap; }
+}
