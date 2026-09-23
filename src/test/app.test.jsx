@@ -171,6 +171,17 @@ describe('practice pages', () => {
     for (const g of groups) expect(g.querySelectorAll('.cm-item').length).toBe(3)
     expect(groups[0]).toHaveTextContent('RIAA certifications posted')
   })
+  it('clients search shows a clear button that empties the search', () => {
+    at('/clients')
+    const input = screen.getByPlaceholderText(/Search a client/)
+    expect(screen.queryByRole('button', { name: 'Clear search' })).toBeNull()
+    fireEvent.change(input, { target: { value: 'zzzz' } })
+    expect(screen.getByText('No client matches that search.')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Clear search' }))
+    expect(input).toHaveValue('')
+    expect(screen.queryByText('No client matches that search.')).toBeNull()
+    expect(screen.getAllByRole('tab')).toHaveLength(3)
+  })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')
     expect(screen.getByText(/Dedicated exclusively to representing college athletes/)).toBeInTheDocument()

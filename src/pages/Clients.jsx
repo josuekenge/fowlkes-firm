@@ -69,18 +69,22 @@ export default function Clients() {
       </section>
 
       <section id="roster" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-        <div className="tabs" role="tablist" aria-label="Client groups">
-          {groups.map(([key, label]) => (
-            <button key={key} type="button" role="tab" aria-selected={tab === key} className={tab === key ? 'on' : ''} onClick={() => pick(key)}>
-              {label} <span className="n">{roster[key].length}</span>
-            </button>
-          ))}
-          <label className="search">
+        <div className="roster-controls">
+          <label className="rsearch">
             <span className="sr-only">Search clients</span>
+            <svg className="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 20 20" /></svg>
             <input type="search" placeholder="Search a client or an artist" value={q} onChange={(e) => setQ(e.target.value)} />
+            {q && <button type="button" className="clear" onClick={() => setQ('')} aria-label="Clear search">&times;</button>}
           </label>
+          <div className="seg" role="tablist" aria-label="Client groups">
+            {groups.map(([key, label]) => (
+              <button key={key} type="button" role="tab" aria-selected={tab === key} className={tab === key ? 'on' : ''} onClick={() => pick(key)}>
+                <span className="t">{label}</span> <span className="n">{roster[key].length}</span>
+              </button>
+            ))}
+          </div>
         </div>
-        <p style={{ fontSize: 19, color: 'var(--ink-2)', maxWidth: 720 }}>{groups.find((g) => g[0] === tab)[2]}</p>
+        <p className="roster-blurb">{groups.find((g) => g[0] === tab)[2]}</p>
         <div className="roster">
           {list.map(([name, ig, with_, note], i) => (
             <article key={name} className="rcard">
