@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { log } from '../lib/log.js'
 
 // About page, "Speaking": told as a story, in order. Opens on Karl mid-sentence at the mic, then the
-// route (a timeline that draws itself as it scrolls in), then the two stages abroad as photo chapters.
+// route (a timeline that draws itself as it scrolls in), then the two stages abroad as one photo chapter.
 // Facts match karl.stages in site.js; photos are Karl's own posts. Motion is reveal-on-scroll only and
 // switches off for prefers-reduced-motion.
 
@@ -15,10 +15,15 @@ const route = [
   ['VI', '2025', 'Brooklyn, New York', 'LIU Roc Nation School of Music, Sports & Entertainment', 'Fireside chat'],
 ]
 
-const chapters = [
-  { n: 'IV', src: '/images/karl/07-C_YO4I2xnGA.jpg', alt: 'Reeperbahn Festival portrait of Karl Fowlkes, Wunderkinder talent scout', place: 'Hamburg · 2024', title: 'Scouting the next wave', venue: 'Reeperbahn Festival', role: 'Wunderkinder talent scout' },
-  { n: 'V', src: '/images/karl/06-DDPITs8pEDj.jpg', alt: 'XP Music Futures speaker card for Karl Fowlkes, Riyadh', place: 'Riyadh · 2024', title: 'The business of music, abroad', venue: 'XP Music Futures, MDLBEAST', role: 'Panelist' },
-]
+// The two stages abroad share one chapter and one image (their promo portraits are near-identical).
+const abroad = {
+  src: '/images/karl/06-DDPITs8pEDj.jpg',
+  alt: 'XP Music Futures speaker card for Karl Fowlkes, Riyadh',
+  stops: [
+    ['Hamburg', 'Reeperbahn Festival', 'Wunderkinder talent scout'],
+    ['Riyadh', 'XP Music Futures, MDLBEAST', 'Panelist'],
+  ],
+}
 
 const figures = [[6, 'Stages'], [3, 'Continents'], [5, 'Years on the road']]
 
@@ -65,9 +70,7 @@ function Count({ to, run }) {
 export default function SpeakingStory() {
   const [openRef, openIn] = useReveal()
   const [routeRef, routeIn] = useReveal()
-  const [c0Ref, c0In] = useReveal()
-  const [c1Ref, c1In] = useReveal()
-  const chapterRefs = [[c0Ref, c0In], [c1Ref, c1In]]
+  const [abRef, abIn] = useReveal()
 
   useEffect(() => { if (routeIn) log.info('speaking story: route revealed') }, [routeIn])
 
@@ -108,21 +111,19 @@ export default function SpeakingStory() {
       </div>
 
       <div className="sp-chapters wrap">
-        {chapters.map((c, i) => {
-          const [ref, shown] = chapterRefs[i]
-          return (
-            <article key={c.n} ref={ref} className={`sp-ch${i % 2 ? ' rev' : ''}${shown ? ' in' : ''}`}>
-              <div className="sp-ch-img"><img src={c.src} alt={c.alt} loading="lazy" /></div>
-              <div className="sp-ch-copy">
-                <span className="chn">Chapter {c.n}</span>
-                <span className="eyebrow">{c.place}</span>
-                <h4>{c.title}</h4>
-                <span className="venue">{c.venue}</span>
-                <span className="role">{c.role}</span>
-              </div>
-            </article>
-          )
-        })}
+        <article ref={abRef} className={`sp-ch${abIn ? ' in' : ''}`}>
+          <div className="sp-ch-img"><img src={abroad.src} alt={abroad.alt} loading="lazy" /></div>
+          <div className="sp-ch-copy">
+            <span className="chn">Chapters IV &amp; V</span>
+            <span className="eyebrow">Abroad · 2024</span>
+            <h4>The business of music, abroad</h4>
+            <ul className="sp-abroad">
+              {abroad.stops.map(([city, venue, role]) => (
+                <li key={city}><span className="city">{city}</span><span className="venue">{venue}</span><span className="role">{role}</span></li>
+              ))}
+            </ul>
+          </div>
+        </article>
       </div>
     </section>
   )
