@@ -741,3 +741,17 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .contact .quote .link { font-size: 10px; }
   .contact .quote .note { font-size: 11px; line-height: 1.4; padding-top: 8px; }
 }
+
+/* phones: compact contact form, name and email side by side; inputs stay 16px so iOS doesn't zoom on focus */
+@media (max-width: 600px) {
+  .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; padding: 36px var(--gutter) 40px; }
+  .form h2, .form .field:nth-of-type(n + 3), .form .btn, .form .status { grid-column: 1 / -1; }
+  .form h2 { font-size: 26px; margin-bottom: 0; }
+  .field { gap: 4px; }
+  .field label { font-size: 10px; letter-spacing: .1em; }
+  .field input, .field select { height: 36px; font-size: 16px; }
+  .field textarea { height: 64px; font-size: 16px; }
+  .form .btn { min-height: 0; padding: 12px 20px; font-size: 11px; }
+  .form .status { font-size: 12px; }
+  .form .status:empty { display: none; }
+}
