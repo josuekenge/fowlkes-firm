@@ -856,3 +856,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .footer .addr { font-size: 12px; line-height: 1.35; }
   .footer .links { gap: 14px; font-size: 10px; letter-spacing: .1em; }
 }
+
+/* phones/tablets: NIL hero photo crops from the top so the athlete's head is never cut off */
+@media (max-width: 860px) {
+  .nil-hero-photo img { object-position: center top; }
+}
