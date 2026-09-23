@@ -868,3 +868,29 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 .phero .collage .ai-tile { position: relative; }
 .phero .collage .ai-tag { position: absolute; left: 6px; bottom: 6px; padding: 3px 6px; background: rgba(20,20,20,.72); color: #fff; font-family: var(--body); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.2; white-space: nowrap; pointer-events: none; }
 @media (max-width: 600px) { .phero .collage .ai-tag { left: 4px; bottom: 4px; padding: 2px 4px; font-size: 7px; letter-spacing: .06em; } }
+
+/* clients page: compact header on phones; the three numbers become a right-to-left strip */
+.clients-marquee { display: none; }
+@media (max-width: 600px) {
+  .clients-head { gap: 12px; padding-top: 28px; padding-bottom: 24px; }
+  .clients-head .main { gap: 10px; }
+  .clients-head h1 { font-size: 34px; }
+  .clients-head .lede { font-size: 15px; line-height: 1.45; }
+  .clients-marquee { display: block; overflow: hidden; border-bottom: 1px solid var(--hair); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .cm-track, .cm-group { display: flex; width: max-content; }
+  .cm-track { animation: cm-scroll 22s linear infinite; }
+  .cm-item { display: flex; align-items: baseline; gap: 10px; padding: 16px 22px; border-right: 1px solid var(--hair); white-space: nowrap; }
+  .cm-item .v { font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1; }
+  .cm-item .l { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .clients-stats { grid-template-columns: 1fr; }
+  .clients-stats > .num { display: none; }
+  .clients-stats .dark { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding: 14px var(--gutter); }
+  .clients-stats .dark .value { font-size: 15px; }
+  .clients-stats .dark a { flex: none; font-size: 10px !important; }
+}
+@keyframes cm-scroll { to { transform: translateX(-50%); } }
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .clients-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .cm-track { animation: none; }
+  .cm-group[aria-hidden='true'] { display: none; }
+}

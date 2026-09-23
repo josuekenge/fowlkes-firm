@@ -162,6 +162,15 @@ describe('practice pages', () => {
     expect(ai).not.toHaveAttribute('href')
     expect(ai).toHaveTextContent('AI illustration')
   })
+  it('clients page numbers scroll as a looping right-to-left strip', () => {
+    const { container } = at('/clients')
+    const groups = container.querySelectorAll('.clients-marquee .cm-group')
+    expect(groups.length).toBe(2)
+    expect(groups[0]).not.toHaveAttribute('aria-hidden')
+    expect(groups[1]).toHaveAttribute('aria-hidden', 'true')
+    for (const g of groups) expect(g.querySelectorAll('.cm-item').length).toBe(3)
+    expect(groups[0]).toHaveTextContent('RIAA certifications posted')
+  })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')
     expect(screen.getByText(/Dedicated exclusively to representing college athletes/)).toBeInTheDocument()

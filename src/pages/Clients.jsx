@@ -11,6 +11,12 @@ const groups = [
   ['companies', 'Labels & collectives', 'Imprints and producer collectives built to stay independent.'],
 ]
 
+const clientStats = (total, credits) => [
+  [`${total}+`, 'Clients on this page'],
+  ['10', 'RIAA certifications posted'],
+  [`${credits}+`, 'Marquee artists their work reached'],
+]
+
 export default function Clients() {
   const [tab, setTab] = useState('producers')
   const [q, setQ] = useState('')
@@ -24,7 +30,7 @@ export default function Clients() {
 
   return (
     <main>
-      <header className="page-head wrap">
+      <header className="page-head wrap clients-head">
         <div className="main">
           <span className="eyebrow">The roster</span>
           <h1>Clients</h1>
@@ -39,10 +45,19 @@ export default function Clients() {
         </div>
       </header>
 
-      <div className="stats">
-        <div><span className="value">{total}+</span><span className="label">Clients on this page</span></div>
-        <div><span className="value">10</span><span className="label">RIAA certifications posted</span></div>
-        <div><span className="value">{creditsWall.length}+</span><span className="label">Marquee artists their work reached</span></div>
+      {/* Phones: the three numbers scroll right to left in one strip (hidden on wider screens, see .clients-marquee). */}
+      <section className="clients-marquee" aria-label="Client numbers">
+        <div className="cm-track">
+          {[false, true].map((dup) => (
+            <div className="cm-group" key={dup ? 'copy' : 'original'} aria-hidden={dup ? 'true' : undefined}>
+              {clientStats(total, creditsWall.length).map(([v, l]) => <div className="cm-item" key={l}><span className="v">{v}</span><span className="l">{l}</span></div>)}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="stats clients-stats">
+        {clientStats(total, creditsWall.length).map(([v, l]) => <div key={l} className="num"><span className="value">{v}</span><span className="label">{l}</span></div>)}
         <div className="dark">
           <span className="value display">Every name here started with a conversation.</span>
           <a href="/#contact" className="link" style={{ alignSelf: 'flex-start', fontSize: 13 }}>Start yours</a>
