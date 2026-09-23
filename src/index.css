@@ -1001,3 +1001,30 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .story-note p { font-size: 12.5px; line-height: 1.4; color: var(--muted); }
   .articles-content { padding-bottom: 16px; }
 }
+
+/* header: hairline instead of a heavy rule everywhere; on the home page it floats transparent over the hero */
+.nav { border-bottom: 1px solid var(--hair); }
+.nav.home { position: fixed; top: 0; left: 0; right: 0; transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
+.nav.clear { background: transparent; border-bottom-color: transparent; color: #fff; }
+.nav.clear .brand img { filter: invert(1); }
+.nav.clear .links a.active { border-bottom-color: #fff; }
+.nav.clear .cta { background: #fff; color: var(--ink); border-color: #fff; }
+.nav.clear .cta:hover { background: transparent; color: #fff; }
+.nav.clear .burger { color: #fff; }
+.nav.home + main .hero::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 240px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.35) 55%, rgba(0,0,0,0)); }
+.nav.home + main .hero .copy { padding-top: 168px; }
+.nav.home + main .hero { min-height: clamp(700px, 58vw, 860px); }
+@media (max-width: 860px) {
+  .nav { padding-top: 12px; padding-bottom: 12px; }
+  .nav .brand { font-size: 15px; gap: 12px; }
+  .nav .brand img { height: 32px; margin: 0; }
+}
+@media (max-width: 600px) {
+  .nav.home + main .hero { min-height: clamp(620px, 150vw, 740px); }
+  .nav.home + main .hero .copy { padding-top: 110px; }
+}
+@media (max-width: 380px) {
+  .nav .brand { letter-spacing: .1em; gap: 10px; }
+  .nav .brand img { height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .nav.home { transition: none; } }

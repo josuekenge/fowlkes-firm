@@ -13,10 +13,21 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const loc = useLocation()
+  const isHome = loc.pathname === '/'
   useEffect(() => { setOpen(false); log.info('route', { path: loc.pathname + loc.hash }) }, [loc])
+  // Home only: the header floats transparent over the dark hero, then turns solid once the page scrolls.
+  useEffect(() => {
+    if (!isHome) return undefined
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isHome])
+  const clear = isHome && !scrolled && !open
   return (
-    <nav className={`nav wrap${open ? ' open' : ''}`} aria-label="Primary">
+    <nav className={`nav wrap${isHome ? ' home' : ''}${clear ? ' clear' : ''}${open ? ' open' : ''}`} aria-label="Primary">
       <Link to="/" className="brand"><img src="/images/monogram.webp" alt="" width="72" height="36" /><span>{firm.name}</span></Link>
       <div className="links">
         {links.map(([to, label]) => (

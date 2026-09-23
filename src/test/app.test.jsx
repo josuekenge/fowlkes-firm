@@ -197,6 +197,23 @@ describe('practice pages', () => {
     expect(screen.getByRole('button', { name: 'Show fewer credits' })).toHaveAttribute('aria-expanded', 'true')
     expect(section.querySelector('.cl-list')).toHaveClass('open')
   })
+  it('header is transparent over the home hero, solid after scrolling, and solid on other pages', () => {
+    const { container, unmount } = at('/')
+    const nav = container.querySelector('nav.nav')
+    expect(nav).toHaveClass('home', 'clear')
+    window.scrollY = 200
+    fireEvent.scroll(window)
+    expect(nav).not.toHaveClass('clear')
+    window.scrollY = 0
+    fireEvent.scroll(window)
+    expect(nav).toHaveClass('clear')
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
+    expect(nav).not.toHaveClass('clear')
+    unmount()
+    const other = at('/clients').container.querySelector('nav.nav')
+    expect(other).not.toHaveClass('home')
+    expect(other).not.toHaveClass('clear')
+  })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')
     expect(screen.getByText(/Dedicated exclusively to representing college athletes/)).toBeInTheDocument()
