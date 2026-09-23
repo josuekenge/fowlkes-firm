@@ -1140,7 +1140,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 @media (max-width: 860px) {
   .sp-open { display: block; min-height: 0; }
   .sp-mic { height: clamp(340px, 96vw, 420px); }
-  .sp-mic img { -webkit-mask-image: none; mask-image: none; object-position: 50% 70%; }
+  .sp-mic img { -webkit-mask-image: none; mask-image: none; object-position: 50% 30%; }
   .sp-mic::after { content: ''; position: absolute; inset: auto 0 0 0; height: 56%; background: linear-gradient(0deg, #101010 12%, rgba(16,16,16,.6) 50%, rgba(16,16,16,0)); pointer-events: none; }
   .sp-mic figcaption { top: 16px; bottom: auto; left: var(--gutter); padding: 4px 8px; background: rgba(16,16,16,.55); font-size: 9px; text-shadow: none; }
   .sp-intro { position: relative; z-index: 2; margin-top: -84px; padding: 0 var(--gutter) 32px; gap: 16px; }
