@@ -4,6 +4,7 @@ import { practiceAreas, clientCatalog, firm } from '../data/site.js'
 import { areaImages, clientImage, pick, karl } from '../data/gallery.js'
 import { Grid } from '../components/Gallery.jsx'
 import { log } from '../lib/log.js'
+import Arrow from '../components/Arrow.jsx'
 
 // Best RIAA-style credential mentioned in a client's credits line, for the client-card eyebrow.
 function bestCert(cred) {
@@ -48,10 +49,10 @@ function Slideshow({ items, label }) {
             {cur.stats.map(([v, l]) => <div key={l}><dt>{v}</dt><dd>{l}</dd></div>)}
           </dl>
         )}
-        <a href={cur.url} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Open the post →</a>
+        <a href={cur.url} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Open the post <Arrow dir="right" /></a>
         <div className="ctrls">
-          <button type="button" onClick={() => go(-1)} aria-label="Previous">←</button>
-          <button type="button" onClick={() => go(1)} aria-label="Next">→</button>
+          <button type="button" onClick={() => go(-1)} aria-label="Previous"><Arrow dir="left" /></button>
+          <button type="button" onClick={() => go(1)} aria-label="Next"><Arrow dir="right" /></button>
         </div>
         <div className="film" role="tablist" aria-label="All work">
           {items.map((it, k) => (
@@ -166,7 +167,7 @@ export default function Practice() {
                 <span className="eyebrow">Certified</span>
                 <h2 className="h2">Eight plaques, eight clients</h2>
               </div>
-              <a href="#catalog" className="link">Full catalog below ↓</a>
+              <a href="#catalog" className="link">Full catalog below <Arrow dir="down" /></a>
             </div>
             <div className="five four">
               {imgs.plaques.map((it) => (
@@ -196,7 +197,7 @@ export default function Practice() {
           <section id="catalog" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
               <h2 className="h2" style={{ fontSize: 40 }}>Client catalog</h2>
-              <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link">The full roll on @fowlkesfirm →</a>
+              <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link">The full roll on @fowlkesfirm <Arrow dir="right" /></a>
             </div>
             <div className="cgrid" data-testid="client-grid">
               {clientCatalog.map(([name, role, ig, cred]) => (
@@ -212,7 +213,7 @@ export default function Practice() {
             </div>
             <Link to="/clients" className="cgrid-more">
               <span className="k">And 30+ more</span>
-              <span className="v">View all clients <span aria-hidden="true">→</span></span>
+              <span className="v">View all clients <span aria-hidden="true"><Arrow dir="right" /></span></span>
             </Link>
           </section>
         </>
@@ -225,7 +226,7 @@ export default function Practice() {
               <span className="eyebrow">Athlete-first counsel</span>
               <h2 className="h2">Built around the athlete</h2>
               <p>NIL opportunities move quickly. We help athletes and families understand the rights, obligations and long-term consequences behind every offer.</p>
-              <a href="#families" className="link">How we work ↓</a>
+              <a href="#families" className="link">How we work <Arrow dir="down" /></a>
             </div>
             <figure className="nil-photo">
               <img src="/images/nil-football.webp" alt="Illustration of an American football athlete on a practice field" loading="lazy" />
@@ -267,7 +268,7 @@ export default function Practice() {
               <span className="eyebrow">Across college sports</span>
               <h2 className="h2">Every opportunity deserves a clear-eyed review</h2>
               <p>From endorsements to content and likeness rights, the details matter before an athlete signs.</p>
-              <Link to="/articles" className="link">Read our NIL insights →</Link>
+              <Link to="/articles" className="link">Read our NIL insights <Arrow dir="right" /></Link>
             </div>
           </section>
         </>
@@ -279,7 +280,7 @@ export default function Practice() {
             <span className="eyebrow">In practice</span>
             <h2 className="h2" style={{ fontSize: 44 }}>The same counsel behind the plaques</h2>
             <p>Deal structure, ownership and leverage: what we negotiate for producers and artists is what we bring to founders, executives and companies.</p>
-            <Link to="/practice/music-law#work" className="link" style={{ alignSelf: 'flex-start' }}>See the work →</Link>
+            <Link to="/practice/music-law#work" className="link" style={{ alignSelf: 'flex-start' }}>See the work <Arrow dir="right" /></Link>
           </div>
           <div className="imgs">
             {set.band.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
@@ -292,7 +293,7 @@ export default function Practice() {
         <div className="r">
           <p>{area.cta[1]}</p>
           <a href="/#contact" className="btn light">Start a conversation</a>
-          <Link to={`/practice/${next.slug}`} className="link" style={{ color: '#b8b8b8' }}>Next: {next.title} →</Link>
+          <Link to={`/practice/${next.slug}`} className="link" style={{ color: '#b8b8b8' }}>Next: {next.title} <Arrow dir="right" /></Link>
         </div>
       </section>
     </main>

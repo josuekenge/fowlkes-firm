@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Arrow from './Arrow.jsx'
 
 const slides = [
   { label: 'Music Law', image: '/images/hero-music-soul2.webp', alt: 'Hip-hop artist in a recording studio', to: '/practice/music-law', focus: '78% top' },
@@ -59,11 +60,11 @@ export default function HeroCarousel() {
       <div className="hero-slide-footer">
         <div className="hero-slide-caption">
           <span className="hero-slide-count">{String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
-          <Link to={slide.to}>{slide.label} <span aria-hidden="true">↗</span></Link>
+          <Link to={slide.to}>{slide.label} <span aria-hidden="true"><Arrow dir="up-right" /></span></Link>
         </div>
         {slides.length > 1 && <div className="hero-slide-controls" aria-label="Choose a practice area image">
-          <button type="button" onClick={() => show(active - 1)} aria-label="Previous image">←</button>
-          <button type="button" onClick={() => show(active + 1)} aria-label="Next image">→</button>
+          <button type="button" onClick={() => show(active - 1)} aria-label="Previous image"><Arrow dir="left" /></button>
+          <button type="button" onClick={() => show(active + 1)} aria-label="Next image"><Arrow dir="right" /></button>
         </div>}
       </div>
       {slides.length > 1 && <div className="hero-slide-progress" aria-label="Choose a practice area image">{slides.map((item, index) => <button key={item.label} type="button" className={index === active ? 'active' : ''} onClick={() => show(index)} aria-label={`Show ${item.label}`} aria-current={index === active ? 'true' : undefined}><span /></button>)}</div>}

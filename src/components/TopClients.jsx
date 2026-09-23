@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { topClients } from '../data/gallery.js'
 import { log } from '../lib/log.js'
+import Arrow from './Arrow.jsx'
 
 // Home-page clients section: one client per "chapter", led by the number that matters, with the
 // other four as an exhibition index. Portraits: /public/images/clients/<handle>.jpg via the
@@ -23,8 +24,8 @@ export default function TopClients() {
         </div>
         <div className="ctrls">
           <span className="count">{pad(i)} — {pad(n - 1)}</span>
-          <button type="button" onClick={() => go(i - 1)} aria-label="Previous client">←</button>
-          <button type="button" onClick={() => go(i + 1)} aria-label="Next client">→</button>
+          <button type="button" onClick={() => go(i - 1)} aria-label="Previous client"><Arrow dir="left" /></button>
+          <button type="button" onClick={() => go(i + 1)} aria-label="Next client"><Arrow dir="right" /></button>
           <Link to="/clients" className="btn light">See all clients</Link>
         </div>
       </div>

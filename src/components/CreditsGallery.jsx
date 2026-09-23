@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { log } from '../lib/log.js'
+import Arrow from './Arrow.jsx'
 
 // Clients page: the headline credits hung as a gallery wall you scroll sideways. Each work is the
 // record's real cover or plaque (from the firm's own posts), with a museum-style wall label that
@@ -43,8 +44,8 @@ export default function CreditsGallery({ items, names = [], onMore }) {
       <div className="cg-bar">
         <span className="cg-hint">Scroll, drag or use the arrows</span>
         <span className="cg-count" aria-live="polite">{pad(i + 1)} / {pad(n)}</span>
-        <button type="button" onClick={() => go(i - 1)} disabled={i === 0} aria-label="Previous work">←</button>
-        <button type="button" onClick={() => go(i + 1)} disabled={i === n - 1} aria-label="Next work">→</button>
+        <button type="button" onClick={() => go(i - 1)} disabled={i === 0} aria-label="Previous work"><Arrow dir="left" /></button>
+        <button type="button" onClick={() => go(i + 1)} disabled={i === n - 1} aria-label="Next work"><Arrow dir="right" /></button>
       </div>
 
       <ol className="cg-track" ref={track} onScroll={onScroll} tabIndex={0} aria-label="Headline credits, scrolls sideways">
@@ -72,7 +73,7 @@ export default function CreditsGallery({ items, names = [], onMore }) {
               {names.map((a, k) => <span key={a}>{a}{k < names.length - 1 && <span className="dot" aria-hidden="true"> · </span>}</span>)}
             </p>
             <div className="cg-end-actions">
-              {onMore && <button type="button" className="link" onClick={onMore}>See every credit ↓</button>}
+              {onMore && <button type="button" className="link" onClick={onMore}>See every credit <Arrow dir="down" /></button>}
               <a href="/#contact" className="btn light">Start a conversation</a>
             </div>
           </li>

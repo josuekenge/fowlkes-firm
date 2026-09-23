@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { log } from '../lib/log.js'
+import Arrow from './Arrow.jsx'
 
 // About page, "In the press": a black band where the outlets' real logos scroll right to left in a
 // seamless loop (pauses on hover and for reduced motion), then the linked features.
@@ -84,7 +85,7 @@ export default function PressSection({ outlets, features, featuredIn }) {
           <span className="eyebrow">In the press</span>
           <h2 className="h2" id="press-title">Featured on major news outlets</h2>
         </div>
-        <Link to="/articles" className="link">Every article →</Link>
+        <Link to="/articles" className="link">Every article <Arrow dir="right" /></Link>
       </div>
 
       <div className="px-marquee" aria-label="Outlets that have featured Karl Fowlkes">
@@ -97,8 +98,8 @@ export default function PressSection({ outlets, features, featuredIn }) {
       <div className="wrap px-nav" aria-label="Browse press stories">
         <span className="px-count" aria-live="polite">{pad(at + 1)} / {pad(features.length)}</span>
         <span className="px-rail" aria-hidden="true"><span style={{ transform: `scaleX(${progress})` }} /></span>
-        <button type="button" onClick={() => go(at - 1)} disabled={at === 0} aria-label="Previous story">←</button>
-        <button type="button" onClick={() => go(at + 1)} disabled={at === features.length - 1} aria-label="Next story">→</button>
+        <button type="button" onClick={() => go(at - 1)} disabled={at === 0} aria-label="Previous story"><Arrow dir="left" /></button>
+        <button type="button" onClick={() => go(at + 1)} disabled={at === features.length - 1} aria-label="Next story"><Arrow dir="right" /></button>
       </div>
 
       <ol className="wrap px-features" ref={list} onScroll={onScroll}>
@@ -107,7 +108,7 @@ export default function PressSection({ outlets, features, featuredIn }) {
             <>
               <span className="meta"><span className="o">{outlet}</span>{date && <span>{date}</span>}<span>{kind}</span></span>
               <span className="t">{title}</span>
-              {url && <span className="go">Read ↗</span>}
+              {url && <span className="go">Read <Arrow dir="up-right" /></span>}
             </>
           )
           return <li key={title}>{url ? <a href={url} target="_blank" rel="noreferrer">{body}</a> : <div>{body}</div>}</li>

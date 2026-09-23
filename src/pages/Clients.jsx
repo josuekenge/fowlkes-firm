@@ -6,6 +6,7 @@ import CreditsGallery from '../components/CreditsGallery.jsx'
 import { log } from '../lib/log.js'
 import { clientWall, plaques as plaqueShots, clientImage } from '../data/gallery.js'
 import { Grid } from '../components/Gallery.jsx'
+import Arrow from '../components/Arrow.jsx'
 
 const groups = [
   ['producers', 'Producers', 'The deepest bench in the room. Their beats sit under #1 albums and multi-platinum singles.'],
@@ -104,7 +105,7 @@ export default function Clients() {
           ))}
           {list.length === 0 && <p style={{ color: 'var(--muted)' }}>No client matches that search.</p>}
         </div>
-        <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>The full roll, on @fowlkesfirm →</a>
+        <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>The full roll, on @fowlkesfirm <Arrow dir="right" /></a>
       </section>
 
       <section id="credits" className="credits-ledger" aria-labelledby="credits-title">
@@ -164,7 +165,7 @@ export default function Clients() {
         <div className="r">
           <p>Producers, artists, athletes and founders. Every matter starts with a conversation.</p>
           <a href="/#contact" className="btn light">Start a conversation</a>
-          <Link to="/practice/music-law" className="link" style={{ color: '#b8b8b8' }}>See how we work →</Link>
+          <Link to="/practice/music-law" className="link" style={{ color: '#b8b8b8' }}>See how we work <Arrow dir="right" /></Link>
         </div>
       </section>
     </main>

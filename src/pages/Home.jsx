@@ -4,6 +4,7 @@ import { Rich } from '../lib/rich.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import TopClients from '../components/TopClients.jsx'
 import HeroCarousel from '../components/HeroCarousel.jsx'
+import Arrow from '../components/Arrow.jsx'
 
 const milestoneItems = [
   ...stats.map(({ value, label }) => ({ value, label })),
@@ -71,7 +72,7 @@ export default function Home() {
               <span className="name">{a.title}</span>
               <span className="short">{a.short}</span>
               <span className="tags">{a.handles.slice(0, 3).map((h) => h[0]).join(' · ')}</span>
-              <span className="link">Know more →</span>
+              <span className="link">Know more <Arrow dir="right" /></span>
             </Link>
           ))}
         </div>
@@ -102,7 +103,7 @@ export default function Home() {
           </a>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <span className="who">Karl Fowlkes, Esq. · Founder</span>
-            <a href="https://boardroom.tv/karl-fowlkes-black-history-month/" target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Read the Boardroom interview ↗</a>
+            <a href="https://boardroom.tv/karl-fowlkes-black-history-month/" target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>Read the Boardroom interview <Arrow dir="up-right" /></a>
             <span className="note">{firm.verified}</span>
           </div>
         </div>

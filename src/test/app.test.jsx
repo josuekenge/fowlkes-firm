@@ -456,7 +456,7 @@ describe('practice pages', () => {
     expect(section.querySelectorAll('.cg-work')).toHaveLength(6)
     expect(section.querySelector('.cg-count')).toHaveTextContent('01 / 06')
     expect(within(end).getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/#contact')
-    fireEvent.click(within(end).getByRole('button', { name: 'See every credit ↓' }))
+    fireEvent.click(within(end).getByRole('button', { name: 'See every credit' }))
     expect(section.querySelector('.cl-list')).toHaveClass('open')
   })
   it('header is transparent over the home hero, solid after scrolling, and solid on other pages', () => {

@@ -2,6 +2,7 @@ import { karl } from '../data/site.js'
 import SpeakingStory from '../components/SpeakingStory.jsx'
 import PressSection from '../components/PressSection.jsx'
 import { Rich } from '../lib/rich.jsx'
+import Arrow from '../components/Arrow.jsx'
 
 export default function About() {
   return (
@@ -31,7 +32,7 @@ export default function About() {
             <span className="bb-t">{karl.billboard.title}</span>
             <span className="bb-y">
               {karl.billboard.years.map(([y, url]) => (
-                <a key={y} href={url} target="_blank" rel="noreferrer" aria-label={`${karl.billboard.title} ${y} list`}>{y} ↗</a>
+                <a key={y} href={url} target="_blank" rel="noreferrer" aria-label={`${karl.billboard.title} ${y} list`}>{y} <Arrow dir="up-right" /></a>
               ))}
             </span>
             <p>{karl.billboard.line}</p>

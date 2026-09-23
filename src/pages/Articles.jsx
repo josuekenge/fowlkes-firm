@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ig, karl } from '../data/gallery.js'
+import Arrow from '../components/Arrow.jsx'
 
 const photo = (id) => id.startsWith('/') ? id : [...ig, ...karl].find((item) => item.n === id)?.src
 const story = (date, source, title, description, href, photoId) => ({ date, source, title, description, href, image: photo(photoId) })
@@ -47,7 +48,7 @@ function StoryCard({ item }) {
       <div className="story-copy">
         <p className="story-meta"><span>{item.source}</span><span>{item.date}</span></p>
         <h3>{item.title}</h3>
-        <span className="story-action">Read original <span aria-hidden="true">↗</span></span>
+        <span className="story-action">Read original <span aria-hidden="true"><Arrow dir="up-right" /></span></span>
       </div>
       <aside className="story-note"><span className="eyebrow">In brief</span><p>{item.description}</p></aside>
     </a>
@@ -65,7 +66,7 @@ export default function Articles() {
         </div>
         <nav className="articles-index" aria-label="On this page">
           <span className="eyebrow">Browse the page</span>
-          {collections.map((item, index) => <a key={item.id} href={`#${item.id}`}><span>{String(index + 1).padStart(2, '0')}</span>{item.label}<span aria-hidden="true">↘</span></a>)}
+          {collections.map((item, index) => <a key={item.id} href={`#${item.id}`}><span>{String(index + 1).padStart(2, '0')}</span>{item.label}<span aria-hidden="true"><Arrow dir="down-right" /></span></a>)}
         </nav>
       </header>
       <div className="articles-content wrap">
@@ -80,7 +81,7 @@ export default function Articles() {
           </section>
         ))}
         <p className="articles-clients-note" data-testid="clients-note">
-          Looking for client releases and certifications? <Link to="/clients">See the Clients page →</Link>
+          Looking for client releases and certifications? <Link to="/clients">See the Clients page <Arrow dir="right" /></Link>
         </p>
       </div>
     </main>
