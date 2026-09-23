@@ -806,3 +806,19 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .cgrid-more .k { font-size: 16px; }
   .cgrid-more .v { font-size: 10px; letter-spacing: .12em; }
 }
+
+/* phones: NIL launch note compact; credentials three across, call-to-action full width below */
+@media (max-width: 600px) {
+  .note-band { gap: 8px; padding-top: 22px; padding-bottom: 22px; }
+  .note-band .k { font-size: 10px; letter-spacing: .12em; }
+  .note-band .v { font-size: 17px; line-height: 1.35; }
+  .stats.creds { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stats.creds > div { gap: 6px; padding: 18px 10px; border-right: 1px solid var(--hair); }
+  .stats.creds > div:first-child { padding-left: var(--gutter); }
+  .stats.creds > div:nth-child(3) { border-right: 0; padding-right: var(--gutter); }
+  .stats.creds .value { font-size: 24px; }
+  .stats.creds .label { font-size: 8.5px; letter-spacing: .08em; line-height: 1.4; }
+  .stats.creds .dark { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding: 16px var(--gutter); }
+  .stats.creds .dark .value { font-size: 16px; }
+  .stats.creds .dark a { flex: none; font-size: 10px !important; }
+}
