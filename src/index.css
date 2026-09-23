@@ -717,3 +717,16 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .practice-card .tags { display: none; }
   .practice-card .link { font-size: 11px; }
 }
+
+/* phones: founder teaser side by side, smaller photo left, compact copy right */
+@media (max-width: 600px) {
+  .founder { grid-template-columns: 38% minmax(0, 1fr); gap: 16px; align-items: start; padding-top: 40px; padding-bottom: 40px; }
+  .founder img { aspect-ratio: 3 / 4; height: auto; object-position: center top; }
+  .founder .copy { gap: 8px; }
+  .founder .copy .eyebrow { font-size: 9px; letter-spacing: .1em; }
+  .founder .copy .h2 { font-size: 22px; line-height: 1.1; }
+  .founder .copy p { font-size: 12px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+  .founder .copy > div { gap: 6px 12px !important; }
+  .founder .copy .btn { min-height: 0; padding: 8px 14px; font-size: 10px; }
+  .founder .copy .link { font-size: 10px; }
+}
