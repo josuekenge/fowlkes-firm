@@ -243,11 +243,22 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .about .m { min-height: 360px; }
 }
 @media (max-width: 860px) {
-  .hero { display: block; min-height: 0; }
-  .hero .copy { width: 100%; padding-top: 44px; padding-bottom: 44px; gap: 28px; }
-  .hero .photo { position: relative; inset: auto; width: 100%; height: clamp(350px, 94vw, 460px); }
-  .hero-slide-shade { background: linear-gradient(0deg, rgba(0,0,0,.78), transparent 36%); }
-  .hero-slide-footer { bottom: 44px; }
+  /* mobile keeps the desktop overlay: copy sits on top of the slideshow, just smaller */
+  .hero { display: flex; align-items: flex-start; min-height: clamp(560px, 130vw, 680px); }
+  .hero .copy { width: 100%; padding: 40px var(--gutter) 150px; gap: 20px; }
+  .hero .copy .eyebrow { font-size: 11px; }
+  .hero h1 { font-size: clamp(34px, 10vw, 48px); max-width: 14ch; }
+  .hero .copy > div { gap: 20px !important; }
+  .hero .lede { font-size: 15px; line-height: 1.5; max-width: 34ch; }
+  .hero .actions { gap: 10px; }
+  .hero .actions .btn { padding: 12px 18px; font-size: 13px; }
+  .hero .photo { position: absolute; inset: 0; width: auto; height: auto; }
+  .hero-slide-shade { background: linear-gradient(0deg, rgba(0,0,0,.8), rgba(0,0,0,.35) 45%, rgba(0,0,0,.55)); }
+  .hero-slide-footer { bottom: 34px; gap: 14px; }
+  .hero-slide-caption a { font-size: 20px; }
+  .hero-slide-count { font-size: 10px; }
+  .hero-slide-controls button { width: 34px; height: 34px; }
+  .hero-slide-progress { padding-bottom: 14px; }
   .acc .body { padding-left: 0; }
   .grid-2, .grid-3, .steps { grid-template-columns: 1fr; }
   .contact, .why, .cta-band { grid-template-columns: 1fr; }
