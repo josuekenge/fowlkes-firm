@@ -835,3 +835,16 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   #families .steps .h3 { font-size: 14px; line-height: 1.2; }
   #families .steps p { font-size: 12px !important; line-height: 1.4; }
 }
+
+/* phones: NIL "Every opportunity" feature, image left and copy right instead of stacked */
+@media (max-width: 600px) {
+  #record.nil-feature { grid-template-columns: 124px minmax(0, 1fr); gap: 18px; align-items: start; padding-top: 36px; padding-bottom: 36px; }
+  #record .nil-photo { order: -1; background: transparent; }
+  #record .nil-feature-copy { order: 0; gap: 10px; }
+  #record .nil-photo img { aspect-ratio: 3 / 4; max-height: none; }
+  #record .nil-photo figcaption { padding: 6px 0 0; font-size: 8.5px; letter-spacing: .08em; line-height: 1.3; background: transparent; }
+  #record .nil-feature-copy .eyebrow { font-size: 10px; }
+  #record .nil-feature-copy .h2 { font-size: 22px; line-height: 1.1; }
+  #record .nil-feature-copy p { font-size: 14px; line-height: 1.45; }
+  #record .nil-feature-copy .link { font-size: 11px; }
+}
