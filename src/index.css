@@ -656,6 +656,40 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .story .index li { flex-basis: 100%; }
   .story .ctrls .btn { display: none; }
 }
+/* phones: compact clients section, portrait beside the stats, index as a thumbnail row */
+@media (max-width: 600px) {
+  .story { gap: 20px; padding-top: 40px; padding-bottom: 40px; }
+  .story .head { gap: 12px; align-items: flex-end; flex-wrap: nowrap; }
+  .story .head .h2 { font-size: 28px; }
+  .story .head .eyebrow { font-size: 10px; }
+  .story .count { display: none; }
+  .story .ctrls { gap: 6px; }
+  .story .ctrls button { width: 36px; height: 36px; font-size: 15px; }
+  .story .chapter { gap: 14px; }
+  .story .portrait { grid-column: span 5; }
+  .story .portrait img { aspect-ratio: 3 / 4; height: 100%; }
+  .story .copy { grid-column: span 7; gap: 12px; padding: 0; justify-content: flex-start; }
+  .story .lead { gap: 10px; }
+  .story .big { gap: 8px; }
+  .story .big .v { font-size: 44px; }
+  .story .big.word .v { font-size: 28px; }
+  .story .big.word { gap: 4px; }
+  .story .big .l { font-size: 9px; max-width: none; }
+  .story .two { gap: 10px; }
+  .story .two dt { font-size: 20px; }
+  .story .two dd { font-size: 8px; letter-spacing: .1em; }
+  .story .who { gap: 6px; padding-top: 10px; }
+  .story .idx { font-size: 9px; }
+  .story .name { font-size: 22px; }
+  .story .line { font-size: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .story .index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .story .index li { border: 0; }
+  .story .index button { display: flex; flex-direction: column; align-items: stretch; gap: 6px; padding: 0; text-align: left; }
+  .story .index .t { align-items: flex-start; text-align: left; }
+  .story .index .n, .story .index .s { display: none; }
+  .story .index img { width: 100%; height: auto; aspect-ratio: 1; }
+  .story .index .nm { font-size: 12px; line-height: 1.2; }
+}
 
 /* home: practice areas as a card grid (never a single stacked column) */
 .practice-home { display: flex; flex-direction: column; gap: 40px; }
