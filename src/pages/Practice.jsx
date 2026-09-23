@@ -194,20 +194,22 @@ export default function Practice() {
               <h2 className="h2" style={{ fontSize: 40 }}>Client catalog</h2>
               <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link">The full roll on @fowlkesfirm →</a>
             </div>
-            <div className="catalog">
+            <div className="cgrid" data-testid="client-grid">
               {clientCatalog.map(([name, role, ig, cred]) => (
-                <div key={name} className="c">
-                  <a className="name" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer">{name}</a>
+                <a key={name} className="ct" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer" aria-label={name}>
+                  <span className="img">
+                    {clientImage[ig] && <img src={clientImage[ig].src} alt="" loading="lazy" />}
+                    <span className="cred">{cred}</span>
+                  </span>
+                  <span className="name">{name}</span>
                   <span className="role">{role}</span>
-                  <span className="cred">{cred}</span>
-                </div>
+                </a>
               ))}
-              <div className="c more">
-                <span className="name">and 30+ more</span>
-                <span className="role">Producers, artists, writers</span>
-                <Link to="/clients" className="link" style={{ alignSelf: 'flex-start' }}>All clients →</Link>
-              </div>
             </div>
+            <Link to="/clients" className="cgrid-more">
+              <span className="k">And 30+ more</span>
+              <span className="v">View all clients <span aria-hidden="true">→</span></span>
+            </Link>
           </section>
         </>
       )}

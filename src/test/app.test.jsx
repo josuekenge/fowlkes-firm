@@ -140,6 +140,17 @@ describe('practice pages', () => {
     expect(screen.getByRole('navigation', { name: 'Practice areas' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument()
   })
+  it('music page client catalog is a 16-tile image grid plus a view-all link', () => {
+    at('/practice/music-law')
+    const grid = screen.getByTestId('client-grid')
+    const tiles = grid.querySelectorAll('a.ct')
+    expect(tiles.length).toBe(16)
+    for (const t of tiles) {
+      expect(t.getAttribute('href')).toMatch(/^https:\/\/www\.instagram\.com\//)
+      expect(t.querySelector('img')).not.toBeNull()
+    }
+    expect(screen.getByRole('link', { name: /View all clients/ })).toHaveAttribute('href', '/clients')
+  })
   it('NIL page shows the launch note and the three-step section', () => {
     at('/practice/nil-college-sports-law')
     expect(screen.getByText(/Dedicated exclusively to representing college athletes/)).toBeInTheDocument()
