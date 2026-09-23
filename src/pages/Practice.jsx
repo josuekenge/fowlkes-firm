@@ -78,7 +78,7 @@ export default function Practice() {
   // The music-law slideshow is the one exception (it shows every cover). k-prefixed ids are Karl's account.
   const K = (...ns) => ns.map((n) => karl.find((x) => x.n === n)).filter(Boolean)
   // Higgsfield-generated image: no Instagram link, and labelled on the tile like the NIL illustrations.
-  const AI_BOARDROOM = { n: 'ai-boardroom', ai: true, src: '/images/fractional-boardroom-tile.jpg', title: 'Illustration of outside counsel reviewing documents with a client in a boardroom' }
+  const AI_BOARDROOM = { n: 'ai-boardroom', ai: true, src: '/images/fractional-attorney-tile.jpg', title: 'Illustration of an attorney in a suit reviewing a contract with a colleague' }
   const sets = {
     'music-law': { hero: pick('43', '10', '64', '03', '05'), band: [] },
     'nil-college-sports-law': { hero: [], band: [] },

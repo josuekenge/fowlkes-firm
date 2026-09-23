@@ -151,14 +151,14 @@ describe('practice pages', () => {
     }
     expect(screen.getByRole('link', { name: /View all clients/ })).toHaveAttribute('href', '/clients')
   })
-  it('fractional GC header swaps the Paris photo for a labelled AI boardroom tile', () => {
+  it('fractional GC header swaps the Paris photo for a labelled AI attorney tile', () => {
     const { container } = at('/practice/fractional-general-counsel')
     const tiles = container.querySelectorAll('.phero .collage a')
     expect(tiles.length).toBe(5)
     const srcs = [...tiles].map((a) => a.querySelector('img').getAttribute('src'))
     expect(srcs).not.toContain('/images/karl/17-Cu7EG14LEsu.jpg')
     const ai = container.querySelector('.phero .collage a.ai-tile')
-    expect(ai.querySelector('img')).toHaveAttribute('src', '/images/fractional-boardroom-tile.jpg')
+    expect(ai.querySelector('img')).toHaveAttribute('src', '/images/fractional-attorney-tile.jpg')
     expect(ai).not.toHaveAttribute('href')
     expect(ai).toHaveTextContent('AI illustration')
   })
