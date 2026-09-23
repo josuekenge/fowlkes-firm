@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { roster, plaques, creditsWall, firm } from '../data/site.js'
 import { headliners, ledger, alsoCredited, creditSummary } from '../data/credits.js'
+import CreditsGallery from '../components/CreditsGallery.jsx'
 import { log } from '../lib/log.js'
 import { clientWall, plaques as plaqueShots, clientImage } from '../data/gallery.js'
 import { Grid } from '../components/Gallery.jsx'
@@ -118,16 +119,7 @@ export default function Clients() {
             <div><dt>{creditsWall.length}</dt><dd>Marquee artists credited</dd></div>
           </dl>
 
-          <ol className="cl-feature" aria-label="Headline credits">
-            {headliners.map((h) => (
-              <li key={h.artist + h.record}>
-                <div className="stat"><span className="v">{h.stat}</span><span className="l">{h.statLabel}</span></div>
-                <span className="artist">{h.artist}</span>
-                <span className="record">{h.record}</span>
-                <span className="by">By {h.clients.join(', ')}</span>
-              </li>
-            ))}
-          </ol>
+          <CreditsGallery items={headliners} />
 
           <ul className={`cl-list${allCredits ? ' open' : ''}`} id="more-credits" aria-label="More credits">
             {ledger.map((r) => (

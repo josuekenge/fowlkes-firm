@@ -3,14 +3,15 @@
 // verified for the practice-page slideshow (RIAA, Billboard 200, Recording Academy). Nothing new
 // is claimed here. Artists with no record or client on file stay in `alsoCredited`, name only.
 
-// Headliners: the six strongest verified results, led by the number.
+// Headliners: the six strongest verified results, led by the number. Shown as a gallery of the actual
+// covers and plaques the firm posted (never artist photos: those are licensed and imply endorsement).
 export const headliners = [
-  { artist: 'Lil Baby', stat: '7×', statLabel: 'RIAA Platinum', record: 'My Turn', clients: ['Section 8', 'Noah Pettigrew', 'Young TN'] },
-  { artist: 'Drake', stat: '#1', statLabel: 'Billboard 200', record: 'Honestly, Nevermind (intro)', clients: ['Kid Masterpiece'] },
-  { artist: 'PARTYNEXTDOOR & Drake', stat: '#1', statLabel: 'Billboard 200', record: '$ome $exy $ongs 4 U (five tracks)', clients: ['Kid Masterpiece'] },
-  { artist: 'Nas', stat: 'Grammy', statLabel: 'Best Rap Album', record: "King's Disease", clients: ['Corbett'] },
-  { artist: 'Polo G ft Juice WRLD', stat: '4×', statLabel: 'RIAA Platinum', record: 'Flex', clients: ['Corbett'] },
-  { artist: 'Lil Durk', stat: '2×', statLabel: 'RIAA Platinum', record: '7220', clients: ['DMac'] },
+  { artist: 'Lil Baby', stat: '7×', statLabel: 'RIAA Platinum', record: 'My Turn', clients: ['Section 8', 'Noah Pettigrew', 'Young TN'], kind: 'Plaque, awarded at 3×', src: '/images/karl/37-CNX9gpWDrWf.jpg' },
+  { artist: 'Drake', stat: '#1', statLabel: 'Billboard 200', record: 'Honestly, Nevermind (intro)', clients: ['Kid Masterpiece'], kind: 'Album cover', src: '/images/ig/25-CfEmyUsrv7m.jpg' },
+  { artist: 'PARTYNEXTDOOR & Drake', stat: '#1', statLabel: 'Billboard 200', record: '$ome $exy $ongs 4 U (five tracks)', clients: ['Kid Masterpiece'], kind: 'Album cover', src: '/images/ig/10-DGO44mBMOJ_.jpg' },
+  { artist: 'Nas', stat: 'Grammy', statLabel: 'Best Rap Album', record: "King's Disease", clients: ['Corbett'], kind: 'Album cover', src: '/images/ig/64-CEaKOOaD2Bh.jpg' },
+  { artist: 'Polo G ft Juice WRLD', stat: '4×', statLabel: 'RIAA Platinum', record: 'Flex', clients: ['Corbett'], kind: 'The plaque', src: '/images/ig/06-DM0LkKrM4nU.jpg' },
+  { artist: 'Lil Durk', stat: '2×', statLabel: 'RIAA Platinum', record: '7220', clients: ['DMac'], kind: 'Album cover', src: '/images/ig/36-CbsnvkDriTg.jpg' },
 ]
 
 // The rest of the wall, each with the record and the client behind it.
