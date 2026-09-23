@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { roster, plaques, creditsWall, firm } from '../data/site.js'
+import { headliners, ledger, alsoCredited, creditSummary } from '../data/credits.js'
 import { log } from '../lib/log.js'
 import { clientWall, plaques as plaqueShots, clientImage } from '../data/gallery.js'
 import { Grid } from '../components/Gallery.jsx'
@@ -25,6 +26,8 @@ export default function Clients() {
     return !s || name.toLowerCase().includes(s) || with_.some((w) => w.toLowerCase().includes(s)) || note.toLowerCase().includes(s)
   })
   const total = Object.values(roster).reduce((n, a) => n + a.length, 0)
+
+  const [allCredits, setAllCredits] = useState(false)
 
   function pick(key) { setTab(key); log.info('clients tab', { tab: key }) }
 
@@ -102,13 +105,45 @@ export default function Clients() {
         <a href={firm.social.instagram} target="_blank" rel="noreferrer" className="link" style={{ alignSelf: 'flex-start' }}>The full roll, on @fowlkesfirm →</a>
       </section>
 
-      <section id="credits" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-          <h2 className="h2">Credits their work reached</h2>
-          <span className="eyebrow" style={{ maxWidth: 360, textAlign: 'right' }}>Records produced, co-produced or written by Fowlkes Firm clients</span>
-        </div>
-        <div className="wall">
-          {creditsWall.map((n, i) => <span key={n}>{n}{i < creditsWall.length - 1 && <span className="dot"> · </span>}</span>)}
+      <section id="credits" className="credits-ledger" aria-labelledby="credits-title">
+        <div className="wrap cl-inner">
+          <div className="cl-head">
+            <span className="eyebrow">Credits their work reached</span>
+            <h2 className="h2" id="credits-title">{creditsWall.length} marquee artists. Our clients made the records.</h2>
+            <p>Produced, co-produced or written by Fowlkes Firm clients, with the result each record reached.</p>
+          </div>
+
+          <dl className="cl-summary">
+            {creditSummary.map(([v, l]) => <div key={l}><dt>{v}</dt><dd>{l}</dd></div>)}
+            <div><dt>{creditsWall.length}</dt><dd>Marquee artists credited</dd></div>
+          </dl>
+
+          <ol className="cl-feature" aria-label="Headline credits">
+            {headliners.map((h) => (
+              <li key={h.artist + h.record}>
+                <div className="stat"><span className="v">{h.stat}</span><span className="l">{h.statLabel}</span></div>
+                <span className="artist">{h.artist}</span>
+                <span className="record">{h.record}</span>
+                <span className="by">By {h.clients.join(', ')}</span>
+              </li>
+            ))}
+          </ol>
+
+          <ul className={`cl-list${allCredits ? ' open' : ''}`} id="more-credits" aria-label="More credits">
+            {ledger.map((r) => (
+              <li key={r.artist + r.record}>
+                <span className="artist">{r.artist}</span>
+                <span className="record">{r.record}{r.note && <em> · {r.note}</em>}</span>
+                <span className="by">{r.clients.join(', ')}</span>
+              </li>
+            ))}
+          </ul>
+
+          <button type="button" className="cl-more" aria-expanded={allCredits} aria-controls="more-credits" onClick={() => { setAllCredits((v) => !v); log.info('clients credits toggle', { open: !allCredits }) }}>
+            {allCredits ? 'Show fewer credits' : `Show all ${ledger.length} credits`}
+          </button>
+
+          <p className="cl-also"><span>Also on the wall</span> {alsoCredited.join(' · ')}</p>
         </div>
       </section>
 

@@ -923,3 +923,65 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .seg button { flex-direction: column; gap: 3px; min-height: 64px; padding: 8px 6px; font-size: 9.5px; letter-spacing: .1em; line-height: 1.25; }
   .seg button .n { font-size: 17px; }
 }
+
+/* clients page: credits as a ledger (headline results first, then every record and the client behind it) */
+.credits-ledger { background: var(--ink); color: #fff; border-bottom: 1px solid var(--ink); scroll-margin-top: 90px; }
+.cl-inner { display: flex; flex-direction: column; gap: 40px; padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); }
+.credits-ledger .eyebrow { color: #b8b8b8; }
+.cl-head { display: flex; flex-direction: column; gap: 14px; max-width: 880px; }
+.cl-head .h2 { color: #fff; font-size: clamp(34px, 4vw, 56px); line-height: 1.05; }
+.cl-head p { margin: 0; font-size: 18px; line-height: 1.5; color: #cfcfcf; max-width: 620px; }
+.cl-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 1px solid #3a3a3a; border-bottom: 1px solid #3a3a3a; }
+.cl-summary > div { padding: 22px 24px 22px 0; border-right: 1px solid #3a3a3a; }
+.cl-summary > div + div { padding-left: 24px; }
+.cl-summary > div:last-child { border-right: 0; }
+.cl-summary dt { font-family: var(--display); font-weight: 500; font-size: clamp(40px, 4.4vw, 64px); line-height: .95; }
+.cl-summary dd { margin: 8px 0 0; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #b8b8b8; line-height: 1.4; }
+.cl-feature { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #3a3a3a; border: 1px solid #3a3a3a; }
+.cl-feature li { display: flex; flex-direction: column; gap: 6px; padding: 28px 24px; background: var(--ink); }
+.cl-feature .stat { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.cl-feature .stat .v { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 4.6vw, 68px); line-height: .9; letter-spacing: -.02em; }
+.cl-feature .stat .l { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #b8b8b8; line-height: 1.35; }
+.cl-feature .artist { font-family: var(--display-sm); font-weight: 500; font-size: 24px; line-height: 1.15; }
+.cl-feature .record { font-size: 16px; font-style: italic; color: #d9d9d9; }
+.cl-feature .by { margin-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; }
+.cl-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+.cl-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'artist by' 'record record'; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid #2c2c2c; }
+.cl-list .artist { grid-area: artist; font-family: var(--display-sm); font-weight: 500; font-size: 21px; line-height: 1.2; }
+.cl-list .record { grid-area: record; font-size: 15px; color: #cfcfcf; }
+.cl-list .record em { font-style: normal; color: #fff; }
+.cl-list .by { grid-area: by; align-self: baseline; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; text-align: right; }
+.cl-more { display: none; align-self: stretch; justify-content: center; align-items: center; min-height: 48px; border: 1px solid #5a5a5a; background: transparent; color: #fff; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+.cl-more:hover { border-color: #fff; }
+.cl-more:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.cl-also { margin: 0; font-size: 15px; color: #cfcfcf; }
+.cl-also span { margin-right: 10px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #9a9a9a; }
+@media (max-width: 1100px) {
+  .cl-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .cl-inner { gap: 24px; padding-top: 40px; padding-bottom: 40px; }
+  .cl-head { gap: 8px; }
+  .cl-head .h2 { font-size: 26px; }
+  .cl-head p { font-size: 14px; }
+  .cl-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cl-summary > div { padding: 14px 6px 14px 0; }
+  .cl-summary > div + div { padding-left: 8px; }
+  .cl-summary dt { font-size: 28px; }
+  .cl-summary dd { font-size: 7.5px; letter-spacing: .06em; margin-top: 5px; }
+  .cl-feature li { gap: 3px; padding: 16px 12px; }
+  .cl-feature .stat { flex-direction: column; align-items: flex-start; gap: 3px; margin-bottom: 6px; }
+  .cl-feature .stat .v { font-size: 34px; }
+  .cl-feature .stat .l { font-size: 8.5px; letter-spacing: .1em; }
+  .cl-feature .artist { font-size: 16px; }
+  .cl-feature .record { font-size: 12.5px; }
+  .cl-feature .by { font-size: 8.5px; letter-spacing: .08em; margin-top: 4px; }
+  .cl-list { grid-template-columns: 1fr; }
+  .cl-list li { padding: 11px 0; gap: 2px 10px; }
+  .cl-list .artist { font-size: 16px; }
+  .cl-list .record { font-size: 12.5px; }
+  .cl-list .by { font-size: 8.5px; letter-spacing: .08em; }
+  .cl-also { font-size: 13px; }
+  .cl-list:not(.open) li:nth-child(n + 6) { display: none; }
+  .cl-more { display: flex; }
+}
