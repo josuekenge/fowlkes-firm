@@ -71,6 +71,16 @@ export default function SpeakingStory() {
   const [openRef, openIn] = useReveal()
   const [routeRef, routeIn] = useReveal()
   const [abRef, abIn] = useReveal()
+  // Phones: the route is a swipeable row of story cards; this tracks which card is in view for the progress bar.
+  const [stop, setStop] = useState(0)
+  function onRouteScroll(e) {
+    const el = e.currentTarget
+    const card = el.firstElementChild
+    if (!card) return
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0
+    const k = Math.max(0, Math.min(route.length - 1, Math.round(el.scrollLeft / (card.getBoundingClientRect().width + gap))))
+    if (k !== stop) setStop(k)
+  }
 
   useEffect(() => { if (routeIn) log.info('speaking story: route revealed') }, [routeIn])
 
@@ -96,7 +106,11 @@ export default function SpeakingStory() {
           <span className="eyebrow">The route</span>
           <h3>Six stages, in order.</h3>
         </div>
-        <ol className="sp-line">
+        <div className="sp-story-bar" aria-hidden="true">
+          {route.map(([n], i) => <span key={n} className={i <= stop ? 'on' : ''} />)}
+          <em>{String(stop + 1).padStart(2, '0')} / {String(route.length).padStart(2, '0')}</em>
+        </div>
+        <ol className="sp-line" onScroll={onRouteScroll} aria-label="Speaking stages, 2021 to 2025">
           {route.map(([n, year, place, event, role], i) => (
             <li key={event} style={{ '--i': i }}>
               <span className="num">{n}</span>
