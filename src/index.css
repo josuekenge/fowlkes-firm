@@ -848,3 +848,11 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   #record .nil-feature-copy p { font-size: 14px; line-height: 1.45; }
   #record .nil-feature-copy .link { font-size: 11px; }
 }
+
+/* phones: footer compact, monogram left with address and links beside it (all pages) */
+@media (max-width: 600px) {
+  .footer { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; row-gap: 6px; align-items: center; padding-top: 22px; padding-bottom: 24px; }
+  .footer img { grid-row: 1 / span 2; height: 44px; }
+  .footer .addr { font-size: 12px; line-height: 1.35; }
+  .footer .links { gap: 14px; font-size: 10px; letter-spacing: .1em; }
+}
