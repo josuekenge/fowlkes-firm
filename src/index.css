@@ -730,3 +730,14 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .founder .copy .btn { min-height: 0; padding: 8px 14px; font-size: 10px; }
   .founder .copy .link { font-size: 10px; }
 }
+
+/* phones: quote section compact, small photo beside the byline */
+@media (max-width: 600px) {
+  .contact .quote { display: grid; grid-template-columns: 34% minmax(0, 1fr); gap: 16px; align-items: start; padding: 40px var(--gutter); }
+  .contact .quote p.q { grid-column: 1 / -1; font-size: 22px; line-height: 1.25; }
+  .contact .quote-portrait img { aspect-ratio: 1; transform: scale(1.6); transform-origin: 50% 62%; object-position: center 58%; }
+  .contact .quote > div { gap: 8px !important; min-width: 0; }
+  .contact .quote .who { font-size: 10px; letter-spacing: .1em; }
+  .contact .quote .link { font-size: 10px; }
+  .contact .quote .note { font-size: 11px; line-height: 1.4; padding-top: 8px; }
+}
