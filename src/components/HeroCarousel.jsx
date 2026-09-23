@@ -7,9 +7,22 @@ const slides = [
   { label: 'NIL & College Sports Law', image: '/images/hero-basketball-court.jpg', alt: 'Empty indoor basketball court', to: '/practice/nil-college-sports-law', focus: '55% top' },
   { label: 'Business & General Law', image: '/images/hero-business-candid-soul2.webp', alt: 'Founder reviewing business documents in her office', to: '/practice/business-entertainment-law' },
   { label: 'Entertainment Law', image: '/images/hero-athlete-contract-soul2.webp', alt: 'Basketball athlete signing an agreement with an advisor', to: '/practice/business-entertainment-law' },
-  { label: 'Fractional General Counsel', image: '/images/hero-fractional-spaced-soul2.webp', alt: 'Two colleagues reviewing documents across a conference table', to: '/practice/fractional-general-counsel', focus: '50% top' },
+  { label: 'Fractional General Counsel', image: '/images/hero-fractional-afro-soul2.webp', mobileImage: '/images/hero-fractional-mobile-soul2.webp', alt: 'Attorney seated in a wood-paneled law office, looking at the camera', to: '/practice/fractional-general-counsel', focus: '72% 30%' },
   { label: 'Of Counsel', image: '/images/hero-counsel-soul2.webp', alt: 'Attorneys reviewing documents in a conference room', to: '/practice/of-counsel' },
 ]
+
+// Phones (860px and narrower) can get their own portrait crop per slide via mobileImage.
+const PHONE = '(max-width: 860px)'
+function SlideImage({ item, className, decorative = false, priority = false }) {
+  const img = <img className={className} src={item.image} alt={decorative ? '' : item.alt} aria-hidden={decorative ? 'true' : undefined} style={{ objectPosition: item.focus || '78% top' }} fetchPriority={priority ? 'high' : undefined} />
+  if (!item.mobileImage) return img
+  return (
+    <picture className="hero-slide-picture">
+      <source media={PHONE} srcSet={item.mobileImage} />
+      {img}
+    </picture>
+  )
+}
 
 export default function HeroCarousel() {
   const [active, setActive] = useState(0)
@@ -40,8 +53,8 @@ export default function HeroCarousel() {
 
   return (
     <div className="photo hero-carousel" aria-label="Practice area photographs" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false) }}>
-      {previous !== null && <img className="hero-slide outgoing" src={slides[previous].image} alt="" aria-hidden="true" style={{ objectPosition: slides[previous].focus || '78% top' }} />}
-      <img className="hero-slide incoming" key={slide.image} src={slide.image} alt={slide.alt} style={{ objectPosition: slide.focus || '78% top' }} fetchPriority={active === 0 ? 'high' : undefined} />
+      {previous !== null && <SlideImage item={slides[previous]} className="hero-slide outgoing" decorative />}
+      <SlideImage key={slide.image} item={slide} className="hero-slide incoming" priority={active === 0} />
       <div className="hero-slide-shade" aria-hidden="true" />
       <div className="hero-slide-footer">
         <div className="hero-slide-caption">

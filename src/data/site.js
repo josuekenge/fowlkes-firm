@@ -23,6 +23,7 @@ export const stats = [
 export const practiceAreas = [
   {
     slug: 'music-law',
+    tab: 'Music',
     n: '01',
     title: 'Music Law',
     short: 'Artists, producers, songwriters, managers, labels and creative companies.',
@@ -46,6 +47,7 @@ export const practiceAreas = [
   },
   {
     slug: 'nil-college-sports-law',
+    tab: 'NIL & Sports',
     n: '02',
     title: 'NIL & College Sports Law',
     short: 'Student-athletes, collectives, brands and athletic programs.',
@@ -73,6 +75,7 @@ export const practiceAreas = [
   },
   {
     slug: 'business-entertainment-law',
+    tab: 'Business',
     n: '03',
     title: 'Business & General Entertainment Law',
     short: 'Entrepreneurs, creatives, production companies and entertainment businesses.',
@@ -98,6 +101,7 @@ export const practiceAreas = [
   },
   {
     slug: 'fractional-general-counsel',
+    tab: 'Fractional GC',
     n: '04',
     title: 'Fractional General Counsel',
     short: 'Outside General Counsel for startups, agencies, media and emerging brands.',
@@ -121,6 +125,7 @@ export const practiceAreas = [
   },
   {
     slug: 'of-counsel',
+    tab: 'Of Counsel',
     n: '05',
     title: 'Of Counsel',
     short: 'Partnering with law firms and in-house legal departments.',
@@ -206,24 +211,62 @@ export const karl = {
   instagram: 'https://www.instagram.com/esqfowlkes',
   education: 'Villanova University Charles Widger School of Law',
   bio: [
-    'Internationally recognized entertainment lawyer, music business professor and entrepreneur who has negotiated groundbreaking deals in the entertainment industries while remaining committed to disruption and new media.',
-    'Following a short stint in corporate law after law school, Karl boldly opened his own law practice, The Fowlkes Firm, and quickly became known for his advocacy for music producers, commitment to innovative deal structures for all creatives and education in the entertainment industry that has given creatives more business strategy tools. The firm’s clients include talent that have amassed billions of streams, RIAA certifications, Grammy awards and appreciation from the likes of Forbes, Rolling Stone, Business Insider, ESPN, Billboard and more.',
+    '**Internationally recognized entertainment lawyer**, **music business professor** and **entrepreneur** who has negotiated **groundbreaking deals** in the entertainment industries while remaining committed to disruption and new media.',
+    'Following a short stint in corporate law after law school, Karl boldly opened his own law practice, **The Fowlkes Firm**, and quickly became known for his **advocacy for music producers**, commitment to innovative deal structures for all creatives and education in the entertainment industry that has given creatives more business strategy tools. The firm’s clients include talent that have amassed **billions of streams**, **RIAA certifications**, **Grammy awards** and appreciation from the likes of Forbes, Rolling Stone, Business Insider, ESPN, Billboard and more.',
     'When not building businesses, Karl teaches at the Billboard-recognized Music Industry Program at Drexel University and at Rutgers Business School. His courses include Hip-Hop Evolution, Music Publishing, Contracts in the Music Industry, Artist Representation and Copyright Law.',
   ],
   recognition: [
-    ['Billboard', 'Top Music Attorney, 2023 and 2024'],
+    ['Billboard', 'Top Music Lawyers, 2023 and 2024'],
     ['Bloomberg Law', '40 Under 40'],
     ['Variety', 'Legal Impact Report 2021, Up Next'],
     ['ABC News Live', 'On AI songs that mimic artists, November 2023'],
     ['NJBIZ', '2026 Law Power List · 40 Under 40 · Leader in Law'],
     ['Boardroom', 'Black History Month Playmaker'],
-    ['HITS Daily Double', 'Noisemaker'],
+    ['HITS Daily Double', 'Noisemaker, 2021 · deals with 10K Projects, Internet Money and Warner Chappell\'s Section 8'],
+  ],
+  billboard: {
+    title: 'Billboard Top Music Lawyers',
+    years: [
+      ['2023', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/'],
+      ['2024', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2024-list/'],
+    ],
+    line: 'Named two years in a row to Billboard\'s annual list of the lawyers behind the music industry\'s biggest deals. Billboard Pro has also turned to Karl on how AI will change songwriting.',
+  },
+  ventures: [
+    ['The Fowlkes Firm', 'Founder & Managing Partner', 'Launched 2019. Entertainment, NIL and business law, based in Newark.'],
+    ['The Melody App', 'Co-founder', 'A music production network, launched with producers Hit-Boy and Corbett.'],
+    ['EVGLE', 'COO', 'Independent label behind Blxst, partnered with Red Bull Records. "Indie Strong."'],
+  ],
+  stages: [
+    ['2024', 'Riyadh, Saudi Arabia', 'XP Music Futures', 'Panelist · MDLBEAST'],
+    ['2024', 'Hamburg, Germany', 'Reeperbahn Festival', 'Wunderkinder talent scout'],
+    ['2023', 'Austin, Texas', 'SXSW', 'Speaker'],
+    ['2025', 'Brooklyn, New York', 'LIU Roc Nation School of Music, Sports & Entertainment', 'Fireside chat'],
+    ['2022', 'New York', 'CultureCon, presented by HBO Max', 'Featured speaker'],
+    ['2021', 'Podcast', 'Bloomberg Law, On The Merits', 'Guest on hip-hop artists and IP rights'],
+  ],
+  teachingStory: [
+    'Karl **teaches the business he practices**. He is a music business adjunct professor in the Music Industry Program at **Drexel University**, a program **recognized by Billboard**. His courses run from Hip-Hop Evolution and Music Publishing to Contracts in the Music Industry, Artist Representation and Copyright Law. At Drexel he also created **The Courtroom**, an interview series.',
+    'In fall 2026 he joined **Rutgers Business School**, teaching Management Skills to what he calls the next wave of students. Before that he taught at **Rowan University\'s College of Performing Arts**, and he has taken the same lessons to Southern University Law Center as a guest lecturer.',
+    '**The classroom and the deal table feed each other.** The contracts he negotiates for producers and athletes become the case studies, and what he teaches, like his **Think LOMO** framework, is what his clients check before they sign.',
+  ],
+  teaching: 'Drexel University, Music Industry Program · Rutgers Business School',
+  teachingPast: 'Rowan University, College of Performing Arts · guest lecturer at Southern University Law Center',
+  framework: ['Think LOMO', 'Length, Obligation, Money, Ownership. The four questions Karl tells every client to ask before signing.'],
+  outlets: ['ABC News', 'CNN', 'Billboard', 'Variety', 'Rolling Stone', 'Bloomberg Law', 'Complex', 'The Source', 'Okayplayer', 'Boardroom'],
+  features: [
+    ['ABC News Live', 'November 2023', 'AI songs that mimic popular artists raising alarms in the music industry', 'On air', 'https://abcnews.com/US/ai-songs-mimic-popular-artists-raising-alarms-music/story?id=104569841'],
+    ['CNN Business', 'April 2023', 'Universal Music Group calls AI music a "fraud"', 'Quoted', null],
+    ['Billboard Pro', 'December 2022', 'What happens to songwriters when AI can generate music?', 'Quoted', 'https://www.billboard.com/pro/ai-technology-will-change-how-music-written/'],
+    ['The Source', 'November 2021', 'Karl Fowlkes: A Music Business Savant', 'Profile', 'https://thesource.com/2021/11/29/karl-fowlkes-a-music-business-savant/'],
+    ['Boardroom', 'February 2023', 'Karl Fowlkes: Build & Transcend', 'Video interview', 'https://boardroom.tv/karl-fowlkes-black-history-month/'],
+    ['Okayplayer', null, 'What artists should know about signing their first record deal', 'Interview', 'https://www.okayplayer.com/originals/artists-signing-first-deal-lawyer-karl-fowlkes.html'],
   ],
   featuredIn: 'Okayplayer, Rolling Stone, Complex, Pigeons & Planes, Water & Music, Trapital, Variety, Bloomberg Law, NJBIZ, The Source, Songtrust, Boardroom, Billboard, NJ.com',
   origin: [
-    'Karl is a New Jersey native who grew up playing competitive basketball and, through friends interning at labels and working around artists, had a seat near the music industry before he ever had a law degree. He interned with the Brooklyn Nets and the New York Knicks, then earned his J.D. at Villanova.',
-    'By the time he finished law school he was already the lawyer his friends called. He helped an artist through a viral record, advised on royalties and distribution deals, and built relationships with A&Rs by telling everyone he met that he was going to be their attorney. After a stint as a global negotiator at Bloomberg, he launched The Fowlkes Firm in 2019.',
-    'He started it on purpose, and on his own. He did not believe the record labels and publishing companies stood for Black ownership and independent economics, so instead of working inside them he built a firm to sit across the table from them, based in Newark, and to give producers, artists and athletes the business tools that used to be reserved for the other side.',
+    'Karl is a **New Jersey native** who grew up playing competitive basketball and, through friends interning at labels and working around artists, had a seat near the music industry before he ever had a law degree. He interned with the **Brooklyn Nets** and the **New York Knicks**, then earned his **J.D. at Villanova**.',
+    'By the time he finished law school he was already **the lawyer his friends called**. He helped an artist through a viral record, advised on royalties and distribution deals, and built relationships with A&Rs by telling everyone he met that he was going to be their attorney. After a stint as a **global negotiator at Bloomberg**, he **launched The Fowlkes Firm in 2019**.',
+    'He started it on purpose, and on his own. He did not believe the record labels and publishing companies stood for **Black ownership and independent economics**, so instead of working inside them he built a firm to **sit across the table from them**, based in Newark, and to give producers, artists and athletes the business tools that used to be reserved for the other side.',
   ],
   quote: [
     'So many people view the music realm differently than the startup realm. I\'m just trying to bridge the gap.',
@@ -242,10 +285,10 @@ export const pressTimeline = [
     ['The Fowlkes Firm', 'Launches NIL & College Sports Law Practice', null],
   ]},
   { year: '2024', items: [
-    ['Billboard', 'Top Music Attorney, second consecutive year', null],
+    ['Billboard', 'Top Music Lawyers, second consecutive year', null],
   ]},
   { year: '2023', items: [
-    ['Billboard', 'Top Music Attorney', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/'],
+    ['Billboard', 'Top Music Lawyers', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/'],
     ['CNN', 'Quoted on Universal Music Group calling AI music a "fraud"', null],
     ['Boardroom', 'Black History Month Playmaker: "Build & Transcend"', 'https://boardroom.tv/karl-fowlkes-black-history-month/'],
   ]},

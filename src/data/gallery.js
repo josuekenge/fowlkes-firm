@@ -26,7 +26,7 @@ export const ig = [
   { n: '16', post: 'DEA5N0rxAtr', kind: 'plaque', cert: 'RIAA Gold · 500,000 units', stats: [['Gold', '500K units']], title: '41, Bent', sub: 'Gold · produced by Nate Rhoads · 2024', year: 2024, clients: ['naterhoads'] },
   { n: '17', post: 'CrLev0ossWK', kind: 'press', outlet: 'CNN Business', title: 'Universal Music Group calls AI music a "fraud"', sub: 'Karl quoted · April 2023', year: 2023 },
   { n: '18', post: 'CpOHPlrLVbL', kind: 'press', outlet: 'Boardroom', title: '2023 Black History Month Playmakers', sub: 'February 2023', year: 2023 },
-  { n: '19', post: 'CoVqEXqL7mi', kind: 'press', outlet: 'CNN', title: 'Karl on AI and the music industry', sub: 'Live segment · February 2023', year: 2023 },
+  { n: '19', post: 'CoVqEXqL7mi', fit: 'contain', kind: 'press', outlet: 'CNN', title: 'Karl on AI and the music industry', sub: 'Live segment · February 2023', year: 2023 },
   { n: '20', post: 'Cm7ZttVJ1po', kind: 'plaque', cert: 'RIAA 4× Platinum · 4,000,000 units', stats: [['4×', 'Platinum'], ['#8', 'Billboard Hot 100'], ['#1', 'Hot Rap Songs']], title: 'Lil Uzi Vert, Just Wanna Rock', sub: '1M units · produced by Synthetic · 2023', year: 2023, clients: ['iamsynthetic'] },
   { n: '21', post: 'CmFLZ2pJwLd', kind: 'press', outlet: 'Billboard Pro', title: 'What happens to songwriters when AI can generate music?', sub: 'December 2022', year: 2022 },
   { n: '22', post: 'CiIo9sYLGFd', kind: 'event', title: 'CultureCon, presented by HBO Max', sub: 'Featured speaker · New York · 2022', year: 2022 },

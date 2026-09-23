@@ -6,7 +6,9 @@ import { log } from '../lib/log.js'
 // leads with the verified number. Arrows, scroll, drag and swipe all move it; the piece in focus is lit.
 const pad = (x) => String(x).padStart(2, '0')
 
-export default function CreditsGallery({ items }) {
+// Desktop: after the last work, the track's leftover space holds a closing panel (every artist on
+// the wall, plus next steps) instead of an empty wall.
+export default function CreditsGallery({ items, names = [], onMore }) {
   const track = useRef(null)
   const [i, setI] = useState(0)
   const n = items.length
@@ -62,6 +64,19 @@ export default function CreditsGallery({ items }) {
             </figure>
           </li>
         ))}
+        {names.length > 0 && (
+          <li className="cg-end" aria-label="Every artist on the wall">
+            <span className="cg-end-k">Every artist on the wall</span>
+            <p className="cg-end-t">{names.length} marquee artists.</p>
+            <p className="cg-end-names">
+              {names.map((a, k) => <span key={a}>{a}{k < names.length - 1 && <span className="dot" aria-hidden="true"> · </span>}</span>)}
+            </p>
+            <div className="cg-end-actions">
+              {onMore && <button type="button" className="link" onClick={onMore}>See every credit ↓</button>}
+              <a href="/#contact" className="btn light">Start a conversation</a>
+            </div>
+          </li>
+        )}
       </ol>
 
       <div className="cg-rail" aria-hidden="true"><span style={{ width: `${((i + 1) / n) * 100}%` }} /></div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { roster, plaques, creditsWall, firm } from '../data/site.js'
 import { headliners, ledger, alsoCredited, creditSummary } from '../data/credits.js'
@@ -28,9 +28,10 @@ export default function Clients() {
   })
   const total = Object.values(roster).reduce((n, a) => n + a.length, 0)
 
+  const listRef = useRef(null)
   const [allCredits, setAllCredits] = useState(false)
 
-  function pick(key) { setTab(key); log.info('clients tab', { tab: key }) }
+  function pick(key) { setTab(key); if (listRef.current) listRef.current.scrollTop = 0; log.info('clients tab', { tab: key }) }
 
   return (
     <main>
@@ -69,7 +70,7 @@ export default function Clients() {
       </div>
 
       <section className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 32, paddingTop: 48, paddingBottom: 48 }}>
-        <Grid items={clientWall} cols={6} />
+        <Grid items={clientWall} cols={6} className="record-wall" />
       </section>
 
       <section id="roster" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
@@ -89,9 +90,9 @@ export default function Clients() {
           </div>
         </div>
         <p className="roster-blurb">{groups.find((g) => g[0] === tab)[2]}</p>
-        <div className="roster">
+        <div className="roster" ref={listRef} data-testid="roster-list">
           {list.map(([name, ig, with_, note], i) => (
-            <article key={name} className="rcard">
+            <article key={name} className={`rcard${clientImage[ig] ? '' : ' no-cover'}`}>
               {clientImage[ig] ? <img className="cover" src={clientImage[ig].src} alt={clientImage[ig].title} loading="lazy" /> : <span className="idx">{String(i + 1).padStart(2, '0')}</span>}
               <div className="body">
                 <a className="name" href={`https://www.instagram.com/${ig}`} target="_blank" rel="noreferrer">{name}</a>
@@ -119,7 +120,7 @@ export default function Clients() {
             <div><dt>{creditsWall.length}</dt><dd>Marquee artists credited</dd></div>
           </dl>
 
-          <CreditsGallery items={headliners} />
+          <CreditsGallery items={headliners} names={creditsWall} onMore={() => { setAllCredits(true); log.info('clients credits open from gallery'); requestAnimationFrame(() => document.getElementById('more-credits')?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }} />
 
           <ul className={`cl-list${allCredits ? ' open' : ''}`} id="more-credits" aria-label="More credits">
             {ledger.map((r) => (

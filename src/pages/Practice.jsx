@@ -20,7 +20,7 @@ function Switcher({ slug }) {
     <nav className="pswitch wrap" aria-label="Practice areas">
       {practiceAreas.map((a) => (
         <Link key={a.slug} to={`/practice/${a.slug}`} className={a.slug === slug ? 'on' : ''} aria-current={a.slug === slug ? 'page' : undefined}>
-          <span className="n">{a.n}</span><span className="t">{a.title}</span>
+          <span className="n">{a.n}</span><span className="t">{a.title}</span><span className="ts">{a.tab}</span>
         </Link>
       ))}
     </nav>
@@ -114,7 +114,7 @@ export default function Practice() {
             {collage.map((it) => (
               it.ai
                 ? <a key={it.n} className="ai-tile"><img src={it.src} alt={it.title} loading="eager" /><span className="ai-tag">AI illustration</span></a>
-                : <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
+                : <a key={it.n} className={it.fit === 'contain' ? 'fit-contain' : undefined} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
             ))}
           </div>
         )}
@@ -145,7 +145,7 @@ export default function Practice() {
           <p style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)' }}>{area.intro}</p>
           {area.extra && <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--muted)' }}>{area.extra}</p>}
         </div>
-        <div className="grid-3">
+        <div className="grid-3 handles" data-testid="handles-grid">
           {area.handles.map(([t, d]) => (
             <div key={t} className="card"><h3 className="h3">{t}</h3><p>{d}</p></div>
           ))}
@@ -246,10 +246,10 @@ export default function Practice() {
             </div>
           </section>
 
-          <section className="band">
+          <section className="band band-why" id="why-nil">
             <div className="copy">
               <span className="eyebrow">Why us</span>
-              <h2 className="h2" style={{ fontSize: 44 }}>{area.why[0]}</h2>
+              <h2 className="h2">{area.why[0]}</h2>
               <p>{area.why[1]}</p>
             </div>
             <figure className="nil-photo">

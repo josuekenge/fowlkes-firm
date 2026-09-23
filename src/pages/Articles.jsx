@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ig, karl } from '../data/gallery.js'
 
 const photo = (id) => id.startsWith('/') ? id : [...ig, ...karl].find((item) => item.n === id)?.src
@@ -35,17 +36,6 @@ const collections = [
     stories: [
       story('April 2026', 'Firm notice', 'A notice about accounts impersonating the firm', 'The firm shares guidance on recognizing unauthorized messages and payment requests.', 'https://www.instagram.com/p/DWrAxPLkRBd/', '01'),
       story('January 4, 2026', 'Practice launch', 'The Fowlkes Firm Launches NIL & College Sports Law Practice', 'A new practice focused on college athletes, families and NIL decisions.', 'https://www.fowlkesfirm.com/blog/2026/1/4/the-fowlkes-firm-launches-name-image-amp-likeness-nil-amp-college-sports-law-practice', '02'),
-    ],
-  },
-  {
-    id: 'deals', label: 'Client deals', intro: 'Selected releases, credits and milestones shared by the firm.',
-    stories: [
-      story('2026', 'Client work', 'Alex Lustig & DRTWRK · New production credits', 'Recent client production work highlighted by the firm.', 'https://www.instagram.com/p/DYstmWikW06/', '03'),
-      story('2026', 'Client work', 'Hollywood Cole · New production credits', 'A new chapter of releases from the firm’s producer client.', 'https://www.instagram.com/p/DV9NVMTEW4V/', '04'),
-      story('2025', 'Client work', 'PARTYNEXTDOOR & Drake · $ome $exy $ongs 4 U', 'Kid Masterpiece contributed production to five tracks on the project.', 'https://www.instagram.com/p/DGO44mBMOJ_/', '10'),
-      story('2025', 'Milestone', 'Polo G ft Juice WRLD · Flex', 'A multiplatinum milestone for the record co-produced by Corbett.', 'https://www.instagram.com/p/DM0LkKrM4nU/', '06'),
-      story('2022', 'Client work', 'Drake · Honestly, Nevermind', 'Kid Masterpiece contributed to the album’s intro and “Flight’s Booked.”', 'https://www.instagram.com/p/CfEmyUsrv7m/', '25'),
-      story('2020', 'Client work', 'Nas · King’s Disease', 'Corbett contributed production to the Grammy-winning album.', 'https://www.instagram.com/p/CEaKOOaD2Bh/', '64'),
     ],
   },
 ]
@@ -89,6 +79,9 @@ export default function Articles() {
             <div className="story-list">{collection.stories.map((item) => <StoryCard key={item.href} item={item} />)}</div>
           </section>
         ))}
+        <p className="articles-clients-note" data-testid="clients-note">
+          Looking for client releases and certifications? <Link to="/clients">See the Clients page →</Link>
+        </p>
       </div>
     </main>
   )

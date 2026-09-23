@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { firm, stats, practiceAreas, karl } from '../data/site.js'
-import { Plus } from '../components/Layout.jsx'
+import { Rich } from '../lib/rich.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import TopClients from '../components/TopClients.jsx'
 import HeroCarousel from '../components/HeroCarousel.jsx'
@@ -59,24 +59,20 @@ export default function Home() {
       </div>
 
       {/* PRACTICE: snippet only, each opens its own page */}
-      <section id="practice" className="section wrap rule side">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <section id="practice" className="section wrap rule practice-home">
+        <div className="practice-home-head">
           <h2 className="h2">Practice areas</h2>
-          <p style={{ fontSize: 19, color: 'var(--ink-2)' }}>Business-minded, industry-specific counsel. Sophisticated dealmaking blended with practical strategy. Each area opens to its own page with the work behind it.</p>
+          <p>Business-minded, industry-specific counsel. Sophisticated dealmaking blended with practical strategy. Each area opens to its own page with the work behind it.</p>
         </div>
-        <div className="acc">
+        <div className="practice-grid" data-testid="practice-grid">
           {practiceAreas.map((a) => (
-            <details key={a.slug}>
-              <summary>
-                <span className="t"><span className="n">{a.n}</span><span className="name">{a.title}</span></span>
-                <Plus />
-              </summary>
-              <div className="body">
-                <p>{a.short}</p>
-                <span className="tags">{a.handles.slice(0, 4).map((h) => h[0]).join(' · ')}</span>
-                <Link to={`/practice/${a.slug}`} className="link" style={{ alignSelf: 'flex-start' }}>Know more about {a.title} →</Link>
-              </div>
-            </details>
+            <Link key={a.slug} to={`/practice/${a.slug}`} className="practice-card">
+              <span className="n">{a.n}</span>
+              <span className="name">{a.title}</span>
+              <span className="short">{a.short}</span>
+              <span className="tags">{a.handles.slice(0, 3).map((h) => h[0]).join(' · ')}</span>
+              <span className="link">Know more →</span>
+            </Link>
           ))}
         </div>
       </section>
@@ -89,7 +85,7 @@ export default function Home() {
         <div className="copy">
           <span className="eyebrow">{karl.title}</span>
           <h2 className="h2">{karl.name}</h2>
-          <p>{karl.bio[0]}</p>
+          <p><Rich text={karl.bio[0]} /></p>
           <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
             <Link to="/about" className="btn">About</Link>
             <a href={karl.linkedin} target="_blank" rel="noreferrer" className="link">LinkedIn</a>

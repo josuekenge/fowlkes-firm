@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, fireEvent, within, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
@@ -54,10 +56,236 @@ describe('home', () => {
   })
 })
 
+describe('home practice areas are a card grid, not a stacked accordion', () => {
+  it('renders all five areas as sibling cards inside one grid with no <details>', () => {
+    const { container } = at('/')
+    const grid = screen.getByTestId('practice-grid')
+    const cards = grid.querySelectorAll(':scope > a.practice-card')
+    expect(cards).toHaveLength(practiceAreas.length)
+    expect(container.querySelector('#practice details')).toBeNull()
+    for (const a of practiceAreas) expect(grid.querySelector(`a[href="/practice/${a.slug}"]`)).not.toBeNull()
+  })
+  it('the grid stylesheet keeps at least two columns at every breakpoint', () => {
+    const css = readFileSync(resolve(process.cwd(), 'src/index.css'), 'utf8')
+    const cols = [...css.matchAll(/\.practice-grid \{[^}]*grid-template-columns: repeat\((\d), minmax/g)].map((m) => Number(m[1]))
+    expect(cols).toEqual([4, 2, 2])
+  })
+})
+
+describe('about page hidden gems', () => {
+  it('names The Melody App as a co-founded venture alongside the firm and EVGLE', () => {
+    at('/about')
+    const v = screen.getByTestId('ventures')
+    expect(within(v).getByText('The Melody App')).toBeInTheDocument()
+    expect(within(v).getByText('Co-founder')).toBeInTheDocument()
+    expect(within(v).getByText('EVGLE')).toBeInTheDocument()
+  })
+  it('highlights the international stages, including Riyadh and Hamburg', () => {
+    at('/about')
+    const s = screen.getByTestId('stages')
+    expect(within(s).getByText('Riyadh, Saudi Arabia')).toBeInTheDocument()
+    expect(within(s).getByText('Hamburg, Germany')).toBeInTheDocument()
+    expect(within(s).getByText('SXSW')).toBeInTheDocument()
+  })
+  it('speaking section tells the stages as a story: mic opening, ordered route, photo chapters', () => {
+    at('/about')
+    const s = screen.getByTestId('stages')
+    expect(within(s).getByRole('heading', { level: 2 })).toHaveTextContent('From Newark to Riyadh.')
+    expect(within(s).getByAltText(/speaking into a microphone/)).toHaveAttribute('src', '/images/karl/10-C1DYaMKMPEJ.jpg')
+    const years = [...s.querySelectorAll('.sp-line .yr')].map((n) => Number(n.textContent))
+    expect(years).toHaveLength(6)
+    expect([...years].sort((a, b) => a - b)).toEqual(years)
+    expect(s.querySelectorAll('.sp-ch')).toHaveLength(1)
+    expect(s.querySelectorAll('.sp-ch img')).toHaveLength(1)
+    expect(s.querySelectorAll('.sp-abroad li')).toHaveLength(2)
+    for (const img of s.querySelectorAll('img')) expect(img.getAttribute('alt')).toBeTruthy()
+  })
+  it('speaking story reveals each part when it scrolls into view', () => {
+    const observed = []
+    const Real = window.IntersectionObserver
+    window.IntersectionObserver = class { constructor(cb) { this.cb = cb } observe(el) { observed.push([this.cb, el]) } disconnect() {} }
+    try {
+      at('/about')
+      const route = screen.getByTestId('stages').querySelector('.sp-route')
+      expect(route).not.toHaveClass('in')
+      act(() => { for (const [cb, el] of observed) cb([{ isIntersecting: true, target: el }]) })
+      expect(route).toHaveClass('in')
+      expect(screen.getByTestId('stages').querySelector('.sp-open')).toHaveClass('in')
+    } finally { window.IntersectionObserver = Real }
+  })
+  it('highlights major news outlets with linked features', () => {
+    at('/about')
+    const p = screen.getByTestId('press')
+    expect(within(p).getByRole('heading', { name: 'Featured on major news outlets' })).toBeInTheDocument()
+    for (const o of ['ABC News', 'CNN', 'Billboard', 'Rolling Stone']) expect(within(p).getAllByText(o).length).toBeGreaterThan(0)
+    expect(within(p).getByRole('link', { name: /A Music Business Savant/ })).toHaveAttribute('href', 'https://thesource.com/2021/11/29/karl-fowlkes-a-music-business-savant/')
+    expect(within(p).queryByRole('link', { name: /Universal Music Group/ })).toBeNull()
+  })
+  it('tells the teaching story once, with Drexel, Rutgers and Rowan as past', () => {
+    at('/about')
+    const t = screen.getByTestId('teaching')
+    expect(within(t).getByRole('heading', { name: 'The classroom, too.' })).toBeInTheDocument()
+    expect(t).toHaveTextContent('Drexel University')
+    expect(t).toHaveTextContent('Rutgers Business School')
+    expect(t).toHaveTextContent('Before that he taught at Rowan')
+    expect(screen.getAllByText(/Hip-Hop Evolution/)).toHaveLength(1)
+  })
+  it('highlights Billboard Top Music Lawyers 2023 and 2024 with links to both lists', () => {
+    at('/about')
+    const b = screen.getByTestId('billboard')
+    expect(b).toHaveTextContent('Billboard Top Music Lawyers')
+    expect(within(b).getByRole('link', { name: /2023 list/ })).toHaveAttribute('href', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2023-list/')
+    expect(within(b).getByRole('link', { name: /2024 list/ })).toHaveAttribute('href', 'https://www.billboard.com/pro/billboard-top-music-lawyers-2024-list/')
+    expect(screen.queryByText(/Top Music Attorney/)).toBeNull()
+  })
+  it('highlights key phrases in black and never shows raw ** markers', () => {
+    const { container } = at('/about')
+    const bolds = [...container.querySelectorAll('strong.hl')].map((b) => b.textContent)
+    expect(bolds).toEqual(expect.arrayContaining(['Grammy awards', 'Drexel University', 'Brooklyn Nets', 'Black ownership and independent economics']))
+    expect(container.textContent).not.toContain('**')
+  })
+  it('home founder teaser renders the same highlights without raw markers', () => {
+    const { container } = at('/')
+    expect(container.querySelector('#about strong.hl')).toHaveTextContent('Internationally recognized entertainment lawyer')
+    expect(container.textContent).not.toContain('**')
+  })
+  it('lists Rowan only as a past teaching role, never as current', () => {
+    const { container } = at('/about')
+    const recog = container.querySelector('.recog')
+    const current = within(recog).getByText('Teaching').parentElement
+    expect(current).not.toHaveTextContent('Rowan')
+    expect(within(recog).getByText('Previously').parentElement).toHaveTextContent('Rowan University')
+  })
+})
+
+describe('home hero phone portrait', () => {
+  it('slide 5 shows the same attorney: a wide shot on desktop and a portrait crop on phones', () => {
+    const { container } = at('/')
+    fireEvent.click(screen.getByRole('button', { name: 'Show Fractional General Counsel' }))
+    const pic = container.querySelector('.hero-carousel picture')
+    expect(pic).not.toBeNull()
+    expect(pic.querySelector('source')).toHaveAttribute('media', '(max-width: 860px)')
+    expect(pic.querySelector('source')).toHaveAttribute('srcset', '/images/hero-fractional-mobile-soul2.webp')
+    expect(pic.querySelector('img')).toHaveAttribute('src', '/images/hero-fractional-afro-soul2.webp')
+  })
+  it('other slides stay a plain image with no phone override', () => {
+    const { container } = at('/')
+    expect(container.querySelector('.hero-carousel picture')).toBeNull()
+    expect(container.querySelector('.hero-carousel img.incoming')).toHaveAttribute('src', '/images/hero-music-soul2.webp')
+  })
+})
+
+describe('contact form role picker', () => {
+  const getForm = () => screen.getByRole('heading', { name: 'Start a conversation' }).closest('form')
+  it('is an on-brand dropdown, not a native select, defaulting to the first role', () => {
+    at('/')
+    const form = getForm()
+    expect(form.querySelector('select')).toBeNull()
+    const btn = within(form).getByRole('button', { name: /I am a/ })
+    expect(btn).toHaveTextContent('Producer or songwriter')
+    expect(btn).toHaveAttribute('aria-expanded', 'false')
+    expect(new FormData(form).get('role')).toBe('Producer or songwriter')
+  })
+  it('opens a listbox of all five roles and picking one updates the value sent', () => {
+    at('/')
+    const form = getForm()
+    fireEvent.click(within(form).getByRole('button', { name: /I am a/ }))
+    const list = within(form).getByRole('listbox')
+    expect(within(list).getAllByRole('option')).toHaveLength(5)
+    fireEvent.click(within(list).getByRole('option', { name: 'College athlete or family' }))
+    expect(within(form).queryByRole('listbox')).toBeNull()
+    expect(within(form).getByRole('button', { name: /I am a/ })).toHaveTextContent('College athlete or family')
+    expect(new FormData(form).get('role')).toBe('College athlete or family')
+  })
+  it('works from the keyboard and Escape closes without changing the value', () => {
+    at('/')
+    const form = getForm()
+    const btn = within(form).getByRole('button', { name: /I am a/ })
+    fireEvent.keyDown(btn, { key: 'ArrowDown' })
+    const list = within(form).getByRole('listbox')
+    fireEvent.keyDown(list, { key: 'ArrowDown' })
+    fireEvent.keyDown(list, { key: 'Enter' })
+    expect(new FormData(form).get('role')).toBe('Artist')
+    fireEvent.keyDown(within(form).getByRole('button', { name: /I am a/ }), { key: 'Enter' })
+    fireEvent.keyDown(within(form).getByRole('listbox'), { key: 'End' })
+    fireEvent.keyDown(within(form).getByRole('listbox'), { key: 'Escape' })
+    expect(within(form).queryByRole('listbox')).toBeNull()
+    expect(new FormData(form).get('role')).toBe('Artist')
+  })
+})
+
+describe('about press story controls', () => {
+  it('shows a live counter with arrows that step through the stories and stop at the ends', () => {
+    at('/about')
+    const press = screen.getByTestId('press')
+    const count = press.querySelector('.px-count')
+    const prev = within(press).getByRole('button', { name: 'Previous story' })
+    const next = within(press).getByRole('button', { name: 'Next story' })
+    const n = press.querySelectorAll('.px-features li').length
+    expect(count).toHaveTextContent(`01 / ${String(n).padStart(2, '0')}`)
+    expect(prev).toBeDisabled()
+    fireEvent.click(next)
+    expect(count).toHaveTextContent(`02 / ${String(n).padStart(2, '0')}`)
+    expect(prev).toBeEnabled()
+    for (let k = 0; k < n + 2; k++) fireEvent.click(next)
+    expect(count).toHaveTextContent(`${String(n).padStart(2, '0')} / ${String(n).padStart(2, '0')}`)
+    expect(next).toBeDisabled()
+  })
+})
+
+describe('about press story controls follow a swipe', () => {
+  it('updates the counter and the rail from the scroll position in real time', () => {
+    let queue = []
+    const raf = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { queue.push(cb); return queue.length })
+    const flush = () => { const q = queue; queue = []; act(() => { for (const cb of q) cb(0) }) }
+    try {
+    at('/about')
+    const press = screen.getByTestId('press')
+    const ol = press.querySelector('.px-features')
+    const lis = [...ol.querySelectorAll('li')]
+    const n = lis.length
+    const card = 266, gap = 12
+    for (const li of lis) li.getBoundingClientRect = () => ({ width: card, height: 200, top: 0, left: 0, right: card, bottom: 200, x: 0, y: 0 })
+    const max = (card + gap) * (n - 1)
+    Object.defineProperty(ol, 'scrollWidth', { configurable: true, value: max + 390 })
+    Object.defineProperty(ol, 'clientWidth', { configurable: true, value: 390 })
+    const swipe = (x) => { ol.scrollLeft = x; fireEvent.scroll(ol); flush() }
+    const count = press.querySelector('.px-count')
+    const rail = () => parseFloat(press.querySelector('.px-rail span').style.transform.replace(/[^0-9.]/g, ''))
+    swipe((card + gap) * 2)
+    expect(count).toHaveTextContent(`03 / ${String(n).padStart(2, '0')}`)
+    const mid = rail()
+    swipe((card + gap) * 2 + 60)
+    expect(count).toHaveTextContent('03 /')
+    expect(rail()).toBeGreaterThan(mid)
+    swipe(max)
+    expect(count).toHaveTextContent(`${String(n).padStart(2, '0')} / ${String(n).padStart(2, '0')}`)
+    expect(rail()).toBe(1)
+    expect(within(press).getByRole('button', { name: 'Next story' })).toBeDisabled()
+    } finally { raf.mockRestore() }
+  })
+})
+
+describe('contact message box', () => {
+  it('keeps line breaks and spacing, counts characters, and caps length for the mail hand-off', () => {
+    at('/')
+    const form = screen.getByRole('heading', { name: 'Start a conversation' }).closest('form')
+    const box = within(form).getByLabelText('What are you working on?')
+    expect(box).toHaveAttribute('maxLength', '2000')
+    expect(box).toHaveClass('msg')
+    const text = 'Line one\n\n  Indented line three'
+    fireEvent.input(box, { target: { value: text } })
+    expect(new FormData(form).get('message')).toBe(text)
+    expect(form.querySelector('#c-msg-count')).toHaveTextContent(`${text.length} / 2,000`)
+    fireEvent.input(box, { target: { value: 'x'.repeat(1900) } })
+    expect(form.querySelector('#c-msg-count')).toHaveClass('near')
+  })
+})
+
 describe('home snippets link out', () => {
   it('practice snippets link to practice pages, clients has View more to /clients, founder teaser links to /about', () => {
     at('/')
-    expect(screen.getByRole('link', { name: /Know more about Music Law/ })).toHaveAttribute('href', '/practice/music-law')
+    expect(screen.getByTestId('practice-grid').querySelector('a[href="/practice/music-law"]')).toHaveTextContent('Music Law')
     expect(screen.getByRole('link', { name: /See all clients/ })).toHaveAttribute('href', '/clients')
     expect(screen.getByRole('heading', { name: 'Our clients include' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3, name: 'Synthetic' })).toBeInTheDocument()
@@ -87,16 +315,18 @@ describe('home snippets link out', () => {
 })
 
 describe('about page', () => {
-  it('is titled About, has portrait + credentials, origin story, in the room, and no What he does', () => {
+  it('is titled About, has portrait + credentials, origin story, no In the room, and no What he does', () => {
     at('/about')
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/^About$/)
     expect(screen.getByRole('heading', { name: 'Karl Fowlkes, Esq.' })).toBeInTheDocument()
     expect(screen.getByAltText(/Karl Fowlkes, Esq., founder/)).toHaveAttribute('src', '/images/karl-portrait.jpg')
-    expect(screen.getByText(/Top Music Attorney, 2023 and 2024/)).toBeInTheDocument()
+    expect(screen.getByText(/Top Music Lawyers, 2023 and 2024/)).toBeInTheDocument()
     expect(screen.getByText(/Jersey, and the other side of the table/)).toBeInTheDocument()
     expect(screen.getByText(/launched The Fowlkes Firm in 2019/)).toBeInTheDocument()
     expect(screen.getByText(/bridge the gap/)).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'In the room' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'In the room' })).toBeNull()
+    expect(document.querySelector('.room')).toBeNull()
+    expect(document.querySelector('img[src="/images/plaque-4x-platinum.jpg"]')).toBeNull()
     expect(screen.queryByRole('heading', { name: 'What he does' })).toBeNull()
   })
 })
@@ -173,6 +403,15 @@ describe('practice pages', () => {
     for (const g of groups) expect(g.querySelectorAll('.cm-item').length).toBe(3)
     expect(groups[0]).toHaveTextContent('RIAA certifications posted')
   })
+  it('clients roster list resets to the top on group change and marks cover-less rows', () => {
+    at('/clients')
+    const list = screen.getByTestId('roster-list')
+    list.scrollTop = 240
+    fireEvent.click(screen.getByRole('tab', { name: /Labels & collectives/ }))
+    expect(screen.getByTestId('roster-list').scrollTop).toBe(0)
+    const evgle = within(screen.getByTestId('roster-list')).getByText('EVGLE').closest('article')
+    expect(evgle).toHaveClass('no-cover')
+  })
   it('clients search shows a clear button that empties the search', () => {
     at('/clients')
     const input = screen.getByPlaceholderText(/Search a client/)
@@ -204,6 +443,20 @@ describe('practice pages', () => {
     expect(more).toHaveAttribute('aria-expanded', 'false')
     fireEvent.click(more)
     expect(screen.getByRole('button', { name: 'Show fewer credits' })).toHaveAttribute('aria-expanded', 'true')
+    expect(section.querySelector('.cl-list')).toHaveClass('open')
+  })
+  it('credits gallery ends with a closing panel naming every wall artist, with next steps', async () => {
+    const { creditsWall } = await import('../data/site.js')
+    const { container } = at('/clients')
+    const section = container.querySelector('#credits')
+    const end = section.querySelector('.cg-end')
+    expect(end).not.toBeNull()
+    expect(end).toHaveTextContent(`${creditsWall.length} marquee artists.`)
+    for (const a of creditsWall) expect(end.querySelector('.cg-end-names')).toHaveTextContent(a)
+    expect(section.querySelectorAll('.cg-work')).toHaveLength(6)
+    expect(section.querySelector('.cg-count')).toHaveTextContent('01 / 06')
+    expect(within(end).getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/#contact')
+    fireEvent.click(within(end).getByRole('button', { name: 'See every credit ↓' }))
     expect(section.querySelector('.cl-list')).toHaveClass('open')
   })
   it('header is transparent over the home hero, solid after scrolling, and solid on other pages', () => {
@@ -251,11 +504,14 @@ describe('articles', () => {
     at('/articles')
     expect(screen.getByRole('link', { name: /AI songs that mimic popular artists/ })).toHaveAttribute('href', expect.stringContaining('abcnews.com/US/ai-songs'))
     expect(screen.getByRole('link', { name: /NIL & College Sports Law Practice/ })).toHaveAttribute('href', expect.stringContaining('fowlkesfirm.com/blog/2026'))
-    expect(screen.getByRole('link', { name: /Honestly, Nevermind/ })).toHaveAttribute('href', 'https://www.instagram.com/p/CfEmyUsrv7m/')
+    expect(screen.queryByRole('link', { name: /Honestly, Nevermind/ })).toBeNull()
+    expect(document.getElementById('deals')).toBeNull()
+    expect(screen.queryByRole('link', { name: /Client deals/ })).toBeNull()
+    expect(within(screen.getByTestId('clients-note')).getByRole('link', { name: /See the Clients page/ })).toHaveAttribute('href', '/clients')
     expect(screen.getByRole('navigation', { name: 'On this page' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Firm announcements/ })).toHaveAttribute('href', '#announcements')
     const sections = [...document.querySelectorAll('.story-section')]
-    expect(sections).toHaveLength(5)
+    expect(sections).toHaveLength(4)
     const rows = [...document.querySelectorAll('.story-row')]
     const images = rows.map((row) => row.querySelector('img').getAttribute('src'))
     expect(rows.every((row) => row.href.startsWith('https://') && row.querySelector('.story-note')?.textContent)).toBe(true)
@@ -268,33 +524,6 @@ describe('404', () => {
   it('renders not found for unknown routes', () => {
     at('/whatever')
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Page not found')
-  })
-  it('speaking story component: mic opening, six stages in date order, two photo chapters, reveal on scroll', () => {
-    const observed = []
-    const Real = window.IntersectionObserver
-    window.IntersectionObserver = class { constructor(cb) { this.cb = cb } observe(el) { observed.push([this.cb, el]) } disconnect() {} }
-    try {
-      render(<SpeakingStory />)
-      const s = screen.getByTestId('stages')
-      expect(within(s).getByRole('heading', { level: 2 })).toHaveTextContent('From Newark to Riyadh.')
-      expect(within(s).getByAltText(/speaking into a microphone/)).toHaveAttribute('src', '/images/karl/10-C1DYaMKMPEJ.jpg')
-      const years = [...s.querySelectorAll('.sp-line .yr')].map((n) => Number(n.textContent))
-      expect(years).toHaveLength(6)
-      expect([...years].sort((a, b) => a - b)).toEqual(years)
-      for (const place of ['Riyadh, Saudi Arabia', 'Hamburg, Germany', 'SXSW']) expect(within(s).getByText(place)).toBeInTheDocument()
-      expect(s.querySelectorAll('.sp-ch')).toHaveLength(1)
-      expect(s.querySelectorAll('.sp-ch img')).toHaveLength(1)
-      expect(s.querySelectorAll('.sp-abroad li')).toHaveLength(2)
-      const bar = s.querySelector('.sp-story-bar')
-      expect(bar.querySelectorAll('span')).toHaveLength(6)
-      expect(bar.querySelectorAll('span.on')).toHaveLength(1)
-      expect(bar).toHaveTextContent('01 / 06')
-      const route = s.querySelector('.sp-route')
-      expect(route).not.toHaveClass('in')
-      act(() => { for (const [cb, el] of observed) cb([{ isIntersecting: true, target: el }]) })
-      expect(route).toHaveClass('in')
-      expect(s.querySelector('.sp-open')).toHaveClass('in')
-    } finally { window.IntersectionObserver = Real }
   })
   it('press section: real outlet logos loop right to left with names for screen readers, features stay linked', () => {
     const outlets = ['ABC News', 'CNN', 'Billboard', 'Variety', 'Rolling Stone', 'Bloomberg Law', 'Complex', 'The Source', 'Okayplayer', 'Boardroom']

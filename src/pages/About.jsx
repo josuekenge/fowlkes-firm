@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom'
 import { karl } from '../data/site.js'
+import SpeakingStory from '../components/SpeakingStory.jsx'
+import PressSection from '../components/PressSection.jsx'
+import { Rich } from '../lib/rich.jsx'
 
 export default function About() {
   return (
     <main>
-      <header className="page-head wrap" style={{ paddingBottom: 48 }}>
+      <header className="page-head wrap about-head">
         <div className="main">
           <span className="eyebrow">The Fowlkes Firm</span>
           <h1>About</h1>
@@ -24,28 +26,46 @@ export default function About() {
           <span className="eyebrow">{karl.title}</span>
           <h2 className="h2">{karl.name}</h2>
           <p className="headline">{karl.headline}</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 18, fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)' }}>
-            {karl.bio.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+          <div className="bb" data-testid="billboard">
+            <span className="bb-k">Recognition</span>
+            <span className="bb-t">{karl.billboard.title}</span>
+            <span className="bb-y">
+              {karl.billboard.years.map(([y, url]) => (
+                <a key={y} href={url} target="_blank" rel="noreferrer" aria-label={`${karl.billboard.title} ${y} list`}>{y} ↗</a>
+              ))}
+            </span>
+            <p>{karl.billboard.line}</p>
+          </div>
+          <div className="about-bio">
+            {karl.bio.slice(0, 2).map((p) => <p key={p.slice(0, 24)}><Rich text={p} /></p>)}
           </div>
           <div className="recog">
             {karl.recognition.map(([k, v]) => <div key={k}><span className="k">{k}</span><span>{v}</span></div>)}
             <div><span className="k">Education</span><span>{karl.education}</span></div>
-            <div><span className="k">Teaching</span><span>Drexel University, Music Industry Program · Rutgers Business School</span></div>
-            <div><span className="k">Also</span><span>COO, EVGLE · Launched The Fowlkes Firm in 2019</span></div>
+            <div><span className="k">Teaching</span><span>{karl.teaching}</span></div>
+            <div><span className="k">Previously</span><span>{karl.teachingPast}</span></div>
           </div>
-          <span style={{ fontSize: 14, color: 'var(--muted)' }}>Featured in {karl.featuredIn}.</span>
+          <div className="ventures" data-testid="ventures">
+            {karl.ventures.map(([name, role, line]) => (
+              <div key={name}><span className="role">{role}</span><span className="name">{name}</span><span className="line">{line}</span></div>
+            ))}
+          </div>
+          <div className="lomo"><span className="k">{karl.framework[0]}</span><p>{karl.framework[1]}</p></div>
           <a href="/#contact" className="btn" style={{ alignSelf: 'flex-start' }}>Work with Karl</a>
         </div>
       </section>
+
+      {/* press: black band, real outlet logos scrolling right to left */}
+      <PressSection outlets={karl.outlets} features={karl.features} featuredIn={karl.featuredIn} />
 
       {/* where he's from + why the firm exists */}
       <section className="section wrap rule side">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <span className="eyebrow">Where he's from</span>
-          <h2 className="h2" style={{ fontSize: 48 }}>Jersey, and the other side of the table.</h2>
+          <h2 className="h2 about-h2">Jersey, and the other side of the table.</h2>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, fontSize: 19, lineHeight: 1.55, color: 'var(--ink-2)', maxWidth: 760 }}>
-          {karl.origin.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+        <div className="about-origin">
+          {karl.origin.map((p) => <p key={p.slice(0, 24)}><Rich text={p} /></p>)}
           <blockquote className="pull">
             <p>"{karl.quote[0]}"</p>
             <cite>{karl.quote[1]}</cite>
@@ -53,22 +73,24 @@ export default function About() {
         </div>
       </section>
 
-      {/* in the room */}
-      <section className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <span className="eyebrow">Stages, panels and plaques</span>
-            <h2 className="h2" style={{ fontSize: 48 }}>In the room</h2>
-          </div>
-          <Link to="/articles" className="link">Every article and deal</Link>
+      {/* teaching, told as a story */}
+      <section id="teaching" className="section wrap rule side teaching" data-testid="teaching">
+        <div className="teaching-head">
+          <span className="eyebrow">Teaching</span>
+          <h2 className="h2">The classroom, too.</h2>
+          <ul className="teaching-marks">
+            <li><span>Now</span>Drexel University</li>
+            <li><span>Now</span>Rutgers Business School</li>
+            <li><span>Before</span>Rowan University</li>
+          </ul>
         </div>
-        <div className="room">
-          {karl.photos.map(([src, cap]) => (
-            <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
-          ))}
-          <figure><img src="/images/plaque-4x-platinum.jpg" alt="RIAA 4x Platinum plaque presented to Karl Fowlkes" loading="lazy" /><figcaption>RIAA 4x Platinum · presented to Karl Fowlkes, Esq.</figcaption></figure>
+        <div className="teaching-story">
+          {karl.teachingStory.map((p) => <p key={p.slice(0, 24)}><Rich text={p} /></p>)}
         </div>
       </section>
+
+      {/* speaking, told as a story */}
+      <SpeakingStory />
 
       <section className="cta-band wrap">
         <h2>Work with Karl.</h2>
