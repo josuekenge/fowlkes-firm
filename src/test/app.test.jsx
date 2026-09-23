@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
 import SpeakingStory from '../components/SpeakingStory.jsx'
+import PressSection from '../components/PressSection.jsx'
 import { practiceAreas } from '../data/site.js'
 
 function at(path) {
@@ -276,5 +277,20 @@ describe('404', () => {
       expect(route).toHaveClass('in')
       expect(s.querySelector('.sp-open')).toHaveClass('in')
     } finally { window.IntersectionObserver = Real }
+  })
+  it('press section: real outlet logos loop right to left with names for screen readers, features stay linked', () => {
+    const outlets = ['ABC News', 'CNN', 'Billboard', 'Variety', 'Rolling Stone', 'Bloomberg Law', 'Complex', 'The Source', 'Okayplayer', 'Boardroom']
+    const features = [['ABC News Live', 'November 2023', 'AI songs that mimic popular artists', 'On air', 'https://abcnews.go.com/']]
+    render(<MemoryRouter><PressSection outlets={outlets} features={features} featuredIn="ABC News, NJBIZ" /></MemoryRouter>)
+    const s = screen.getByTestId('press')
+    const groups = s.querySelectorAll('.px-group')
+    expect(groups).toHaveLength(2)
+    expect(groups[1]).toHaveAttribute('aria-hidden', 'true')
+    const logos = groups[0].querySelectorAll('img')
+    expect(logos).toHaveLength(10)
+    for (const img of logos) expect(img.getAttribute('src')).toMatch(/^\/images\/press-logos\/[a-z-]+\.svg$/)
+    for (const o of outlets) expect(within(groups[0]).getByText(o)).toHaveClass('sr-only')
+    expect(within(s).getByRole('link', { name: /AI songs that mimic/ })).toHaveAttribute('href', 'https://abcnews.go.com/')
+    expect(s).toHaveTextContent('Also featured in NJBIZ.')
   })
 })

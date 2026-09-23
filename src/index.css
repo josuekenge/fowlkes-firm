@@ -1174,3 +1174,48 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .sp-mic img, .sp-ch-img img { clip-path: none !important; transform: none !important; }
   .sp-intro h2 .ln > *, .sp-intro > *, .sp-line li, .sp-line .dot, .sp-line::before, .sp-ch-copy { opacity: 1 !important; transform: none !important; }
 }
+
+/* about: "In the press" as a black band, real outlet logos scrolling right to left */
+.press-x { background: #0e0e0e; color: #fff; border-bottom: 1px solid var(--ink); display: flex; flex-direction: column; gap: 40px; padding-top: clamp(64px, 7vw, 104px); padding-bottom: clamp(56px, 6vw, 88px); scroll-margin-top: 90px; }
+.press-x .eyebrow { color: #a39a8f; }
+.px-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.px-head > div { display: flex; flex-direction: column; gap: 14px; }
+.px-head .h2 { color: #fff; }
+.px-head .link { color: #fff; border-color: #fff; }
+.px-marquee { position: relative; overflow: hidden; border-top: 1px solid #2a2826; border-bottom: 1px solid #2a2826; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.px-track { display: flex; width: max-content; animation: px-scroll 38s linear infinite; }
+.px-marquee:hover .px-track, .px-marquee:focus-within .px-track { animation-play-state: paused; }
+.px-group { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
+.px-group li { flex: none; display: flex; align-items: center; justify-content: center; height: 132px; padding: 0 clamp(36px, 4vw, 64px); }
+.px-group img { display: block; height: var(--h, 32px); width: auto; filter: brightness(0) invert(1); opacity: .88; transition: opacity .3s ease; }
+.px-group li:hover img { opacity: 1; }
+.px-word { font-family: var(--display); font-weight: 500; font-size: 30px; white-space: nowrap; }
+@keyframes px-scroll { to { transform: translateX(-50%); } }
+.px-features { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+.px-features li { border-bottom: 1px solid #2a2826; }
+.px-features a, .px-features li > div { display: flex; flex-direction: column; gap: 10px; padding: 22px 0; height: 100%; color: #fff; }
+.px-features .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8f8880; }
+.px-features .meta .o { color: #fff; font-weight: 600; }
+.px-features .t { font-family: var(--display-sm); font-weight: 500; font-size: 21px; line-height: 1.25; }
+.px-features .go { margin-top: auto; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #d6c9b8; }
+.px-features a:hover .t { color: #d6c9b8; }
+.px-also { margin: 0; font-size: 14px; color: #8f8880; }
+@media (max-width: 1100px) { .px-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .press-x { gap: 22px; padding-top: 44px; padding-bottom: 40px; }
+  .px-head .h2 { font-size: 26px; }
+  .px-group li { height: 84px; padding: 0 24px; }
+  .px-group img { height: calc(var(--h, 32px) * .72); }
+  .px-track { animation-duration: 30s; }
+  .px-features { grid-template-columns: 1fr; }
+  .px-features a, .px-features li > div { gap: 6px; padding: 14px 0; }
+  .px-features .meta { font-size: 9.5px; letter-spacing: .1em; }
+  .px-features .t { font-size: 16.5px; }
+  .px-features .go { font-size: 9.5px; }
+  .px-also { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .px-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .px-track { animation: none; }
+  .px-group[aria-hidden='true'] { display: none; }
+}
