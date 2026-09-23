@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
+import SpeakingStory from '../components/SpeakingStory.jsx'
 import { practiceAreas } from '../data/site.js'
 
 function at(path) {
@@ -254,5 +255,26 @@ describe('404', () => {
   it('renders not found for unknown routes', () => {
     at('/whatever')
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Page not found')
+  })
+  it('speaking story component: mic opening, six stages in date order, two photo chapters, reveal on scroll', () => {
+    const observed = []
+    const Real = window.IntersectionObserver
+    window.IntersectionObserver = class { constructor(cb) { this.cb = cb } observe(el) { observed.push([this.cb, el]) } disconnect() {} }
+    try {
+      render(<SpeakingStory />)
+      const s = screen.getByTestId('stages')
+      expect(within(s).getByRole('heading', { level: 2 })).toHaveTextContent('From Newark to Riyadh.')
+      expect(within(s).getByAltText(/speaking into a microphone/)).toHaveAttribute('src', '/images/karl/10-C1DYaMKMPEJ.jpg')
+      const years = [...s.querySelectorAll('.sp-line .yr')].map((n) => Number(n.textContent))
+      expect(years).toHaveLength(6)
+      expect([...years].sort((a, b) => a - b)).toEqual(years)
+      for (const place of ['Riyadh, Saudi Arabia', 'Hamburg, Germany', 'SXSW']) expect(within(s).getByText(place)).toBeInTheDocument()
+      expect(s.querySelectorAll('.sp-ch')).toHaveLength(2)
+      const route = s.querySelector('.sp-route')
+      expect(route).not.toHaveClass('in')
+      act(() => { for (const [cb, el] of observed) cb([{ isIntersecting: true, target: el }]) })
+      expect(route).toHaveClass('in')
+      expect(s.querySelector('.sp-open')).toHaveClass('in')
+    } finally { window.IntersectionObserver = Real }
   })
 })
