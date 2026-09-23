@@ -244,8 +244,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 }
 @media (max-width: 860px) {
   /* mobile keeps the desktop overlay: copy sits on top of the slideshow, just smaller */
-  .hero { display: flex; align-items: flex-start; min-height: clamp(500px, 118vw, 600px); }
-  .hero .copy { width: 100%; padding: 32px var(--gutter) 140px; gap: 16px; }
+  .hero { display: flex; align-items: flex-end; min-height: clamp(560px, 135vw, 680px); }
+  .hero .copy { width: 100%; padding: 120px var(--gutter) 128px; gap: 16px; }
   .hero .copy .eyebrow { font-size: 9px; letter-spacing: .12em; }
   .hero h1 { font-size: clamp(26px, 7.4vw, 34px); line-height: 1.08; max-width: 16ch; }
   .hero .copy > div { gap: 16px !important; }
@@ -253,7 +253,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .hero .actions { gap: 10px; }
   .hero .actions .btn { padding: 10px 14px; font-size: 11px; min-height: 0; }
   .hero .photo { position: absolute; inset: 0; width: auto; height: auto; }
-  .hero-slide-shade { background: linear-gradient(0deg, rgba(0,0,0,.8), rgba(0,0,0,.35) 45%, rgba(0,0,0,.55)); }
+  .hero-slide-shade { background: linear-gradient(0deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.02) 100%); }
   .hero-slide-footer { bottom: 34px; gap: 14px; }
   .hero-slide-caption a { font-size: 16px; }
   .hero-slide-count { font-size: 10px; }
@@ -277,6 +277,15 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .plaques { grid-template-columns: 1fr; }
   .footer { flex-direction: column; align-items: flex-start; }
+  /* mobile: stacked stat tiles share one indent (desktop offsets non-first tiles by 40px) */
+  .stats > div:not(:first-child) { padding-left: var(--gutter); }
+  /* mobile: 44px tap targets for underlined text links without changing their look */
+  .link, .footer .links a, .about .socials a, .about-hero .socials a, .profile .socials a { padding-top: 10px; padding-bottom: 10px !important; margin-top: -10px; margin-bottom: -7px; }
+  .footer .links { gap: 20px; flex-wrap: wrap; }
+  /* mobile: practice tab strip scrolls sideways; fade the right edge so it reads as scrollable */
+  .pswitch { -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); scrollbar-width: none; scroll-snap-type: x proximity; }
+  .pswitch::-webkit-scrollbar { display: none; }
+  .pswitch a { scroll-snap-align: start; }
 }
 
 /* about, with real portrait */
@@ -646,4 +655,31 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .story .portrait img { aspect-ratio: 4 / 5; height: auto; }
   .story .index li { flex-basis: 100%; }
   .story .ctrls .btn { display: none; }
+}
+
+/* home: practice areas as a card grid (never a single stacked column) */
+.practice-home { display: flex; flex-direction: column; gap: 40px; }
+.practice-home-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px 64px; align-items: end; }
+.practice-home-head p { font-size: 19px; color: var(--ink-2); max-width: 620px; }
+.practice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 40px; border-top: 1px solid var(--ink); padding-top: 32px; }
+.practice-card { display: flex; flex-direction: column; gap: 12px; min-width: 0; padding-bottom: 8px; }
+.practice-card .n { font-family: var(--display-sm); font-size: 14px; color: var(--muted); }
+.practice-card .name { font-family: var(--display-sm); font-weight: 500; font-size: clamp(22px, 1.8vw, 28px); line-height: 1.15; }
+.practice-card .short { font-size: 17px; line-height: 1.45; color: var(--ink-2); }
+.practice-card .tags { font-size: 14px; line-height: 1.45; color: var(--muted); }
+.practice-card .link { align-self: flex-start; margin-top: auto; }
+.practice-card:hover .name { color: var(--muted); }
+@media (max-width: 1100px) {
+  .practice-home-head { grid-template-columns: 1fr; align-items: start; }
+  .practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 28px; }
+}
+@media (max-width: 860px) {
+  .practice-home { gap: 28px; }
+  .practice-home-head p { font-size: 17px; }
+  .practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; padding-top: 24px; }
+  .practice-card { gap: 8px; }
+  .practice-card .name { font-size: 18px; }
+  .practice-card .short { font-size: 14px; }
+  .practice-card .tags { display: none; }
+  .practice-card .link { font-size: 11px; }
 }
