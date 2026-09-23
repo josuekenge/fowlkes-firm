@@ -863,3 +863,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .nil-hero-photo img { width: min(62%, 300px); height: auto; max-height: none; aspect-ratio: 3 / 4; object-fit: contain; }
   .nil-hero-photo figcaption { align-self: stretch; text-align: center; background: transparent; }
 }
+
+/* practice header: AI-generated tile, labelled like the NIL illustrations */
+.phero .collage .ai-tile { position: relative; }
+.phero .collage .ai-tag { position: absolute; left: 6px; bottom: 6px; padding: 3px 6px; background: rgba(20,20,20,.72); color: #fff; font-family: var(--body); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.2; white-space: nowrap; pointer-events: none; }
+@media (max-width: 600px) { .phero .collage .ai-tag { left: 4px; bottom: 4px; padding: 2px 4px; font-size: 7px; letter-spacing: .06em; } }

@@ -77,11 +77,13 @@ export default function Practice() {
   // Every practice page gets its own photos: no image below appears on more than one practice page.
   // The music-law slideshow is the one exception (it shows every cover). k-prefixed ids are Karl's account.
   const K = (...ns) => ns.map((n) => karl.find((x) => x.n === n)).filter(Boolean)
+  // Higgsfield-generated image: no Instagram link, and labelled on the tile like the NIL illustrations.
+  const AI_BOARDROOM = { n: 'ai-boardroom', ai: true, src: '/images/fractional-boardroom-tile.jpg', title: 'Illustration of outside counsel reviewing documents with a client in a boardroom' }
   const sets = {
     'music-law': { hero: pick('43', '10', '64', '03', '05'), band: [] },
     'nil-college-sports-law': { hero: [], band: [] },
     'business-entertainment-law': { hero: [...pick('39', '47'), ...K('k36', 'k38', 'k15')], band: pick('06', '08', '16', '45') },
-    'fractional-general-counsel': { hero: [...K('k01', 'k18'), ...pick('18'), ...K('k12', 'k17')], band: [...pick('20', '63', '68'), ...K('k00')] },
+    'fractional-general-counsel': { hero: [...K('k01', 'k18'), ...pick('18'), ...K('k12'), AI_BOARDROOM], band: [...pick('20', '63', '68'), ...K('k00')] },
     'of-counsel': { hero: pick('51', '17', '21', '48', '19'), band: [...K('k23', 'k20'), ...pick('62', '60')] },
   }
   const set = sets[slug] || { hero: imgs.lead, band: imgs.work }
@@ -110,7 +112,9 @@ export default function Practice() {
         ) : (
           <div className="collage mosaic" aria-label="Client work">
             {collage.map((it) => (
-              <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
+              it.ai
+                ? <a key={it.n} className="ai-tile"><img src={it.src} alt={it.title} loading="eager" /><span className="ai-tag">AI illustration</span></a>
+                : <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
             ))}
           </div>
         )}
