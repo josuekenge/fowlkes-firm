@@ -146,5 +146,23 @@ export const karlPress = karl.filter((x) => x.kind === 'press')
 // Recommended hero/about portraits, best first.
 export const karlLead = ['k09', 'k39', 'k08', 'k10', 'k27'].map((n) => byK[n])
 
+
+// Home-page catalogue: the five clients with the strongest credits. `photo` is the high-res portrait
+// at /images/clients/<handle>.jpg once Karl supplies one (4K portraits from the client's own shoots);
+// until then it falls back to the client's best-known cover art so the layout is final today.
+const PORTRAIT = {}
+export const topClients = [
+  { name: 'Synthetic', handle: 'iamsynthetic', role: 'Producer', lead: ['4×', 'RIAA Platinum, Just Wanna Rock'], stats: [['#8', 'Billboard Hot 100'], ['4M', 'certified US units']],
+    story: 'Five cuts on Yeat\'s 2 Alive, two on Don Toliver\'s #1 album, and the beat under Lil Uzi Vert\'s "Just Wanna Rock."', short: '4× Platinum', fallback: '43' },
+  { name: 'Corbett', handle: 'corbettmusic', role: 'Producer', lead: ['Grammy', "Best Rap Album, King's Disease"], stats: [['4×', 'Platinum, Flex'], ['#5', 'Billboard 200']],
+    story: '"Ultrablack" on Nas\'s King\'s Disease, Anderson .Paak\'s "Cut Em In," and Polo G\'s "Flex" with Juice WRLD.', short: 'Grammy · Best Rap Album', fallback: '64' },
+  { name: 'Kid Masterpiece', handle: 'kidmasterpiece', role: 'Producer', lead: ['2', '#1 albums with Drake'], stats: [['287M', 'streams, week one'], ['21', 'songs on the Hot 100']],
+    story: 'The intro to Honestly, Nevermind and five tracks on PARTYNEXTDOOR & Drake\'s $ome $exy $ongs 4 U.', short: 'Two #1 albums with Drake', fallback: '25' },
+  { name: 'Coleman', handle: 'colxmxn', role: 'Producer', lead: ['282K', 'first-week units, The Off-Season'], stats: [['#1', 'Billboard 200'], ['Platinum', 'RIAA']],
+    story: '"95 South" on J. Cole\'s The Off-Season, Jack Harlow\'s "Nail Tech," and Lil Wayne\'s "Sharks."', short: 'J. Cole · 282K first week', fallback: '56' },
+  { name: 'Section 8', handle: 'sectionnn8', role: 'Producer', lead: ['7×', 'RIAA Platinum, My Turn'], stats: [['#1', 'Billboard 200, 5 weeks'], ['7M', 'certified US units']],
+    story: 'Lil Baby\'s My Turn, the highest-certified rap album of the 2020s, plus Migos\' "Type Shit" and Ty Dolla $ign\'s "Champions."', short: 'Lil Baby · 7× Platinum', fallback: '52' },
+].map((c) => ({ ...c, photo: PORTRAIT[c.handle] || `${IG}${c.fallback}-${byN[c.fallback].post}.jpg` }))
+
 // Press images keyed by outlet, for the Articles page and the home press section. Firm-account shots win; Karl's fill the gaps.
 export const pressImage = Object.fromEntries([...karl.filter((x) => x.outlet), ...pressShots].map((x) => [x.outlet.toLowerCase(), x]))

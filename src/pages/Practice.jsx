@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { practiceAreas, clientCatalog, firm } from '../data/site.js'
-import { areaImages, clientImage, pick, karlLead, karlEvents } from '../data/gallery.js'
+import { areaImages, clientImage, pick, karl } from '../data/gallery.js'
 import { Grid } from '../components/Gallery.jsx'
 import { log } from '../lib/log.js'
 
@@ -74,13 +74,18 @@ export default function Practice() {
   const idx = practiceAreas.indexOf(area)
   const next = practiceAreas[(idx + 1) % practiceAreas.length]
   const imgs = areaImages[slug] || { lead: [], work: [] }
-  // NIL photo sets, chosen so no image repeats on the page: hero collage, "why" band, "on the record" grid.
-  const kv = (n) => karlEvents.find((x) => x.n === n)
-  const nilHero = [...pick('02', '12', '39'), kv('k06'), kv('k07'), kv('k10')].filter(Boolean)
-  const nilBand = [karlLead[1], karlLead[4], ...pick('22')].filter(Boolean)
-  const nilRecord = [kv('k21'), kv('k29'), kv('k40'), karlLead[2]].filter(Boolean)
-  const pool = [...imgs.lead, ...imgs.work, ...(isMusic ? [] : karlEvents)]
-  const collage = isNIL ? nilHero : pool.filter((it, k) => pool.indexOf(it) === k).slice(0, 6)
+  // Every practice page gets its own photos: no image below appears on more than one practice page.
+  // The music-law slideshow is the one exception (it shows every cover). k-prefixed ids are Karl's account.
+  const K = (...ns) => ns.map((n) => karl.find((x) => x.n === n)).filter(Boolean)
+  const sets = {
+    'music-law': { hero: pick('43', '10', '64', '03', '05'), band: [] },
+    'nil-college-sports-law': { hero: [], band: [] },
+    'business-entertainment-law': { hero: [...pick('39', '47'), ...K('k36', 'k38', 'k15')], band: pick('06', '08', '16', '45') },
+    'fractional-general-counsel': { hero: [...K('k01', 'k18'), ...pick('18'), ...K('k12', 'k17')], band: [...pick('20', '63', '68'), ...K('k00')] },
+    'of-counsel': { hero: pick('51', '17', '21', '48', '19'), band: [...K('k23', 'k20'), ...pick('62', '60')] },
+  }
+  const set = sets[slug] || { hero: imgs.lead, band: imgs.work }
+  const collage = set.hero
 
   return (
     <main>
@@ -97,11 +102,18 @@ export default function Practice() {
             {isNIL && <a href="#athletes" className="btn ghost">For athletes &amp; families</a>}
           </div>
         </div>
-        <div className="collage" aria-label="Client work">
-          {collage.map((it) => (
-            <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
-          ))}
-        </div>
+        {isNIL ? (
+          <figure className="nil-photo nil-hero-photo">
+            <img src="/images/nil-basketball.webp" alt="Illustration of a basketball athlete in a gym" loading="eager" />
+            <figcaption>AI-generated illustration · Basketball</figcaption>
+          </figure>
+        ) : (
+          <div className="collage mosaic" aria-label="Client work">
+            {collage.map((it) => (
+              <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="eager" /></a>
+            ))}
+          </div>
+        )}
       </header>
 
       {area.note && (
@@ -202,24 +214,17 @@ export default function Practice() {
 
       {isNIL && (
         <>
-          <section id="athletes" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <span className="eyebrow">Athletes we represent</span>
-                <h2 className="h2">Names on the way</h2>
-              </div>
-              <span className="eyebrow" style={{ maxWidth: 420, textAlign: 'right' }}>The practice launched January 2026. Athlete clients are listed here only with their permission.</span>
+          <section id="athletes" className="section wrap rule nil-feature">
+            <div className="nil-feature-copy">
+              <span className="eyebrow">Athlete-first counsel</span>
+              <h2 className="h2">Built around the athlete</h2>
+              <p>NIL opportunities move quickly. We help athletes and families understand the rights, obligations and long-term consequences behind every offer.</p>
+              <a href="#families" className="link">How we work ↓</a>
             </div>
-            <div className="five four">
-              {[1, 2, 3, 4].map((k) => (
-                <article key={k} className="fcard ph">
-                  <div className="ph-img"><span>[Athlete photo]</span></div>
-                  <span className="eyebrow">[Sport · School]</span>
-                  <span className="name">[Athlete name]</span>
-                  <p>[One line: the deal, the collective or the brand.]</p>
-                </article>
-              ))}
-            </div>
+            <figure className="nil-photo">
+              <img src="/images/nil-football.webp" alt="Illustration of an American football athlete on a practice field" loading="lazy" />
+              <figcaption>AI-generated illustration · Football</figcaption>
+            </figure>
           </section>
 
           <section id="families" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
@@ -241,25 +246,28 @@ export default function Practice() {
               <h2 className="h2" style={{ fontSize: 44 }}>{area.why[0]}</h2>
               <p>{area.why[1]}</p>
             </div>
-            <div className="imgs three">
-              {nilBand.map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
-            </div>
+            <figure className="nil-photo">
+              <img src="/images/nil-soccer.webp" alt="Illustration of a soccer athlete training on a pitch" loading="lazy" />
+              <figcaption>AI-generated illustration · Soccer</figcaption>
+            </figure>
           </section>
 
-          <section id="record" className="section wrap rule" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <span className="eyebrow">Sports, on the record</span>
-                <h2 className="h2">In the room with the talent</h2>
-              </div>
-              <Link to="/articles" className="btn ghost">Go to articles</Link>
+          <section id="record" className="section wrap rule nil-feature nil-feature-reverse">
+            <figure className="nil-photo">
+              <img src="/images/nil-track.webp" alt="Illustration of a sprinter at the start line" loading="lazy" />
+              <figcaption>AI-generated illustration · Track &amp; field</figcaption>
+            </figure>
+            <div className="nil-feature-copy">
+              <span className="eyebrow">Across college sports</span>
+              <h2 className="h2">Every opportunity deserves a clear-eyed review</h2>
+              <p>From endorsements to content and likeness rights, the details matter before an athlete signs.</p>
+              <Link to="/articles" className="link">Read our NIL insights →</Link>
             </div>
-            <Grid items={nilRecord} cols={4} ratio="4 / 5" />
           </section>
         </>
       )}
 
-      {!isMusic && !isNIL && imgs.work.length > 0 && (
+      {!isMusic && !isNIL && set.band.length > 0 && (
         <section className="band">
           <div className="copy">
             <span className="eyebrow">In practice</span>
@@ -268,7 +276,7 @@ export default function Practice() {
             <Link to="/practice/music-law#work" className="link" style={{ alignSelf: 'flex-start' }}>See the work →</Link>
           </div>
           <div className="imgs">
-            {imgs.work.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
+            {set.band.slice(0, 4).map((it) => <a key={it.n} href={it.url} target="_blank" rel="noreferrer" aria-label={`${it.title} on Instagram`}><img src={it.src} alt={it.title} loading="lazy" /></a>)}
           </div>
         </section>
       )}

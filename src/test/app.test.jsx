@@ -18,16 +18,23 @@ describe('home', () => {
   it('shows the hero, the $80M stat framed as client outcome, and all five practice areas', () => {
     at('/')
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Music. Sports. Business.')
-    expect(screen.getByText('$80M+')).toBeInTheDocument()
-    expect(screen.getByText(/Negotiated for artists/i)).toBeInTheDocument()
+    const milestones = document.querySelector('.milestone-group:not([aria-hidden])')
+    expect(within(milestones).getByText('$80M+')).toBeInTheDocument()
+    expect(within(milestones).getByText(/Negotiated for artists/i)).toBeInTheDocument()
+    expect(within(milestones).getByText('Billboard ×2')).toBeInTheDocument()
+    expect(within(milestones).getByText('Red Bull Records')).toBeInTheDocument()
+    expect(document.querySelector('.milestone-group[aria-hidden="true"]')).toBeInTheDocument()
+    expect(screen.getByText('Every matter starts with a conversation.')).toBeInTheDocument()
     expect(practiceAreas).toHaveLength(5)
     expect(screen.queryByText(/Executive Representation/)).toBeNull()
     for (const a of practiceAreas) expect(screen.getAllByText(a.title).length).toBeGreaterThan(0)
   })
-  it('hero image is in color (no grayscale filter anywhere)', () => {
+  it('rotates distinct practice photos and updates the active caption', () => {
     const { container } = at('/')
-    const img = screen.getByAltText('Artist looking upward')
-    expect(img).toHaveAttribute('src', '/images/hero-lookup.jpg')
+    expect(screen.getByAltText('Hip-hop artist in a recording studio')).toHaveAttribute('src', '/images/hero-music-soul2.webp')
+    fireEvent.click(screen.getByRole('button', { name: 'Show NIL & College Sports Law' }))
+    expect(screen.getByAltText('Empty indoor basketball court')).toHaveAttribute('src', '/images/hero-basketball-court.jpg')
+    expect(screen.getByText('02 / 06')).toBeInTheDocument()
     expect(container.innerHTML).not.toMatch(/grayscale/)
   })
   it('keeps the exec-representation sentence inside Business & Entertainment, unchanged', () => {
@@ -49,21 +56,31 @@ describe('home snippets link out', () => {
   it('practice snippets link to practice pages, clients has View more to /clients, founder teaser links to /about', () => {
     at('/')
     expect(screen.getByRole('link', { name: /Know more about Music Law/ })).toHaveAttribute('href', '/practice/music-law')
-    expect(screen.getByRole('link', { name: /View more/ })).toHaveAttribute('href', '/clients')
+    expect(screen.getByRole('link', { name: /See all clients/ })).toHaveAttribute('href', '/clients')
+    expect(screen.getByRole('heading', { name: 'Our clients include' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: 'Synthetic' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Next client' }))
+    expect(screen.getByRole('heading', { level: 3, name: 'Corbett' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Show Section 8' }))
+    expect(screen.getByRole('heading', { level: 3, name: 'Section 8' })).toBeInTheDocument()
+    expect(screen.getByText('7×')).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: 'About' }).some((a) => a.getAttribute('href') === '/about')).toBe(true)
     expect(screen.getByAltText('Karl Fowlkes, Esq.')).toHaveAttribute('src', '/images/karl-portrait.jpg')
     expect(screen.getAllByRole('link', { name: 'LinkedIn' }).some((a) => a.getAttribute('href').includes('linkedin.com/in/karl-fowlkes-esq-6521805b'))).toBe(true)
   })
-  it('press renders as a year roadmap, newest first', () => {
+
+  it('has no highlights section; the Instagram link sits in the founder teaser', () => {
     at('/')
-    const years = [...document.querySelectorAll('.roadmap .year')].map((e) => e.textContent)
-    expect(years[0]).toBe('2026')
-    expect(years).toContain('2021')
-    expect(screen.getByText(/They've Got Next/)).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: /Client & firm highlights/ })).toBeNull()
+    expect(document.querySelector('#highlights')).toBeNull()
+    const founder = document.querySelector('#about')
+    expect(within(founder).getByRole('link', { name: '@fowlkesfirm on Instagram' })).toHaveAttribute('href', expect.stringContaining('instagram.com'))
   })
-  it('testimonial stays on the home page', () => {
+  it('attributes the founder quote to its source on the home page', () => {
     at('/')
-    expect(screen.getByText(/CLIENT TESTIMONIAL/)).toBeInTheDocument()
+    expect(screen.getByText(/The goal is to protect cultural assets and provide legal strategy/)).toBeInTheDocument()
+    expect(screen.getByText('Karl Fowlkes, Esq. · Founder')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Read the Boardroom interview/ })).toHaveAttribute('href', 'https://boardroom.tv/karl-fowlkes-black-history-month/')
   })
 })
 
@@ -135,20 +152,20 @@ describe('practice pages', () => {
 })
 
 describe('articles', () => {
-  it('renders sections from the markdown and links entries with URLs', async () => {
-    const md = '# Articles\n\n## 1. Press\n\n- **2023-02-28 · Boardroom · Build & Transcend** — interview. — https://boardroom.tv/x\n- **2021-07-14 · Bloomberg Law · 40 Under 40** — inaugural. — [link needed]\n'
-    globalThis.fetch = vi.fn().mockResolvedValue({ ok: true, text: async () => md })
+  it('shows every category in one page with linked stories, notes, and unique images', () => {
     at('/articles')
-    expect(await screen.findByText('Build & Transcend')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Build & Transcend/ })).toHaveAttribute('href', 'https://boardroom.tv/x')
-    expect(screen.getByText('40 Under 40').closest('a')).toBeNull()
-  })
-  it('shows an error and logs when the markdown fails to load', async () => {
-    globalThis.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 })
-    at('/articles')
-    expect(await screen.findByRole('alert')).toHaveTextContent(/unavailable/i)
-    const logs = JSON.parse(localStorage.getItem('fowlkes.log'))
-    expect(logs.some((l) => l.level === 'error' && /articles load failed/.test(l.msg))).toBe(true)
+    expect(screen.getByRole('link', { name: /AI songs that mimic popular artists/ })).toHaveAttribute('href', expect.stringContaining('abcnews.com/US/ai-songs'))
+    expect(screen.getByRole('link', { name: /NIL & College Sports Law Practice/ })).toHaveAttribute('href', expect.stringContaining('fowlkesfirm.com/blog/2026'))
+    expect(screen.getByRole('link', { name: /Honestly, Nevermind/ })).toHaveAttribute('href', 'https://www.instagram.com/p/CfEmyUsrv7m/')
+    expect(screen.getByRole('navigation', { name: 'On this page' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Firm announcements/ })).toHaveAttribute('href', '#announcements')
+    const sections = [...document.querySelectorAll('.story-section')]
+    expect(sections).toHaveLength(5)
+    const rows = [...document.querySelectorAll('.story-row')]
+    const images = rows.map((row) => row.querySelector('img').getAttribute('src'))
+    expect(rows.every((row) => row.href.startsWith('https://') && row.querySelector('.story-note')?.textContent)).toBe(true)
+    expect(images.every((src) => src?.startsWith('/images/'))).toBe(true)
+    expect(new Set(images).size).toBe(images.length)
   })
 })
 

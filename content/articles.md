@@ -1,7 +1,7 @@
 # Articles — content source for the Articles page
 
 Purpose: every deal, press piece, interview, podcast, panel and honor involving Karl Fowlkes or The Fowlkes Firm, in one place.
-The React `Articles` page reads from this file (or a JSON export of it). Add new entries at the top of the relevant section.
+This is the research archive for the React `Articles` page. The visible, linked collection is curated in `src/pages/Articles.jsx`; add a verified source and a unique image there when publishing a new card.
 Each entry: **date · outlet · headline** — one-line summary — link. Bracketed fields still need confirmation.
 
 Sources: fowlkesfirm.com, @fowlkesfirm Instagram (69 posts) and @esqfowlkes Instagram (41 posts), both pulled 2026-09-22, web search 2026-09-22.
