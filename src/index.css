@@ -1062,3 +1062,17 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .cg-work .by { font-size: 9px; letter-spacing: .12em; }
 }
 @media (prefers-reduced-motion: reduce) { .cg-work, .cg-frame::before, .cg-frame img, .cg-rail span { transition: none; } }
+
+/* about on phones: ventures as clean rows (name left, role right), quieter LOMO note, compact button */
+@media (max-width: 600px) {
+  .ventures { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .ventures > div, .ventures > div + div { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name role' 'line line'; align-items: baseline; gap: 3px 12px; padding: 12px 0; border-left: 0; }
+  .ventures > div + div { border-top: 1px solid var(--hair); }
+  .ventures .name { grid-area: name; font-size: 17px; }
+  .ventures .role { grid-area: role; font-size: 9px; letter-spacing: .1em; text-align: right; }
+  .ventures .line { grid-area: line; font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+  .lomo { border-left: 0; background: #f5f4f2; padding: 12px 14px; gap: 2px; }
+  .lomo .k { font-size: 15px; }
+  .lomo p { font-size: 12.5px; line-height: 1.45; }
+  .profile .right > .btn { display: inline-flex; justify-self: start; align-self: start; width: auto; min-height: 44px; padding: 10px 20px; font-size: 11px; letter-spacing: .14em; }
+}
