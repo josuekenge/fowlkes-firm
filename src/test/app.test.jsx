@@ -218,6 +218,12 @@ describe('practice pages', () => {
     expect(nav).toHaveClass('clear')
     fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
     expect(nav).not.toHaveClass('clear')
+    expect(nav).toHaveClass('glass')
+    window.scrollY = 300
+    fireEvent.scroll(window)
+    expect(nav).not.toHaveClass('glass')
+    window.scrollY = 0
+    fireEvent.scroll(window)
     unmount()
     const other = at('/clients').container.querySelector('nav.nav')
     expect(other).not.toHaveClass('home')

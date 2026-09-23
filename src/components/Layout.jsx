@@ -26,8 +26,10 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [isHome])
   const clear = isHome && !scrolled && !open
+  // Home, menu opened over the hero: header and menu turn to translucent glass so the photo shows through.
+  const glass = isHome && !scrolled && open
   return (
-    <nav className={`nav wrap${isHome ? ' home' : ''}${clear ? ' clear' : ''}${open ? ' open' : ''}`} aria-label="Primary">
+    <nav className={`nav wrap${isHome ? ' home' : ''}${clear ? ' clear' : ''}${glass ? ' glass' : ''}${open ? ' open' : ''}`} aria-label="Primary">
       <Link to="/" className="brand"><img src="/images/monogram.webp" alt="" width="72" height="36" /><span>{firm.name}</span></Link>
       <div className="links">
         {links.map(([to, label]) => (

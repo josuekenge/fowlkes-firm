@@ -1241,3 +1241,13 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .nav .drawer a:not(:nth-child(3n + 1)) { border-left: 1px solid var(--hair); }
   .nav .drawer a:nth-child(n + 4) { border-bottom: 0; }
 }
+
+/* home, phone menu opened over the hero: translucent dark glass so the photo shows through */
+@media (max-width: 860px) {
+  .nav.glass { background: transparent; color: #fff; border-bottom-color: rgba(255,255,255,.14); }
+  .nav.glass::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(14,14,14,.55); -webkit-backdrop-filter: blur(16px) saturate(1.1); backdrop-filter: blur(16px) saturate(1.1); }
+  .nav.glass .brand img { filter: invert(1); }
+  .nav.glass .burger { color: #fff; }
+  .nav.glass.open .drawer { background: rgba(14,14,14,.55); border-bottom-color: rgba(255,255,255,.14); -webkit-backdrop-filter: blur(16px) saturate(1.1); backdrop-filter: blur(16px) saturate(1.1); }
+  .nav.glass .drawer a { color: #fff; border-color: rgba(255,255,255,.16); }
+}
