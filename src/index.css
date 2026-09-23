@@ -822,3 +822,16 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .stats.creds .dark .value { font-size: 16px; }
   .stats.creds .dark a { flex: none; font-size: 10px !important; }
 }
+
+/* phones: NIL "For athletes and families" steps three across instead of stacked */
+@media (max-width: 600px) {
+  #families.section { gap: 18px !important; padding-top: 40px; padding-bottom: 40px; }
+  #families > div:first-child { flex-wrap: nowrap !important; align-items: baseline !important; gap: 12px !important; }
+  #families .h2 { font-size: 24px; }
+  #families .eyebrow { font-size: 9px; letter-spacing: .1em; white-space: nowrap; }
+  #families .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 18px; }
+  #families .steps > div { gap: 6px !important; }
+  #families .steps .n { font-size: 30px; }
+  #families .steps .h3 { font-size: 14px; line-height: 1.2; }
+  #families .steps p { font-size: 12px !important; line-height: 1.4; }
+}
