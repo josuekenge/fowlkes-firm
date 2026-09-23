@@ -999,4 +999,5 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   .story-row h3 { margin: 4px 0 6px; font-size: 16px; line-height: 1.2; }
   .story-action { font-size: 9px; letter-spacing: .1em; }
   .story-note p { font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+  .articles-content { padding-bottom: 16px; }
 }
