@@ -12,6 +12,9 @@ const slides = [
   { label: 'Of Counsel', image: '/images/hero-counsel-soul2.webp', alt: 'Attorneys reviewing documents in a conference room', to: '/practice/of-counsel' },
 ]
 
+// Time each slide stays up before the next one (the crossfade takes 0.7s of it).
+const SLIDE_MS = 2800
+
 // Phones (860px and narrower) can get their own portrait crop per slide via mobileImage.
 const PHONE = '(max-width: 860px)'
 function SlideImage({ item, className, decorative = false, priority = false }) {
@@ -28,15 +31,18 @@ function SlideImage({ item, className, decorative = false, priority = false }) {
 export default function HeroCarousel() {
   const [active, setActive] = useState(0)
   const [previous, setPrevious] = useState(null)
-  const [paused, setPaused] = useState(false)
 
+  // Always advances, on every device: no pause on hover, tap or focus (a phone tap fires
+  // mouseenter/focus with no matching leave/blur, which used to freeze the slideshow).
+  // Keyed on `active`, so a manual change gives the new slide its full time.
   useEffect(() => {
-    if (paused || slides.length < 2) return undefined
-    const timer = window.setInterval(() => {
-      setActive((index) => (index + 1) % slides.length)
-    }, 5200)
-    return () => window.clearInterval(timer)
-  }, [paused])
+    if (slides.length < 2) return undefined
+    const timer = window.setTimeout(() => {
+      setPrevious(active)
+      setActive((active + 1) % slides.length)
+    }, SLIDE_MS)
+    return () => window.clearTimeout(timer)
+  }, [active])
 
   useEffect(() => {
     if (previous === null) return undefined
@@ -53,7 +59,7 @@ export default function HeroCarousel() {
   const slide = slides[active]
 
   return (
-    <div className="photo hero-carousel" aria-label="Practice area photographs" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false) }}>
+    <div className="photo hero-carousel" aria-label="Practice area photographs">
       {previous !== null && <SlideImage item={slides[previous]} className="hero-slide outgoing" decorative />}
       <SlideImage key={slide.image} item={slide} className="hero-slide incoming" priority={active === 0} />
       <div className="hero-slide-shade" aria-hidden="true" />
